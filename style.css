@@ -51,6 +51,8 @@ a {
 
     display: flex;
     align-items: center;
+    justify-content: center;   /* CENTER */
+
     gap: 12px;
 }
 
@@ -81,7 +83,6 @@ a {
     letter-spacing: -0.8px;
     color: #111827;
 }
-
 
 /* =========================================
    MAIN CONTAINER
