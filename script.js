@@ -1304,3 +1304,72 @@ setInterval(
     checkTrafficReports,
     30000
 );
+/* =========================================
+   INSTALL CAMPUS SHUTTLE APP
+========================================= */
+
+let deferredInstallPrompt = null;
+
+const installAppButton =
+    document.getElementById("installAppButton");
+
+
+window.addEventListener(
+    "beforeinstallprompt",
+    (event) => {
+
+        // Prevent Chrome from showing its own prompt immediately
+        event.preventDefault();
+
+        // Save the install event
+        deferredInstallPrompt = event;
+
+        // Show our button
+        if (installAppButton) {
+            installAppButton.style.display = "flex";
+        }
+    }
+);
+
+
+if (installAppButton) {
+
+    installAppButton.addEventListener(
+        "click",
+        async () => {
+
+            if (!deferredInstallPrompt) {
+                return;
+            }
+
+            deferredInstallPrompt.prompt();
+
+            const result =
+                await deferredInstallPrompt.userChoice;
+
+            console.log(
+                "Install result:",
+                result.outcome
+            );
+
+            deferredInstallPrompt = null;
+
+            installAppButton.style.display = "none";
+        }
+    );
+}
+
+
+window.addEventListener(
+    "appinstalled",
+    () => {
+
+        console.log(
+            "Campus Shuttle installed successfully"
+        );
+
+        if (installAppButton) {
+            installAppButton.style.display = "none";
+        }
+    }
+);
