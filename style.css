@@ -1,0 +1,1923 @@
+/* =========================================
+   CAMPUS SHUTTLE — MODERN UI
+========================================= */
+
+:root {
+    --bg: #f5f7fb;
+    --surface: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #eff6ff;
+
+    --dark: #111827;
+    --dark-2: #1f2937;
+
+    --success: #16a34a;
+    --success-bg: #f0fdf4;
+}
+
+
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background: var(--bg);
+    color: var(--text);
+
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+    background: rgba(255, 255, 255, 0.92);
+
+    backdrop-filter: blur(14px);
+
+    border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+
+    padding: 18px max(5%, calc((100% - 1100px) / 2));
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 10;
+}
+
+
+.logo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 19px;
+
+    font-weight: 750;
+
+    letter-spacing: -0.3px;
+}
+
+
+.logo::first-letter {
+    font-size: 23px;
+}
+
+
+.header-date {
+    font-size: 13px;
+
+    color: var(--muted);
+
+    font-weight: 500;
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.container {
+
+    width: min(92%, 900px);
+
+    margin: auto;
+
+    padding: 55px 0 70px;
+}
+
+
+/* =========================================
+   WELCOME
+========================================= */
+
+.welcome {
+    margin-bottom: 30px;
+}
+
+
+.small-title {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    font-size: 11px;
+
+    font-weight: 750;
+
+    letter-spacing: 1.6px;
+
+    color: var(--primary);
+
+    margin-bottom: 13px;
+}
+
+
+.small-title::before {
+    content: "";
+
+    width: 7px;
+
+    height: 7px;
+
+    background: var(--primary);
+
+    border-radius: 50%;
+}
+
+
+.welcome h1 {
+    font-size: clamp(36px, 6vw, 56px);
+
+    line-height: 1.04;
+
+    letter-spacing: -2.5px;
+
+    font-weight: 800;
+
+    margin-bottom: 17px;
+}
+
+
+.description {
+    max-width: 580px;
+
+    font-size: 16px;
+
+    line-height: 1.65;
+
+    color: var(--muted);
+}
+
+
+/* =========================================
+   LOCATION CARD
+========================================= */
+
+.location-card {
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    margin-bottom: 18px;
+
+    box-shadow:
+        0 2px 5px rgba(15, 23, 42, 0.03),
+        0 10px 30px rgba(15, 23, 42, 0.04);
+}
+
+
+.location-card label {
+    display: block;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    margin-bottom: 9px;
+
+    color: #374151;
+}
+
+
+.location-card select {
+    width: 100%;
+
+    min-height: 52px;
+
+    padding: 0 15px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    color: var(--text);
+
+    background: #fafafa;
+
+    border: 1px solid #dfe3e8;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.location-card select:hover {
+    background: white;
+
+    border-color: #cbd5e1;
+}
+
+
+.location-card select:focus {
+    outline: none;
+
+    background: white;
+
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+
+/* =========================================
+   NEXT SHUTTLE HERO
+========================================= */
+
+.next-shuttle {
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 90% 0%,
+            rgba(59, 130, 246, 0.28),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #111827,
+            #1e293b
+        );
+
+    color: white;
+
+    border-radius: 24px;
+
+    padding: 30px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 15px 40px rgba(15, 23, 42, 0.16);
+}
+
+
+.next-shuttle::after {
+    content: "🚌";
+
+    position: absolute;
+
+    right: 24px;
+
+    bottom: -14px;
+
+    font-size: 90px;
+
+    opacity: 0.055;
+
+    pointer-events: none;
+}
+
+
+.section-label {
+    font-size: 10px;
+
+    letter-spacing: 1.8px;
+
+    font-weight: 800;
+
+    color: #94a3b8;
+}
+
+
+.status {
+    display: inline-flex;
+
+    align-items: center;
+
+    margin-top: 8px;
+
+    font-size: 13px;
+
+    color: #cbd5e1;
+}
+
+
+.status::before {
+    content: "";
+
+    width: 7px;
+
+    height: 7px;
+
+    background: #4ade80;
+
+    border-radius: 50%;
+
+    margin-right: 7px;
+
+    box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.1);
+}
+
+
+/* =========================================
+   ROUTE
+========================================= */
+
+.route {
+    display: grid;
+
+    grid-template-columns: 1fr 55px 1fr;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 32px;
+}
+
+
+.time-label {
+    display: block;
+
+    font-size: 12px;
+
+    color: #94a3b8;
+
+    margin-bottom: 6px;
+}
+
+
+.time {
+    font-size: clamp(31px, 6vw, 43px);
+
+    font-weight: 800;
+
+    letter-spacing: -1.5px;
+}
+
+
+.place {
+    display: block;
+
+    font-size: 12px;
+
+    color: #cbd5e1;
+
+    margin-top: 5px;
+}
+
+
+.arrow {
+    width: 44px;
+
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    color: #94a3b8;
+
+    font-size: 20px;
+}
+
+
+/* =========================================
+   COUNTDOWN
+========================================= */
+
+.countdown {
+    position: relative;
+
+    z-index: 1;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    backdrop-filter: blur(10px);
+
+    padding: 13px 16px;
+
+    border-radius: 12px;
+
+    text-align: center;
+
+    margin-top: 30px;
+
+    font-size: 13px;
+
+    font-weight: 650;
+
+    color: #e2e8f0;
+}
+
+
+/* =========================================
+   UPCOMING SECTION
+========================================= */
+
+.upcoming-section {
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 2px 5px rgba(15, 23, 42, 0.02),
+        0 10px 30px rgba(15, 23, 42, 0.035);
+}
+
+
+.section-heading {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 15px;
+}
+
+
+.section-heading h2 {
+    font-size: 20px;
+
+    letter-spacing: -0.5px;
+
+    margin-bottom: 4px;
+}
+
+
+.section-heading p {
+    font-size: 13px;
+
+    color: var(--muted);
+}
+
+
+#dayType {
+    white-space: nowrap;
+
+    background: var(--primary-light);
+
+    color: var(--primary-dark);
+
+    padding: 7px 11px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: 750;
+}
+
+
+/* =========================================
+   SHUTTLE ROW
+========================================= */
+
+.shuttle-row {
+    display: grid;
+
+    grid-template-columns: 1fr 45px 1fr 80px;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 17px 0;
+
+    border-top: 1px solid #f0f2f4;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.shuttle-row:hover {
+    background: #fafbfc;
+
+    transform: translateX(3px);
+}
+
+
+.shuttle-time {
+    font-size: 16px;
+
+    font-weight: 750;
+
+    letter-spacing: -0.2px;
+}
+
+
+.shuttle-label {
+    display: block;
+
+    font-size: 11px;
+
+    color: #9ca3af;
+
+    margin-top: 3px;
+}
+
+
+.shuttle-arrow {
+    width: 34px;
+
+    height: 34px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: #f4f6f8;
+
+    color: #9ca3af;
+
+    margin: auto;
+}
+
+
+.next-badge {
+    text-align: center;
+
+    background: var(--primary);
+
+    color: white;
+
+    padding: 6px 8px;
+
+    border-radius: 7px;
+
+    font-size: 9px;
+
+    letter-spacing: 0.7px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================
+   INFO CARDS
+========================================= */
+
+.info-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+
+    margin-top: 16px;
+}
+
+
+.info-card {
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    padding: 19px;
+
+    display: flex;
+
+    gap: 13px;
+
+    align-items: center;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.info-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 25px rgba(15, 23, 42, 0.06);
+}
+
+
+.info-card > span {
+    width: 42px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #f3f6fa;
+
+    border-radius: 12px;
+
+    font-size: 20px;
+}
+
+
+.info-card p {
+    color: #9ca3af;
+
+    font-size: 11px;
+
+    margin-bottom: 4px;
+}
+
+
+.info-card strong {
+    font-size: 13px;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    text-align: center;
+
+    padding: 25px 20px 35px;
+
+    color: #9ca3af;
+
+    font-size: 11px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+    .header {
+        padding: 16px 5%;
+    }
+
+
+    .header-date {
+        display: none;
+    }
+
+
+    .container {
+        width: 92%;
+
+        padding: 38px 0 50px;
+    }
+
+
+    .welcome h1 {
+        font-size: 38px;
+
+        letter-spacing: -1.8px;
+    }
+
+
+    .route {
+        grid-template-columns: 1fr;
+
+        gap: 13px;
+    }
+
+
+    .arrow {
+        transform: rotate(90deg);
+
+        margin: 0 auto;
+    }
+
+
+    .time {
+        font-size: 34px;
+    }
+
+
+    .shuttle-row {
+        grid-template-columns: 1fr 35px 1fr;
+    }
+
+
+    .next-badge {
+        display: none;
+    }
+
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .next-shuttle {
+        padding: 24px;
+
+        border-radius: 20px;
+    }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+
+    .welcome h1 {
+        font-size: 33px;
+    }
+
+
+    .location-card,
+    .upcoming-section {
+        padding: 18px;
+    }
+
+
+    .next-shuttle {
+        padding: 20px;
+    }
+}
+/* =========================================
+   FULL TIMETABLE PAGE
+========================================= */
+
+.timetable-container {
+
+    width: min(94%, 1000px);
+
+    margin: auto;
+
+    padding: 50px 0 70px;
+
+}
+
+
+.back-home {
+
+    text-decoration: none;
+
+    color: var(--text);
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+}
+
+
+.back-home:hover {
+
+    color: var(--primary);
+
+}
+
+
+.timetable-intro {
+
+    margin-bottom: 28px;
+
+}
+
+
+.timetable-intro h1 {
+
+    font-size: clamp(35px, 6vw, 52px);
+
+    letter-spacing: -2px;
+
+    line-height: 1.05;
+
+    margin-bottom: 12px;
+
+}
+
+
+.timetable-intro p:last-child {
+
+    color: var(--muted);
+
+    font-size: 15px;
+
+}
+
+
+/* =========================================
+   NOTICE
+========================================= */
+
+.schedule-notice {
+
+    background: var(--primary-light);
+
+    border: 1px solid #dbeafe;
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.schedule-notice strong {
+
+    color: var(--primary-dark);
+
+    font-size: 14px;
+
+}
+
+
+.schedule-notice > p {
+
+    margin-top: 4px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+}
+
+
+.notice-details {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px 20px;
+
+    margin-top: 15px;
+
+}
+
+
+.notice-details span {
+
+    font-size: 12px;
+
+    color: #475569;
+
+}
+
+
+/* =========================================
+   TABS
+========================================= */
+
+.schedule-tabs {
+
+    display: flex;
+
+    gap: 8px;
+
+    background: #e9edf2;
+
+    padding: 5px;
+
+    border-radius: 12px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.schedule-tab {
+
+    flex: 1;
+
+    border: none;
+
+    background: transparent;
+
+    padding: 12px 15px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: #64748b;
+
+    transition: 0.2s ease;
+
+}
+
+
+.schedule-tab:hover {
+
+    color: var(--text);
+
+}
+
+
+.schedule-tab.active {
+
+    background: white;
+
+    color: var(--text);
+
+    box-shadow:
+        0 2px 8px rgba(15, 23, 42, 0.08);
+
+}
+
+
+/* =========================================
+   TABLE PANEL
+========================================= */
+
+.schedule-panel {
+
+    display: none;
+
+}
+
+
+.schedule-panel.active {
+
+    display: block;
+
+}
+
+
+.schedule-heading {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.schedule-heading h2 {
+
+    font-size: 21px;
+
+    letter-spacing: -0.5px;
+
+}
+
+
+.schedule-heading p {
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    margin-top: 4px;
+
+}
+
+
+.trip-count {
+
+    background: var(--dark);
+
+    color: white;
+
+    padding: 7px 11px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+.table-wrapper {
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    overflow-x: auto;
+
+    box-shadow:
+        0 8px 30px rgba(15, 23, 42, 0.05);
+
+}
+
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 620px;
+
+}
+
+
+thead {
+
+    background: var(--dark);
+
+    color: white;
+
+}
+
+
+th {
+
+    padding: 16px 18px;
+
+    text-align: center;
+
+    font-size: 12px;
+
+    line-height: 1.4;
+
+    font-weight: 700;
+
+}
+
+
+th:first-child {
+
+    width: 80px;
+
+}
+
+
+td {
+
+    padding: 14px 18px;
+
+    text-align: center;
+
+    border-bottom: 1px solid #eef0f3;
+
+    font-size: 14px;
+
+}
+
+
+tbody tr:last-child td {
+
+    border-bottom: none;
+
+}
+
+
+tbody tr {
+
+    transition: background 0.15s ease;
+
+}
+
+
+tbody tr:hover {
+
+    background: #f8fafc;
+
+}
+
+
+tbody td:first-child {
+
+    color: #9ca3af;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+}
+
+
+tbody td:nth-child(2),
+tbody td:nth-child(3) {
+
+    font-weight: 700;
+
+    color: #1f2937;
+
+}
+
+
+/* =========================================
+   ROUTE INFO
+========================================= */
+
+.route-info {
+
+    display: flex;
+
+    gap: 16px;
+
+    align-items: flex-start;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 17px;
+
+    padding: 20px;
+
+    margin-top: 20px;
+
+}
+
+
+.route-info-icon {
+
+    width: 44px;
+
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #f1f5f9;
+
+    border-radius: 12px;
+
+    font-size: 21px;
+
+    flex-shrink: 0;
+
+}
+
+
+.route-info h3 {
+
+    font-size: 15px;
+
+    margin-bottom: 7px;
+
+}
+
+
+.route-info p {
+
+    color: #475569;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+}
+
+
+.route-note {
+
+    color: #94a3b8 !important;
+
+    font-size: 11px !important;
+
+    margin-top: 6px;
+
+}
+
+
+/* =========================================
+   HOME BUTTON
+========================================= */
+
+.home-button {
+
+    display: inline-flex;
+
+    margin-top: 22px;
+
+    padding: 12px 17px;
+
+    background: var(--dark);
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: 0.2s ease;
+
+}
+
+
+.home-button:hover {
+
+    background: var(--primary);
+
+}
+
+
+/* =========================================
+   TIMETABLE MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .timetable-container {
+
+        padding-top: 35px;
+
+    }
+
+
+    .schedule-tabs {
+
+        flex-direction: column;
+
+    }
+
+
+    .schedule-tab {
+
+        width: 100%;
+
+    }
+
+
+    .schedule-heading {
+
+        align-items: flex-start;
+
+    }
+
+
+    .schedule-heading h2 {
+
+        font-size: 18px;
+
+    }
+
+
+    .trip-count {
+
+        font-size: 10px;
+
+    }
+
+
+    .notice-details {
+
+        flex-direction: column;
+
+        gap: 7px;
+
+    }
+
+
+    .route-info {
+
+        padding: 17px;
+
+    }
+
+}
+/* =========================================
+   FULL TIMETABLE BUTTON
+========================================= */
+
+.full-timetable-button {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 100%;
+
+    padding: 15px;
+
+    margin: 18px 0;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    color: var(--text);
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 750;
+
+    transition: all 0.2s ease;
+
+    box-shadow:
+        0 3px 12px rgba(15, 23, 42, 0.03);
+
+}
+
+
+.full-timetable-button:hover {
+
+    color: var(--primary);
+
+    border-color: #bfdbfe;
+
+    background: #f8fbff;
+
+    transform: translateY(-1px);
+
+}
+/* =========================================
+   LIVE SHUTTLE TRACKER
+========================================= */
+
+.live-tracker {
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0f172a,
+            #1e293b
+        );
+
+    color: white;
+
+    border-radius: 24px;
+
+    padding: 28px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 18px 45px rgba(15, 23, 42, 0.18);
+
+}
+
+
+/* =========================================
+   LIVE HEADER
+========================================= */
+
+.live-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+}
+
+
+.live-label {
+
+    font-size: 10px;
+
+    letter-spacing: 1.8px;
+
+    font-weight: 800;
+
+    color: #93c5fd;
+
+    margin-bottom: 7px;
+
+}
+
+
+.live-header h2 {
+
+    font-size: 22px;
+
+    letter-spacing: -0.5px;
+
+}
+
+
+.live-indicator {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.08);
+
+    color: #86efac;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.8px;
+
+}
+
+
+.live-dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #4ade80;
+
+    box-shadow:
+        0 0 0 4px rgba(74,222,128,0.12);
+
+    animation: livePulse 1.5s infinite;
+
+}
+
+
+@keyframes livePulse {
+
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.45;
+        transform: scale(0.75);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+/* =========================================
+   ROUTE
+========================================= */
+
+.live-route {
+
+    display: grid;
+
+    grid-template-columns: 100px 1fr 100px;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 35px;
+
+}
+
+
+.route-stop {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 7px;
+
+    text-align: center;
+
+}
+
+
+.stop-icon {
+
+    width: 44px;
+
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.08);
+
+    font-size: 20px;
+
+}
+
+
+.route-stop span {
+
+    font-size: 11px;
+
+    color: #cbd5e1;
+
+    line-height: 1.3;
+
+}
+
+
+/* =========================================
+   ROUTE LINE
+========================================= */
+
+.route-line {
+
+    position: relative;
+
+}
+
+
+.route-track {
+
+    height: 7px;
+
+    position: relative;
+
+    background: #334155;
+
+    border-radius: 20px;
+
+}
+
+
+.route-progress {
+
+    position: absolute;
+
+    left: 0;
+
+    top: 0;
+
+    height: 100%;
+
+    width: 0%;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #60a5fa,
+            #38bdf8
+        );
+
+    transition: width 1s linear;
+
+}
+
+
+.bus-marker {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 0%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: white;
+
+    color: black;
+
+    font-size: 20px;
+
+    box-shadow:
+        0 4px 14px rgba(0,0,0,0.3);
+
+    transition:
+        left 1s linear;
+
+    z-index: 3;
+
+}
+
+
+.route-stops {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 18px;
+
+}
+
+
+.route-stops span {
+
+    font-size: 9px;
+
+    color: #94a3b8;
+
+}
+
+
+/* =========================================
+   LIVE INFO
+========================================= */
+
+.live-info-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 9px;
+
+    margin-top: 35px;
+
+}
+
+
+.live-info-card {
+
+    background:
+        rgba(255,255,255,0.06);
+
+    border:
+        1px solid rgba(255,255,255,0.07);
+
+    border-radius: 12px;
+
+    padding: 13px;
+
+}
+
+
+.live-info-label {
+
+    display: block;
+
+    font-size: 8px;
+
+    letter-spacing: 0.8px;
+
+    color: #94a3b8;
+
+    margin-bottom: 6px;
+
+}
+
+
+.live-info-card strong {
+
+    display: block;
+
+    font-size: 14px;
+
+    color: white;
+
+}
+
+
+/* =========================================
+   LIVE MESSAGE
+========================================= */
+
+.live-message {
+
+    margin-top: 15px;
+
+    padding: 12px;
+
+    text-align: center;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,0.06);
+
+    color: #cbd5e1;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+    .live-tracker {
+
+        padding: 22px;
+
+        border-radius: 20px;
+
+    }
+
+
+    .live-route {
+
+        grid-template-columns:
+            65px 1fr 65px;
+
+        gap: 8px;
+
+    }
+
+
+    .stop-icon {
+
+        width: 38px;
+
+        height: 38px;
+
+        font-size: 17px;
+
+    }
+
+
+    .route-stop span {
+
+        font-size: 9px;
+
+    }
+
+
+    .live-info-grid {
+
+        grid-template-columns:
+            1fr 1fr;
+
+    }
+
+
+    .live-header h2 {
+
+        font-size: 18px;
+
+    }
+
+}
+/* =========================================
+   TRAFFIC REPORT
+========================================= */
+
+.traffic-report-box {
+    margin-top: 18px;
+    text-align: center;
+}
+
+.traffic-button {
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 18px;
+
+    background: #f59e0b;
+    color: white;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.traffic-button:hover {
+    transform: translateY(-1px);
+    opacity: 0.92;
+}
+
+.traffic-button:active {
+    transform: scale(0.98);
+}
+
+.traffic-status {
+    margin-top: 10px;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    background: rgba(255,255,255,0.06);
+
+    color: #cbd5e1;
+
+    font-size: 11px;
+}
+
+.traffic-status.active {
+    background: rgba(245,158,11,0.15);
+
+    color: #fbbf24;
+
+    border:
+        1px solid rgba(245,158,11,0.25);
+}
+
+.traffic-status.clear {
+    color: #86efac;
+}

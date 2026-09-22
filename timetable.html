@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Full Shuttle Timetable</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ==============================
+         HEADER
+    =============================== -->
+
+    <header class="header">
+
+        <a
+            href="index.html"
+            class="back-home"
+        >
+            ← Campus Shuttle
+        </a>
+
+        <div class="header-date">
+            Full Timetable
+        </div>
+
+    </header>
+
+
+
+    <!-- ==============================
+         MAIN
+    =============================== -->
+
+    <main class="timetable-container">
+
+
+        <!-- PAGE INTRO -->
+
+        <section class="timetable-intro">
+
+            <p class="small-title">
+                CAMPUS TRANSPORT
+            </p>
+
+            <h1>
+                Full Shuttle Timetable
+            </h1>
+
+            <p>
+                Complete shuttle schedule for
+                Campus and Sarjapur Police Station.
+            </p>
+
+        </section>
+
+
+
+        <!-- NOTICE -->
+
+        <section class="schedule-notice">
+
+            <strong>
+                Schedule effective from 25 July 2026
+            </strong>
+
+            <p>
+                18-Seater Bus
+            </p>
+
+            <div class="notice-details">
+
+                <span>
+                    ✓ 11:45 AM shuttle added on weekends & holidays
+                </span>
+
+                <span>
+                    ✓ 4:30 PM weekday shuttle removed
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- DAY SELECTOR -->
+
+        <div class="schedule-tabs">
+
+            <button
+                class="schedule-tab active"
+                data-day="weekday"
+            >
+                Monday – Friday
+            </button>
+
+            <button
+                class="schedule-tab"
+                data-day="weekend"
+            >
+                Saturday, Sunday & Holidays
+            </button>
+
+        </div>
+
+
+
+        <!-- ==============================
+             WEEKDAY TABLE
+        =============================== -->
+
+        <section
+            id="weekdaySchedule"
+            class="schedule-panel active"
+        >
+
+            <div class="schedule-heading">
+
+                <div>
+
+                    <h2>
+                        Monday to Friday
+                    </h2>
+
+                    <p>
+                        18-Seater Bus Trip Details
+                    </p>
+
+                </div>
+
+                <span class="trip-count">
+                    30 trips
+                </span>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                SL No
+                            </th>
+
+                            <th>
+                                Campus →<br>
+                                Sarjapur Police Station
+                            </th>
+
+                            <th>
+                                Sarjapur Police Station →<br>
+                                Campus
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr><td>1</td><td>07:00 AM</td><td>07:15 AM</td></tr>
+                        <tr><td>2</td><td>07:20 AM</td><td>07:30 AM</td></tr>
+                        <tr><td>3</td><td>07:35 AM</td><td>07:45 AM</td></tr>
+                        <tr><td>4</td><td>07:50 AM</td><td>08:00 AM</td></tr>
+                        <tr><td>5</td><td>08:05 AM</td><td>08:15 AM</td></tr>
+                        <tr><td>6</td><td>08:20 AM</td><td>08:30 AM</td></tr>
+                        <tr><td>7</td><td>08:35 AM</td><td>08:45 AM</td></tr>
+                        <tr><td>8</td><td>08:50 AM</td><td>09:00 AM</td></tr>
+                        <tr><td>9</td><td>09:05 AM</td><td>09:35 AM</td></tr>
+                        <tr><td>10</td><td>09:40 AM</td><td>10:00 AM</td></tr>
+                        <tr><td>11</td><td>10:20 AM</td><td>10:30 AM</td></tr>
+                        <tr><td>12</td><td>11:30 AM</td><td>11:45 AM</td></tr>
+                        <tr><td>13</td><td>02:00 PM</td><td>02:15 PM</td></tr>
+                        <tr><td>14</td><td>02:45 PM</td><td>03:00 PM</td></tr>
+                        <tr><td>15</td><td>04:00 PM</td><td>04:15 PM</td></tr>
+                        <tr><td>16</td><td>04:30 PM</td><td>04:35 PM</td></tr>
+                        <tr><td>17</td><td>05:00 PM</td><td>05:05 PM</td></tr>
+                        <tr><td>18</td><td>05:15 PM</td><td>05:20 PM</td></tr>
+                        <tr><td>19</td><td>05:30 PM</td><td>05:35 PM</td></tr>
+                        <tr><td>20</td><td>05:45 PM</td><td>05:50 PM</td></tr>
+                        <tr><td>21</td><td>06:00 PM</td><td>06:05 PM</td></tr>
+                        <tr><td>22</td><td>06:15 PM</td><td>06:35 PM</td></tr>
+                        <tr><td>23</td><td>06:40 PM</td><td>06:45 PM</td></tr>
+                        <tr><td>24</td><td>07:00 PM</td><td>07:05 PM</td></tr>
+                        <tr><td>25</td><td>07:30 PM</td><td>07:45 PM</td></tr>
+                        <tr><td>26</td><td>08:00 PM</td><td>08:10 PM</td></tr>
+                        <tr><td>27</td><td>08:30 PM</td><td>08:40 PM</td></tr>
+                        <tr><td>28</td><td>09:00 PM</td><td>09:15 PM</td></tr>
+                        <tr><td>29</td><td>09:30 PM</td><td>09:45 PM</td></tr>
+                        <tr><td>30</td><td>10:00 PM</td><td>10:10 PM</td></tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==============================
+             WEEKEND TABLE
+        =============================== -->
+
+        <section
+            id="weekendSchedule"
+            class="schedule-panel"
+        >
+
+            <div class="schedule-heading">
+
+                <div>
+
+                    <h2>
+                        Saturday, Sunday & Holidays
+                    </h2>
+
+                    <p>
+                        18-Seater Bus Trip Details
+                    </p>
+
+                </div>
+
+                <span class="trip-count">
+                    15 trips
+                </span>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                SL No
+                            </th>
+
+                            <th>
+                                Campus →<br>
+                                Sarjapur Police Station
+                            </th>
+
+                            <th>
+                                Sarjapur Police Station →<br>
+                                Campus
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr><td>1</td><td>07:20 AM</td><td>07:30 AM</td></tr>
+                        <tr><td>2</td><td>07:45 AM</td><td>08:00 AM</td></tr>
+                        <tr><td>3</td><td>08:20 AM</td><td>08:30 AM</td></tr>
+                        <tr><td>4</td><td>08:50 AM</td><td>09:00 AM</td></tr>
+                        <tr><td>5</td><td>09:10 AM</td><td>10:00 AM</td></tr>
+                        <tr><td>6</td><td>11:45 AM</td><td>12:00 PM</td></tr>
+                        <tr><td>7</td><td>01:45 PM</td><td>02:15 PM</td></tr>
+                        <tr><td>8</td><td>02:45 PM</td><td>03:00 PM</td></tr>
+                        <tr><td>9</td><td>04:00 PM</td><td>04:15 PM</td></tr>
+                        <tr><td>10</td><td>05:00 PM</td><td>05:15 PM</td></tr>
+                        <tr><td>11</td><td>05:45 PM</td><td>06:15 PM</td></tr>
+                        <tr><td>12</td><td>06:45 PM</td><td>07:00 PM</td></tr>
+                        <tr><td>13</td><td>07:45 PM</td><td>08:00 PM</td></tr>
+                        <tr><td>14</td><td>08:45 PM</td><td>09:00 PM</td></tr>
+                        <tr><td>15</td><td>10:00 PM</td><td>10:05 PM</td></tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ROUTE INFORMATION -->
+
+        <section class="route-info">
+
+            <div class="route-info-icon">
+                🚌
+            </div>
+
+            <div>
+
+                <h3>
+                    Shuttle Route
+                </h3>
+
+                <p>
+                    Campus
+                    →
+                    Hanuman Temple
+                    →
+                    Confident
+                    →
+                    Sarjapur Police Station
+                </p>
+
+                <p class="route-note">
+                    The intermediate stops are pickup points.
+                    Individual stop timings are not listed
+                    in the official timetable.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- BACK HOME -->
+
+        <a
+            href="index.html"
+            class="home-button"
+        >
+            ← Back to Next Shuttle
+        </a>
+
+
+    </main>
+
+
+
+    <!-- ==============================
+         JAVASCRIPT
+    =============================== -->
+
+    <script>
+
+        const tabs =
+            document.querySelectorAll(".schedule-tab");
+
+        const panels =
+            document.querySelectorAll(".schedule-panel");
+
+
+        tabs.forEach(function(tab) {
+
+            tab.addEventListener(
+                "click",
+                function() {
+
+                    const selectedDay =
+                        tab.dataset.day;
+
+
+                    // Remove active from all tabs
+
+                    tabs.forEach(function(item) {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    });
+
+
+                    // Remove active from all panels
+
+                    panels.forEach(function(panel) {
+
+                        panel.classList.remove(
+                            "active"
+                        );
+
+                    });
+
+
+                    // Activate selected tab
+
+                    tab.classList.add(
+                        "active"
+                    );
+
+
+                    // Activate selected table
+
+                    document
+                        .getElementById(
+                            selectedDay === "weekday"
+                                ? "weekdaySchedule"
+                                : "weekendSchedule"
+                        )
+                        .classList.add("active");
+
+                }
+
+            );
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>
