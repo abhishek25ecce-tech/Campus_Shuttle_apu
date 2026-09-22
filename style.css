@@ -1921,3 +1921,399 @@ tbody td:nth-child(3) {
 .traffic-status.clear {
     color: #86efac;
 }
+/* =========================================
+   MOBILE OPTIMIZATION
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* ---------- MAIN CONTAINER ---------- */
+
+.container,
+main {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+
+    body {
+        font-size: 14px;
+    }
+
+    .container,
+    main {
+        width: 100%;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    /* ---------- HEADER ---------- */
+
+    header {
+        padding: 14px 16px;
+    }
+
+    .header-content {
+        gap: 10px;
+    }
+
+    .logo {
+        font-size: 16px;
+    }
+
+    /* ---------- WELCOME ---------- */
+
+    .welcome-section {
+        padding: 22px 0;
+    }
+
+    .welcome-section h1 {
+        font-size: 28px;
+        line-height: 1.15;
+    }
+
+    .welcome-section p {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    /* ---------- LOCATION SELECT ---------- */
+
+    select {
+        width: 100%;
+        min-height: 48px;
+        font-size: 14px;
+    }
+
+    /* ---------- LIVE TRACKER ---------- */
+
+    .live-tracker {
+        padding: 20px;
+        margin-bottom: 18px;
+        border-radius: 18px;
+    }
+
+    .live-header {
+        align-items: center;
+    }
+
+    .live-header h2 {
+        font-size: 18px;
+        line-height: 1.25;
+    }
+
+    .live-label {
+        font-size: 9px;
+    }
+
+    .live-indicator {
+        flex-shrink: 0;
+        font-size: 9px;
+    }
+
+    /* Route */
+
+    .live-route {
+        grid-template-columns: 58px minmax(0, 1fr) 58px;
+        gap: 7px;
+        margin-top: 28px;
+    }
+
+    .stop-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+
+    .route-stop span {
+        font-size: 8px;
+        line-height: 1.25;
+        word-break: break-word;
+    }
+
+    .route-track {
+        height: 6px;
+    }
+
+    .bus-marker {
+        width: 34px;
+        height: 34px;
+        font-size: 17px;
+    }
+
+    .route-stops {
+        margin-top: 15px;
+    }
+
+    .route-stops span {
+        font-size: 8px;
+    }
+
+    /* ---------- LIVE INFORMATION ---------- */
+
+    .live-info-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 26px;
+    }
+
+    .live-info-card {
+        padding: 11px;
+        min-width: 0;
+    }
+
+    .live-info-label {
+        font-size: 7px;
+    }
+
+    .live-info-card strong {
+        font-size: 13px;
+        overflow-wrap: anywhere;
+    }
+
+    .live-message {
+        font-size: 11px;
+        line-height: 1.4;
+    }
+
+    /* ---------- TRAFFIC BUTTON ---------- */
+
+    .traffic-button {
+        min-height: 48px;
+        font-size: 13px;
+    }
+
+    .traffic-status {
+        font-size: 10px;
+        line-height: 1.4;
+    }
+
+    /* ---------- UPCOMING SHUTTLES ---------- */
+
+    .section-heading {
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .section-heading h2 {
+        font-size: 20px;
+    }
+
+    .section-heading p {
+        font-size: 11px;
+    }
+
+    #dayType {
+        font-size: 9px;
+        white-space: nowrap;
+    }
+
+    /* ---------- SHUTTLE CARDS ---------- */
+
+    .shuttle-card {
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    /* ---------- FULL TIMETABLE BUTTON ---------- */
+
+    .full-timetable-button {
+        display: flex;
+        width: 100%;
+        min-height: 48px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    /* ---------- INFO GRID ---------- */
+
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+}
+
+
+/* =========================================
+   VERY SMALL PHONES
+========================================= */
+
+@media (max-width: 400px) {
+
+    .container,
+    main {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .welcome-section h1 {
+        font-size: 25px;
+    }
+
+    .live-tracker {
+        padding: 17px;
+    }
+
+    .live-route {
+        grid-template-columns: 50px minmax(0, 1fr) 50px;
+    }
+
+    .route-stop span {
+        font-size: 7px;
+    }
+
+    .route-stops span {
+        font-size: 7px;
+    }
+
+    .live-info-card strong {
+        font-size: 12px;
+    }
+
+}
+/* =========================================
+   MOBILE FULL TIMETABLE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .timetable-container {
+        width: 100%;
+        padding: 12px;
+        margin: 0;
+    }
+
+    .timetable-intro {
+        padding: 18px 12px;
+    }
+
+    .timetable-intro h1 {
+        font-size: 24px;
+        line-height: 1.2;
+    }
+
+    .timetable-intro p {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .schedule-tabs {
+        width: 100%;
+        display: flex;
+    }
+
+    .schedule-tab {
+        flex: 1;
+        padding: 11px 5px;
+        font-size: 10px;
+        white-space: nowrap;
+    }
+
+    /* Remove horizontal scrolling */
+    .table-wrapper {
+        width: 100%;
+        overflow-x: hidden;
+        margin: 0;
+    }
+
+    /* Full table fits screen */
+    .table-wrapper table {
+        width: 100%;
+        min-width: 0;
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
+
+    .table-wrapper th,
+    .table-wrapper td {
+        width: 50%;
+        padding: 11px 5px;
+        font-size: 12px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .table-wrapper th {
+        font-size: 10px;
+        letter-spacing: 0.2px;
+    }
+
+    /* Make the time numbers easier to read */
+    .table-wrapper td {
+        font-weight: 600;
+    }
+
+    .schedule-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .schedule-heading h2 {
+        font-size: 18px;
+    }
+
+    .trip-count {
+        font-size: 9px;
+        white-space: nowrap;
+    }
+
+    /* Route information */
+    .route-info {
+        padding: 15px 12px;
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+    .home-button {
+        width: 100%;
+        min-height: 46px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+    }
+}
+
+
+/* Smaller phones */
+@media (max-width: 380px) {
+
+    .timetable-container {
+        padding: 8px;
+    }
+
+    .table-wrapper th,
+    .table-wrapper td {
+        padding: 9px 3px;
+        font-size: 11px;
+    }
+
+    .table-wrapper th {
+        font-size: 9px;
+    }
+
+    .schedule-tab {
+        font-size: 9px;
+        padding: 10px 3px;
+    }
+
+}
