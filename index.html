@@ -25,7 +25,17 @@
         rel="stylesheet"
         href="style.css"
     >
+<!-- PWA / Mobile App -->
+<link rel="manifest" href="manifest.json">
 
+<meta name="theme-color" content="#2563eb">
+
+<!-- iPhone / iPad -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Campus Shuttle">
+
+<link rel="apple-touch-icon" href="icon-192.png">
 </head>
 
 
@@ -515,7 +525,19 @@
     ====================================== -->
 
     <script src="script.js"></script>
-
+<script>
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker.register("./sw.js")
+                .then(() => {
+                    console.log("Campus Shuttle app ready");
+                })
+                .catch(error => {
+                    console.log("App setup error:", error);
+                });
+        });
+    }
+</script>
 
 </body>
 
