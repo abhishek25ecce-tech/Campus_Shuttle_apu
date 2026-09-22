@@ -1,258 +1,402 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Campus Shuttle</title>
 
-    <link rel="stylesheet" href="style.css">
+    <!-- Modern Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Main CSS -->
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
 
+
 <body>
-    <h1>🚌 Campus Shuttle</h1>
 
-    <header class="header">
-        <div class="logo">
-      
+
+    <!-- =====================================
+         MODERN HEADER
+    ====================================== -->
+
+    <header class="modern-header">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+
+                <svg
+                    viewBox="0 0 64 64"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                >
+
+                    <!-- Bus body -->
+                    <rect
+                        x="10"
+                        y="12"
+                        width="44"
+                        height="38"
+                        rx="9"
+                        fill="currentColor"
+                    />
+
+                    <!-- Windows -->
+                    <rect
+                        x="16"
+                        y="18"
+                        width="32"
+                        height="15"
+                        rx="4"
+                        fill="white"
+                    />
+
+                    <!-- Wheels -->
+                    <circle
+                        cx="21"
+                        cy="44"
+                        r="4"
+                        fill="white"
+                    />
+
+                    <circle
+                        cx="43"
+                        cy="44"
+                        r="4"
+                        fill="white"
+                    />
+
+                    <!-- Lower line -->
+                    <path
+                        d="M16 37h32"
+                        stroke="white"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                    />
+
+                </svg>
+
+            </div>
+
+
+            <div class="brand-name">
+                Campus Shuttle
+            </div>
+
         </div>
 
-        <div class="header-date" id="currentDate">
-            Loading...
-        </div>
     </header>
 
 
+
+    <!-- =====================================
+         MAIN CONTENT
+    ====================================== -->
+
     <main class="container">
 
-        <!-- Welcome -->
-        <section class="welcome">
-            <p class="small-title">CAMPUS TRANSPORT</p>
 
-            <h1>
-                Know when your<br>
-                shuttle arrives.
-            </h1>
+        <!-- =====================================
+             LOCATION SELECTION
+        ====================================== -->
 
-            <p class="description">
-                Select your pickup location to see the next shuttle
-                and expected arrival time at campus.
-            </p>
-        </section>
-
-
-        <!-- Location Selection -->
         <section class="location-card">
 
             <label for="location">
                 Where are you travelling from?
             </label>
 
-<select id="location">
 
-    <option value="hanuman-temple">
-        Hanuman Temple
-    </option>
+            <select id="location">
 
-    <option value="confident">
-        Confident
-    </option>
+                <option value="hanuman-temple">
+                    Hanuman Temple
+                </option>
 
-    <option value="sarjapur-police-station">
-        Sarjapur Police Station
-    </option>
+                <option value="confident">
+                    Confident
+                </option>
 
-</select>
+                <option value="sarjapur-police-station">
+                    Sarjapur Police Station
+                </option>
 
-<!-- ==============================
-     LIVE SHUTTLE TRACKER
-=============================== -->
+            </select>
 
-<section class="live-tracker">
-
-    <div class="live-header">
-
-        <div>
-
-            <div class="live-label">
-                LIVE SHUTTLE
-            </div>
-
-            <h2 id="liveStatus">
-                Checking shuttle status...
-            </h2>
-
-        </div>
-
-        <div class="live-indicator">
-
-            <span class="live-dot"></span>
-
-            LIVE
-
-        </div>
-
-    </div>
+        </section>
 
 
-    <!-- Route -->
 
-    <div class="live-route">
+        <!-- =====================================
+             LIVE SHUTTLE TRACKER
+        ====================================== -->
 
-        <div class="route-stop">
-
-            <div class="stop-icon">
-                🎓
-            </div>
-
-            <span id="startStop">
-                Campus
-            </span>
-
-        </div>
+        <section class="live-tracker">
 
 
-        <div class="route-line">
+            <!-- Live Header -->
 
-            <div class="route-track">
+            <div class="live-header">
 
-                <div
-                    class="route-progress"
-                    id="routeProgress"
-                ></div>
+                <div>
 
-                <div
-                    class="bus-marker"
-                    id="busMarker"
-                >
-                    🚌
+                    <div class="live-label">
+                        LIVE SHUTTLE
+                    </div>
+
+
+                    <h2 id="liveStatus">
+                        Checking shuttle status...
+                    </h2>
+
+                </div>
+
+
+                <div class="live-indicator">
+
+                    <span class="live-dot"></span>
+
+                    LIVE
+
                 </div>
 
             </div>
 
-            <div class="route-stops">
 
-                <span>Hanuman Temple</span>
 
-                <span>Confident</span>
+            <!-- =====================================
+                 ROUTE
+            ====================================== -->
+
+            <div class="live-route">
+
+
+                <!-- Start -->
+
+                <div class="route-stop">
+
+                    <div class="stop-icon">
+                        🎓
+                    </div>
+
+
+                    <span id="startStop">
+                        Campus
+                    </span>
+
+                </div>
+
+
+
+                <!-- Route Line -->
+
+                <div class="route-line">
+
+                    <div class="route-track">
+
+
+                        <div
+                            class="route-progress"
+                            id="routeProgress"
+                        ></div>
+
+
+                        <div
+                            class="bus-marker"
+                            id="busMarker"
+                        >
+                            🚌
+                        </div>
+
+                    </div>
+
+
+                    <div class="route-stops">
+
+                        <span>
+                            Hanuman Temple
+                        </span>
+
+
+                        <span>
+                            Confident
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Destination -->
+
+                <div class="route-stop destination">
+
+                    <div class="stop-icon">
+                        📍
+                    </div>
+
+
+                    <span id="endStop">
+                        Sarjapur Police Station
+                    </span>
+
+                </div>
 
             </div>
 
-        </div>
 
 
-        <div class="route-stop destination">
+            <!-- =====================================
+                 LIVE INFORMATION
+            ====================================== -->
 
-            <div class="stop-icon">
-                📍
+            <div class="live-info-grid">
+
+
+                <div class="live-info-card">
+
+                    <span class="live-info-label">
+                        CURRENT STATUS
+                    </span>
+
+
+                    <strong id="busState">
+                        --
+                    </strong>
+
+                </div>
+
+
+
+                <div class="live-info-card">
+
+                    <span class="live-info-label">
+                        DEPARTED
+                    </span>
+
+
+                    <strong id="departureTime">
+                        --
+                    </strong>
+
+                </div>
+
+
+
+                <div class="live-info-card">
+
+                    <span class="live-info-label">
+                        ARRIVAL
+                    </span>
+
+
+                    <strong id="liveArrivalTime">
+                        --
+                    </strong>
+
+                </div>
+
+
+
+                <div class="live-info-card">
+
+                    <span class="live-info-label">
+                        TIME REMAINING
+                    </span>
+
+
+                    <strong id="timeRemaining">
+                        --
+                    </strong>
+
+                </div>
+
             </div>
 
-            <span id="endStop">
-                Sarjapur Police Station
-            </span>
-
-        </div>
-
-    </div>
 
 
-    <!-- Live information -->
+            <!-- Live Message -->
 
-    <div class="live-info-grid">
-
-
-        <div class="live-info-card">
-
-            <span class="live-info-label">
-                CURRENT STATUS
-            </span>
-
-            <strong id="busState">
-                --
-            </strong>
-
-        </div>
+            <div
+                class="live-message"
+                id="liveMessage"
+            >
+                Checking the current shuttle...
+            </div>
 
 
-        <div class="live-info-card">
 
-            <span class="live-info-label">
-                DEPARTED
-            </span>
+            <!-- =====================================
+                 TRAFFIC REPORT
+            ====================================== -->
 
-            <strong id="departureTime">
-                --
-            </strong>
-
-        </div>
+            <div class="traffic-report-box">
 
 
-        <div class="live-info-card">
-
-            <span class="live-info-label">
-                ARRIVAL
-            </span>
-
-            <strong id="liveArrivalTime">
-                --
-            </strong>
-
-        </div>
+                <button
+                    id="trafficButton"
+                    class="traffic-button"
+                    onclick="reportTraffic()"
+                >
+                    🚦 Report Traffic
+                </button>
 
 
-        <div class="live-info-card">
+                <div
+                    id="trafficStatus"
+                    class="traffic-status"
+                >
+                    No recent traffic report
+                </div>
 
-            <span class="live-info-label">
-                TIME REMAINING
-            </span>
-
-            <strong id="timeRemaining">
-                --
-            </strong>
-
-        </div>
-
-    </div>
+            </div>
 
 
-    <div
-        class="live-message"
-        id="liveMessage"
-    >
-        Checking the current shuttle...
-    </div>
-<div class="traffic-report-box">
+        </section>
 
-    <button
-        id="trafficButton"
-        class="traffic-button"
-        onclick="reportTraffic()"
-    >
-        🚦 Report Traffic
-    </button>
 
-    <div
-        id="trafficStatus"
-        class="traffic-status"
-    >
-        No recent traffic report
-    </div>
 
-</div>
-</section>
+        <!-- =====================================
+             UPCOMING SHUTTLES
+        ====================================== -->
 
-        <!-- Upcoming -->
         <section class="upcoming-section">
+
 
             <div class="section-heading">
 
+
                 <div>
-                    <h2>Upcoming Shuttles</h2>
+
+                    <h2>
+                        Upcoming Shuttles
+                    </h2>
+
 
                     <p>
                         Today's remaining services
                     </p>
+
                 </div>
+
 
                 <span id="dayType">
                     Weekday
@@ -261,53 +405,102 @@
             </div>
 
 
+
             <div id="upcomingList">
 
-                <!-- Javascript will insert shuttles here -->
+                <!-- JavaScript will insert shuttles here -->
 
             </div>
 
-        </section>
-<a href="timetable.html" class="full-timetable-button">
-    View Full Timetable →
-</a>
 
-        <!-- Information -->
+        </section>
+
+
+
+        <!-- =====================================
+             FULL TIMETABLE
+        ====================================== -->
+
+        <a
+            href="timetable.html"
+            class="full-timetable-button"
+        >
+            View Full Timetable →
+        </a>
+
+
+
+        <!-- =====================================
+             INFORMATION
+        ====================================== -->
+
         <section class="info-grid">
 
+
             <div class="info-card">
 
-                <span>🚌</span>
+                <span>
+                    🚌
+                </span>
+
 
                 <div>
-                    <p>Vehicle</p>
-                    <strong>18-Seater Bus</strong>
+
+                    <p>
+                        Vehicle
+                    </p>
+
+
+                    <strong>
+                        18-Seater Bus
+                    </strong>
+
                 </div>
 
             </div>
 
 
+
             <div class="info-card">
 
-                <span>📅</span>
+                <span>
+                    📅
+                </span>
+
 
                 <div>
-                    <p>Schedule</p>
-                    <strong>From 25 July 2026</strong>
+
+                    <p>
+                        Schedule
+                    </p>
+
+
+                    <strong>
+                        From 25 July 2026
+                    </strong>
+
                 </div>
 
             </div>
+
 
         </section>
+
 
     </main>
 
+
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
 
     <footer>
 
         <p>
             Campus Shuttle Timetable
         </p>
+
 
         <p>
             Please arrive at the pickup point a few minutes early.
@@ -316,7 +509,14 @@
     </footer>
 
 
+
+    <!-- =====================================
+         JAVASCRIPT
+    ====================================== -->
+
     <script src="script.js"></script>
 
+
 </body>
+
 </html>

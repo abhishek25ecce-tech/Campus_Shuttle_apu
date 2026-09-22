@@ -1,15 +1,32 @@
-// =========================================
-// GOOGLE SHEETS TRAFFIC REPORTING
-// =========================================
+/* =========================================
+   CAMPUS SHUTTLE
+   COMPLETE JAVASCRIPT
+========================================= */
+
+
+/* =========================================
+   GOOGLE SHEETS
+========================================= */
 
 const GOOGLE_SCRIPT_URL =
     "https://script.google.com/macros/s/AKfycbxJKKH1HgxDx50u6aPSnxpYjIZUcPIxeGDjzMy2buc30h59WNKD8Xlvv2XcKLbW5w/exec";
-// =========================================
-// CAMPUS SHUTTLE DATA
-// =========================================
 
 
-// Monday - Friday
+/* =========================================
+   TRAVEL TIME
+========================================= */
+
+const TRAVEL_TIME_MINUTES = 10;
+
+
+/* =========================================
+   WEEKDAY SCHEDULE
+========================================= */
+
+/*
+    First time  = Campus departure
+    Second time = Sarjapur departure
+*/
 
 const weekdaySchedule = [
 
@@ -25,6 +42,10 @@ const weekdaySchedule = [
     ["09:40", "10:00"],
     ["10:20", "10:30"],
     ["11:30", "11:45"],
+
+    /* EXTRA SARJAPUR → CAMPUS */
+    ["13:15", null],
+
     ["14:00", "14:15"],
     ["14:45", "15:00"],
     ["16:00", "16:15"],
@@ -47,7 +68,9 @@ const weekdaySchedule = [
 ];
 
 
-// Saturday / Sunday / Holidays
+/* =========================================
+   WEEKEND SCHEDULE
+========================================= */
 
 const weekendSchedule = [
 
@@ -70,36 +93,21 @@ const weekendSchedule = [
 ];
 
 
-// =========================================
-// HTML ELEMENTS
-// =========================================
+/* =========================================
+   DOM ELEMENTS
+========================================= */
 
-const pickupTimeElement =
-    document.getElementById("pickupTime");
-
-const campusTimeElement =
-    document.getElementById("campusTime");
-
-const countdownElement =
-    document.getElementById("countdown");
-
-const upcomingListElement =
-    document.getElementById("upcomingList");
-
-const currentDateElement =
-    document.getElementById("currentDate");
-
-const dayTypeElement =
-    document.getElementById("dayType");
-
-const serviceStatusElement =
-    document.getElementById("serviceStatus");
-
-
-// Live tracker elements
+const locationSelect =
+    document.getElementById("location");
 
 const liveStatus =
     document.getElementById("liveStatus");
+
+const startStop =
+    document.getElementById("startStop");
+
+const endStop =
+    document.getElementById("endStop");
 
 const busState =
     document.getElementById("busState");
@@ -122,55 +130,67 @@ const routeProgress =
 const busMarker =
     document.getElementById("busMarker");
 
-const startStop =
-    document.getElementById("startStop");
+const upcomingList =
+    document.getElementById("upcomingList");
 
-const endStop =
-    document.getElementById("endStop");
+const dayType =
+    document.getElementById("dayType");
 
 
-// =========================================
-// TIME FUNCTIONS
-// =========================================
+/* =========================================
+   TIME FUNCTIONS
+========================================= */
 
 function timeToMinutes(time) {
+
+    if (!time) {
+        return null;
+    }
 
     const parts =
         time.split(":");
 
     return (
-        Number(parts[0]) * 60 +
-        Number(parts[1])
+        parseInt(parts[0]) * 60 +
+        parseInt(parts[1])
     );
-
 }
 
 
-function formatTime(time) {
+function minutesToTime(minutes) {
 
-    const parts =
-        time.split(":");
+    minutes =
+        minutes % 1440;
+
+    if (minutes < 0) {
+        minutes += 1440;
+    }
 
     let hours =
-        Number(parts[0]);
+        Math.floor(minutes / 60);
 
-    const minutes =
-        parts[1];
+    let mins =
+        minutes % 60;
 
-    const period =
-        hours >= 12 ? "PM" : "AM";
+    const suffix =
+        hours >= 12
+            ? "PM"
+            : "AM";
 
     hours =
         hours % 12;
 
     if (hours === 0) {
-
         hours = 12;
-
     }
 
-    return `${hours}:${minutes} ${period}`;
-
+    return (
+        String(hours) +
+        ":" +
+        String(mins).padStart(2, "0") +
+        " " +
+        suffix
+    );
 }
 
 
@@ -183,7 +203,6 @@ function getCurrentMinutes() {
         now.getHours() * 60 +
         now.getMinutes()
     );
-
 }
 
 
@@ -193,364 +212,287 @@ function getCurrentSeconds() {
         new Date();
 
     return (
-        now.getHours() * 3600 +
-        now.getMinutes() * 60 +
         now.getSeconds()
     );
-
 }
 
 
-// =========================================
-// TODAY'S SCHEDULE
-// =========================================
+/* =========================================
+   GET TODAY'S SCHEDULE
+========================================= */
 
 function getTodaySchedule() {
 
     const day =
         new Date().getDay();
 
+    /*
+        0 = Sunday
+        6 = Saturday
+    */
 
     if (
         day === 0 ||
         day === 6
     ) {
-
         return weekendSchedule;
-
     }
-
 
     return weekdaySchedule;
-
 }
 
 
-// =========================================
-// NEXT SHUTTLE
-// =========================================
-
-function getNextShuttle(schedule) {
-
-    const now =
-        getCurrentMinutes();
-
-
-    for (
-        let i = 0;
-        i < schedule.length;
-        i++
-    ) {
-
-        const departure =
-            timeToMinutes(
-                schedule[i][0]
-            );
-
-
-        if (
-            departure >= now
-        ) {
-
-            return {
-                shuttle: schedule[i],
-                index: i
-            };
-
-        }
-
-    }
-
-
-    return null;
-
-}
-
-
-// =========================================
-// DISPLAY DATE
-// =========================================
-
-function displayDate() {
-
-    const now =
-        new Date();
-
-
-    const options = {
-
-        weekday: "long",
-
-        day: "numeric",
-
-        month: "long",
-
-        year: "numeric"
-
-    };
-
-
-    if (currentDateElement) {
-
-        currentDateElement.textContent =
-            now.toLocaleDateString(
-                "en-IN",
-                options
-            );
-
-    }
-
-}
-
-
-// =========================================
-// DAY TYPE
-// =========================================
-
-function displayDayType() {
+function isWeekend() {
 
     const day =
         new Date().getDay();
 
-
-    if (!dayTypeElement) {
-        return;
-    }
-
-
-    if (
+    return (
         day === 0 ||
         day === 6
-    ) {
-
-        dayTypeElement.textContent =
-            "Weekend / Holiday";
-
-    } else {
-
-        dayTypeElement.textContent =
-            "Monday – Friday";
-
-    }
-
+    );
 }
 
 
-// =========================================
-// NEXT SHUTTLE
-// =========================================
+/* =========================================
+   DETERMINE ROUTE
+========================================= */
 
-function displayNextShuttle() {
+function getSelectedLocation() {
+
+    if (!locationSelect) {
+        return "sarjapur-police-station";
+    }
+
+    return locationSelect.value;
+}
+
+
+function getRouteName(direction) {
+
+    if (direction === "outbound") {
+
+        return "Campus → Sarjapur";
+
+    }
+
+    return "Sarjapur → Campus";
+}
+
+
+/* =========================================
+   BUILD ALL TRIPS
+========================================= */
+
+function getAllTrips() {
 
     const schedule =
         getTodaySchedule();
 
-
-    if (
-        !pickupTimeElement ||
-        !campusTimeElement
-    ) {
-
-        return;
-
-    }
+    const trips = [];
 
 
-    const next =
-        getNextShuttle(schedule);
+    schedule.forEach((row) => {
+
+        const campusDeparture =
+            row[0];
+
+        const sarjapurDeparture =
+            row[1];
 
 
-    if (!next) {
+        if (campusDeparture) {
 
-        pickupTimeElement.textContent =
-            "No more";
-
-        campusTimeElement.textContent =
-            "Today";
-
-
-        if (countdownElement) {
-
-            countdownElement.textContent =
-                "No more shuttles today.";
-
-        }
-
-
-        if (serviceStatusElement) {
-
-            serviceStatusElement.textContent =
-                "Service finished for today";
-
-        }
-
-
-        if (upcomingListElement) {
-
-            upcomingListElement.innerHTML =
-                "<p>No more shuttles today.</p>";
-
-        }
-
-
-        return;
-
-    }
-
-
-    const pickup =
-        next.shuttle[0];
-
-    const arrival =
-        next.shuttle[1];
-
-
-    pickupTimeElement.textContent =
-        formatTime(pickup);
-
-    campusTimeElement.textContent =
-        formatTime(arrival);
-
-
-    const current =
-        getCurrentMinutes();
-
-    const difference =
-        timeToMinutes(pickup) -
-        current;
-
-
-    if (difference <= 0) {
-
-        countdownElement.textContent =
-            "🚌 Shuttle is leaving now";
-
-    }
-
-    else if (difference === 1) {
-
-        countdownElement.textContent =
-            "Leaves in 1 minute";
-
-    }
-
-    else {
-
-        countdownElement.textContent =
-            `Leaves in ${difference} minutes`;
-
-    }
-
-
-    serviceStatusElement.textContent =
-        "Next available shuttle";
-
-
-    displayUpcomingShuttles(
-        schedule,
-        next.index
-    );
-
-}
-
-
-// =========================================
-// UPCOMING SHUTTLES
-// =========================================
-
-function displayUpcomingShuttles(
-    schedule,
-    index
-) {
-
-    if (!upcomingListElement) {
-        return;
-    }
-
-
-    upcomingListElement.innerHTML =
-        "";
-
-
-    const upcoming =
-        schedule.slice(
-            index,
-            index + 5
-        );
-
-
-    upcoming.forEach(
-        (shuttle, i) => {
-
-            const row =
-                document.createElement(
-                    "div"
+            const departure =
+                timeToMinutes(
+                    campusDeparture
                 );
 
+            trips.push({
 
-            row.className =
-                "shuttle-row";
+                direction:
+                    "outbound",
 
+                departure:
+                    departure,
 
-            row.innerHTML = `
+                arrival:
+                    departure +
+                    TRAVEL_TIME_MINUTES,
 
-                <div>
+                departureText:
+                    campusDeparture
 
-                    <div class="shuttle-time">
-                        ${formatTime(shuttle[0])}
-                    </div>
-
-                    <span class="shuttle-label">
-                        Pickup
-                    </span>
-
-                </div>
-
-
-                <div class="shuttle-arrow">
-                    →
-                </div>
-
-
-                <div>
-
-                    <div class="shuttle-time">
-                        ${formatTime(shuttle[1])}
-                    </div>
-
-                    <span class="shuttle-label">
-                        Campus
-                    </span>
-
-                </div>
-
-
-                ${
-                    i === 0
-                    ?
-                    `<div class="next-badge">
-                        NEXT
-                    </div>`
-                    :
-                    `<div></div>`
-                }
-
-            `;
-
-
-            upcomingListElement.appendChild(
-                row
-            );
+            });
 
         }
+
+
+        if (sarjapurDeparture) {
+
+            const departure =
+                timeToMinutes(
+                    sarjapurDeparture
+                );
+
+            trips.push({
+
+                direction:
+                    "return",
+
+                departure:
+                    departure,
+
+                arrival:
+                    departure +
+                    TRAVEL_TIME_MINUTES,
+
+                departureText:
+                    sarjapurDeparture
+
+            });
+
+        }
+
+    });
+
+
+    /*
+        Extra 1:15 PM Sarjapur → Campus
+    */
+
+    trips.push({
+
+        direction:
+            "return",
+
+        departure:
+            timeToMinutes("13:15"),
+
+        arrival:
+            timeToMinutes("13:15") +
+            TRAVEL_TIME_MINUTES,
+
+        departureText:
+            "13:15"
+
+    });
+
+
+    trips.sort(
+        (a, b) =>
+            a.departure -
+            b.departure
     );
+
+
+    return trips;
+}
+
+
+/* =========================================
+   GET NEXT TRIP
+========================================= */
+
+function getNextTrip() {
+
+    const now =
+        getCurrentMinutes();
+
+    const trips =
+        getAllTrips();
+
+
+    return trips.find(
+        trip =>
+            trip.departure >= now
+    );
+}
+
+
+/* =========================================
+   GET CURRENT RUNNING TRIP
+========================================= */
+
+function getCurrentTrip() {
+
+    const now =
+        getCurrentMinutes();
+
+    const trips =
+        getAllTrips();
+
+
+    return trips.find(
+        trip =>
+            now >= trip.departure &&
+            now <
+            trip.arrival
+    );
+}
+
+
+/* =========================================
+   FORMAT DURATION
+========================================= */
+
+function formatDuration(minutes) {
+
+    if (minutes <= 0) {
+        return "Now";
+    }
+
+    if (minutes === 1) {
+        return "1 min";
+    }
+
+    return (
+        Math.floor(minutes) +
+        " min"
+    );
+}
+
+
+/* =========================================
+   UPDATE ROUTE DISPLAY
+========================================= */
+
+function updateRouteDisplay(
+    direction
+) {
+
+    if (!startStop || !endStop) {
+        return;
+    }
+
+
+    if (
+        direction ===
+        "outbound"
+    ) {
+
+        startStop.innerText =
+            "Campus";
+
+        endStop.innerText =
+            "Sarjapur Police Station";
+
+    } else {
+
+        startStop.innerText =
+            "Sarjapur Police Station";
+
+        endStop.innerText =
+            "Campus";
+
+    }
 
 }
 
 
-// =========================================
-// LIVE SHUTTLE TRACKER
-// =========================================
+/* =========================================
+   LIVE SHUTTLE TRACKER
+========================================= */
 
 function updateLiveTracker() {
 
@@ -559,301 +501,106 @@ function updateLiveTracker() {
     }
 
 
-    const schedule =
-        getTodaySchedule();
+    const now =
+        getCurrentMinutes();
 
 
-    const nowSeconds =
+    const seconds =
         getCurrentSeconds();
 
 
-    const nowMinutes =
-        nowSeconds / 60;
+    const currentTrip =
+        getCurrentTrip();
 
 
-    let activeTrip = null;
-
-    let activeDirection = null;
-
-
-    /*
-        Each timetable row has:
-
-        Campus → Police
-        Police → Campus
-    */
+    const nextTrip =
+        getNextTrip();
 
 
-    for (
-        let i = 0;
-        i < schedule.length;
-        i++
-    ) {
+    /* =====================================
+       BUS CURRENTLY RUNNING
+    ====================================== */
 
-        const outboundStart =
-            timeToMinutes(
-                schedule[i][0]
-            );
-
-        const outboundEnd =
-            timeToMinutes(
-                schedule[i][1]
-            );
-
-
-        /*
-            Campus → Police
-        */
-
-        if (
-            nowMinutes >= outboundStart &&
-            nowMinutes < outboundEnd
-        ) {
-
-            activeTrip = {
-
-                start: outboundStart,
-
-                end: outboundEnd,
-
-                direction: "outbound"
-
-            };
-
-            break;
-
-        }
-
-
-        /*
-            Police → Campus
-        */
-
-        if (
-            nowMinutes >= outboundEnd &&
-            i + 1 < schedule.length
-        ) {
-
-            /*
-                Return trip is considered
-                to begin at the listed
-                return time and end at the
-                next scheduled outbound
-                only when the next trip
-                gives us the next return.
-
-                For visual purposes we use
-                the same timetable pair.
-            */
-
-        }
-
-    }
-
-
-    /*
-        Find a return trip from the
-        current schedule row.
-    */
-
-    if (!activeTrip) {
-
-        for (
-            let i = 0;
-            i < schedule.length;
-            i++
-        ) {
-
-            const returnStart =
-                timeToMinutes(
-                    schedule[i][1]
-                );
-
-
-            const returnEnd =
-                timeToMinutes(
-                    schedule[i][0]
-                );
-
-
-            /*
-                Since the return arrival is
-                listed as the next value in
-                the timetable pairing,
-                use a practical journey duration
-                based on that row.
-
-                For the reverse trip we use
-                the same duration.
-            */
-
-            const outboundStart =
-                timeToMinutes(
-                    schedule[i][0]
-                );
-
-            const outboundEnd =
-                timeToMinutes(
-                    schedule[i][1]
-                );
-
-
-            const duration =
-                outboundEnd -
-                outboundStart;
-
-
-            const estimatedReturnEnd =
-                returnStart +
-                duration;
-
-
-            if (
-                nowMinutes >= returnStart &&
-                nowMinutes < estimatedReturnEnd
-            ) {
-
-                activeTrip = {
-
-                    start: returnStart,
-
-                    end: estimatedReturnEnd,
-
-                    direction: "return"
-
-                };
-
-                break;
-
-            }
-
-        }
-
-    }
-
-
-    /*
-        ACTIVE TRIP
-    */
-
-    if (activeTrip) {
+    if (currentTrip) {
 
         const elapsed =
-            nowMinutes -
-            activeTrip.start;
+            (
+                now -
+                currentTrip.departure
+            ) +
+            seconds / 60;
 
 
         const duration =
-            activeTrip.end -
-            activeTrip.start;
+            TRAVEL_TIME_MINUTES;
 
 
         let progress =
-            elapsed / duration;
+            (
+                elapsed /
+                duration
+            ) * 100;
 
 
         progress =
             Math.max(
                 0,
                 Math.min(
-                    1,
+                    100,
                     progress
                 )
             );
 
 
-        /*
-            Reverse animation for
-            Police → Campus.
-        */
-
-        if (
-            activeTrip.direction ===
-            "return"
-        ) {
-
-            progress =
-                1 - progress;
-
-            startStop.textContent =
-                "Sarjapur Police Station";
-
-            endStop.textContent =
-                "Campus";
-
-        }
-
-        else {
-
-            startStop.textContent =
-                "Campus";
-
-            endStop.textContent =
-                "Sarjapur Police Station";
-
-        }
+        updateRouteDisplay(
+            currentTrip.direction
+        );
 
 
-        const percentage =
-            progress * 100;
-
-
-        routeProgress.style.width =
-            `${percentage}%`;
-
-
-        busMarker.style.left =
-            `${percentage}%`;
-
-
-        liveStatus.textContent =
-            activeTrip.direction ===
-            "return"
-            ?
-            "Shuttle is running to Campus"
-            :
+        liveStatus.innerText =
             "Shuttle is running";
 
 
-        busState.textContent =
-            "🟢 Running";
+        busState.innerText =
+            "RUNNING";
 
 
-        departureTime.textContent =
-            formatMinutes(
-                activeTrip.start
+        departureTime.innerText =
+            minutesToTime(
+                currentTrip.departure
             );
 
 
-        liveArrivalTime.textContent =
-            formatMinutes(
-                activeTrip.end
+        liveArrivalTime.innerText =
+            minutesToTime(
+                currentTrip.arrival
             );
 
 
         const remaining =
             Math.max(
                 0,
-                Math.ceil(
-                    activeTrip.end -
-                    nowMinutes
-                )
+                currentTrip.arrival -
+                now
             );
 
 
-        timeRemaining.textContent =
+        timeRemaining.innerText =
             formatDuration(
                 remaining
             );
 
 
-        liveMessage.textContent =
-            activeTrip.direction ===
-            "return"
-            ?
-            "🚌 Shuttle is on its way to Campus."
-            :
-            "🚌 Shuttle is travelling towards Sarjapur Police Station.";
+        routeProgress.style.width =
+            progress + "%";
+
+
+        busMarker.style.left =
+            progress + "%";
+
+
+        liveMessage.innerText =
+            "🚌 Shuttle is currently travelling";
 
 
         return;
@@ -861,57 +608,46 @@ function updateLiveTracker() {
     }
 
 
-    /*
-        NO ACTIVE BUS
-    */
+    /* =====================================
+       NEXT SHUTTLE
+    ====================================== */
 
-    const next =
-        getNextScheduledTrip(
-            schedule,
-            nowMinutes
+    if (nextTrip) {
+
+        updateRouteDisplay(
+            nextTrip.direction
         );
 
 
-    if (next) {
-
-        liveStatus.textContent =
-            "Next shuttle is waiting";
+        liveStatus.innerText =
+            "Next shuttle";
 
 
-        busState.textContent =
-            "⏳ Waiting";
+        busState.innerText =
+            "SCHEDULED";
 
 
-        departureTime.textContent =
-            formatMinutes(
-                next.start
+        departureTime.innerText =
+            minutesToTime(
+                nextTrip.departure
             );
 
 
-        liveArrivalTime.textContent =
-            formatMinutes(
-                next.end
+        liveArrivalTime.innerText =
+            minutesToTime(
+                nextTrip.arrival
             );
 
 
-        const wait =
-            Math.max(
-                0,
-                Math.ceil(
-                    next.start -
-                    nowMinutes
-                )
-            );
+        const remaining =
+            nextTrip.departure -
+            now;
 
 
-        timeRemaining.textContent =
+        timeRemaining.innerText =
             formatDuration(
-                wait
+                remaining
             );
-
-
-        liveMessage.textContent =
-            `Next shuttle departs in ${formatDuration(wait)}.`;
 
 
         routeProgress.style.width =
@@ -922,11 +658,11 @@ function updateLiveTracker() {
             "0%";
 
 
-        startStop.textContent =
-            "Campus";
-
-        endStop.textContent =
-            "Sarjapur Police Station";
+        liveMessage.innerText =
+            "Next shuttle departs in " +
+            formatDuration(
+                remaining
+            );
 
 
         return;
@@ -934,32 +670,28 @@ function updateLiveTracker() {
     }
 
 
-    /*
-        DAY FINISHED
-    */
+    /* =====================================
+       NO MORE SHUTTLES
+    ====================================== */
 
-    liveStatus.textContent =
-        "Shuttle service finished";
-
-
-    busState.textContent =
-        "🛑 Stopped";
+    liveStatus.innerText =
+        "Service completed";
 
 
-    departureTime.textContent =
+    busState.innerText =
+        "NO SERVICE";
+
+
+    departureTime.innerText =
         "--";
 
 
-    liveArrivalTime.textContent =
+    liveArrivalTime.innerText =
         "--";
 
 
-    timeRemaining.textContent =
+    timeRemaining.innerText =
         "--";
-
-
-    liveMessage.textContent =
-        "No more scheduled shuttles today.";
 
 
     routeProgress.style.width =
@@ -969,175 +701,227 @@ function updateLiveTracker() {
     busMarker.style.left =
         "0%";
 
+
+    liveMessage.innerText =
+        "No more scheduled shuttles today.";
+
 }
 
 
-// =========================================
-// FIND NEXT SCHEDULED TRIP
-// =========================================
+/* =========================================
+   UPCOMING SHUTTLES
+========================================= */
 
-function getNextScheduledTrip(
-    schedule,
-    currentTime
-) {
+function updateUpcomingShuttles() {
 
-    for (
-        let i = 0;
-        i < schedule.length;
-        i++
+    if (!upcomingList) {
+        return;
+    }
+
+
+    const now =
+        getCurrentMinutes();
+
+
+    const trips =
+        getAllTrips();
+
+
+    const upcoming =
+        trips
+            .filter(
+                trip =>
+                    trip.departure >
+                    now
+            )
+            .slice(0, 6);
+
+
+    upcomingList.innerHTML =
+        "";
+
+
+    if (
+        upcoming.length === 0
     ) {
 
-        const start =
-            timeToMinutes(
-                schedule[i][0]
-            );
+        upcomingList.innerHTML = `
+
+            <div class="shuttle-card">
+
+                <div class="shuttle-card-left">
+
+                    <div>
+                        <div class="shuttle-time">
+                            No more shuttles
+                        </div>
+
+                        <div class="shuttle-route">
+                            Service completed for today
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
 
 
-        if (
-            start > currentTime
-        ) {
+    upcoming.forEach(
+        trip => {
 
-            return {
+            const route =
+                getRouteName(
+                    trip.direction
+                );
 
-                start: start,
 
-                end:
-                    timeToMinutes(
-                        schedule[i][1]
-                    )
+            upcomingList.innerHTML += `
 
-            };
+                <div class="shuttle-card">
+
+                    <div class="shuttle-card-left">
+
+                        <div>
+
+                            <div class="shuttle-time">
+                                ${minutesToTime(
+                                    trip.departure
+                                )}
+                            </div>
+
+                            <div class="shuttle-route">
+                                ${route}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="shuttle-arrival">
+
+                        Arrives approximately
+
+                        <strong>
+                            ${minutesToTime(
+                                trip.arrival
+                            )}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            `;
 
         }
+    );
 
+}
+
+
+/* =========================================
+   DAY TYPE
+========================================= */
+
+function updateDayType() {
+
+    if (!dayType) {
+        return;
     }
 
 
-    return null;
+    dayType.innerText =
+        isWeekend()
+            ? "Weekend / Holiday"
+            : "Weekday";
 
 }
 
 
-// =========================================
-// FORMAT MINUTES
-// =========================================
+/* =========================================
+   TRAFFIC REPORT
+========================================= */
 
-function formatMinutes(
-    minutes
-) {
+const TRAFFIC_EXPIRY_MINUTES =
+    15;
 
-    const hours =
-        Math.floor(
-            minutes / 60
-        );
-
-    const mins =
-        Math.floor(
-            minutes % 60
-        );
-
-
-    const time =
-        `${String(hours).padStart(2, "0")}:${String(mins).padStart(2, "0")}`;
-
-
-    return formatTime(time);
-
-}
-
-
-// =========================================
-// FORMAT DURATION
-// =========================================
-
-function formatDuration(
-    minutes
-) {
-
-    if (minutes < 1) {
-
-        return "Now";
-
-    }
-
-
-    const hours =
-        Math.floor(
-            minutes / 60
-        );
-
-
-    const mins =
-        minutes % 60;
-
-
-    if (hours > 0) {
-
-        return `${hours}h ${mins}m`;
-
-    }
-
-
-    return `${mins} min`;
-
-}
-
-
-// =========================================
-// INITIALIZE
-// =========================================
-
-function updateWebsite() {
-
-    displayDate();
-
-    displayDayType();
-
-    displayNextShuttle();
-
-    updateLiveTracker();
-
-}
-
-
-updateWebsite();
-
-
-// Update every second
-
-setInterval(
-    updateWebsite,
-    1000
-);
-// =========================================
-// TRAFFIC REPORT SYSTEM
-// =========================================
-
-const TRAFFIC_EXPIRY_MINUTES = 15;
-
-
-// -----------------------------------------
-// REPORT TRAFFIC
-// -----------------------------------------
 
 async function reportTraffic() {
 
     const button =
-        document.getElementById("trafficButton");
+        document.getElementById(
+            "trafficButton"
+        );
+
 
     const status =
-        document.getElementById("trafficStatus");
+        document.getElementById(
+            "trafficStatus"
+        );
 
 
-    button.disabled = true;
+    if (!button || !status) {
+        return;
+    }
+
+
+    if (
+        !GOOGLE_SCRIPT_URL ||
+        GOOGLE_SCRIPT_URL.includes(
+            "PASTE_YOUR"
+        )
+    ) {
+
+        status.innerText =
+            "Google Sheets is not connected yet.";
+
+        return;
+
+    }
+
+
+    button.disabled =
+        true;
+
 
     button.innerText =
         "Sending report...";
 
 
-    // Determine route
-    const route =
-        getCurrentRoute();
+    const currentTrip =
+        getCurrentTrip();
+
+
+    const nextTrip =
+        getNextTrip();
+
+
+    let route =
+        "Campus → Sarjapur";
+
+
+    if (currentTrip) {
+
+        route =
+            getRouteName(
+                currentTrip.direction
+            );
+
+    } else if (nextTrip) {
+
+        route =
+            getRouteName(
+                nextTrip.direction
+            );
+
+    }
 
 
     try {
@@ -1145,12 +929,22 @@ async function reportTraffic() {
         await fetch(
             GOOGLE_SCRIPT_URL,
             {
+
                 method: "POST",
 
-                body: JSON.stringify({
-                    route: route,
-                    status: "TRAFFIC"
-                })
+                mode: "no-cors",
+
+                body:
+                    JSON.stringify({
+
+                        route:
+                            route,
+
+                        status:
+                            "TRAFFIC"
+
+                    })
+
             }
         );
 
@@ -1158,25 +952,31 @@ async function reportTraffic() {
         button.innerText =
             "✓ Traffic Reported";
 
-        status.classList.add("active");
+
+        status.classList.add(
+            "active"
+        );
+
 
         status.innerText =
             "🚦 Traffic reported • Thank you";
 
 
-        // Immediately refresh
         checkTrafficReports();
 
 
-        // Enable again after 30 seconds
-        setTimeout(() => {
+        setTimeout(
+            () => {
 
-            button.disabled = false;
+                button.disabled =
+                    false;
 
-            button.innerText =
-                "🚦 Report Traffic";
+                button.innerText =
+                    "🚦 Report Traffic";
 
-        }, 30000);
+            },
+            30000
+        );
 
 
     } catch (error) {
@@ -1186,58 +986,26 @@ async function reportTraffic() {
             error
         );
 
-        button.disabled = false;
+
+        button.disabled =
+            false;
+
 
         button.innerText =
             "🚦 Report Traffic";
 
+
         status.innerText =
-            "Unable to send report. Try again.";
+            "Unable to send report.";
 
     }
 
 }
 
 
-// -----------------------------------------
-// DETERMINE CURRENT ROUTE
-// -----------------------------------------
-
-function getCurrentRoute() {
-
-    const now =
-        getCurrentMinutes();
-
-    const schedule =
-        getTodaySchedule();
-
-
-    if (!schedule || schedule.length === 0) {
-
-        return "Campus → Sarjapur";
-
-    }
-
-
-    const next =
-        getNextShuttle(schedule);
-
-
-    if (!next) {
-
-        return "Campus → Sarjapur";
-
-    }
-
-
-    return "Campus → Sarjapur";
-
-}
-
-
-// -----------------------------------------
-// CHECK TRAFFIC REPORTS
-// -----------------------------------------
+/* =========================================
+   CHECK TRAFFIC REPORTS
+========================================= */
 
 async function checkTrafficReports() {
 
@@ -1247,7 +1015,24 @@ async function checkTrafficReports() {
         );
 
 
-    if (!status) return;
+    if (!status) {
+        return;
+    }
+
+
+    if (
+        !GOOGLE_SCRIPT_URL ||
+        GOOGLE_SCRIPT_URL.includes(
+            "PASTE_YOUR"
+        )
+    ) {
+
+        status.innerText =
+            "Traffic reporting available after setup.";
+
+        return;
+
+    }
 
 
     try {
@@ -1276,7 +1061,6 @@ async function checkTrafficReports() {
             Date.now();
 
 
-        // Find recent traffic reports
         const recentReports =
             data.reports.filter(
                 report => {
@@ -1295,11 +1079,15 @@ async function checkTrafficReports() {
 
 
                     return (
+
                         age >= 0 &&
+
                         age <=
                         TRAFFIC_EXPIRY_MINUTES &&
+
                         report.status ===
                         "TRAFFIC"
+
                     );
 
                 }
@@ -1339,11 +1127,13 @@ async function checkTrafficReports() {
 }
 
 
-// -----------------------------------------
-// SHOW TRAFFIC
-// -----------------------------------------
+/* =========================================
+   SHOW TRAFFIC WARNING
+========================================= */
 
-function showTrafficWarning(report) {
+function showTrafficWarning(
+    report
+) {
 
     const status =
         document.getElementById(
@@ -1351,12 +1141,15 @@ function showTrafficWarning(report) {
         );
 
 
-    if (!status) return;
+    if (!status) {
+        return;
+    }
 
 
     status.classList.add(
         "active"
     );
+
 
     status.classList.remove(
         "clear"
@@ -1381,39 +1174,25 @@ function showTrafficWarning(report) {
         );
 
 
-    let timeText =
+    const timeText =
         minutesAgo === 0
             ? "just now"
             : `${minutesAgo} min ago`;
 
 
-    status.innerHTML =
-        `🚦 <strong>Shuttle in traffic</strong>
+    status.innerHTML = `
+
+        🚦 <strong>
+            Shuttle in traffic
+        </strong>
+
         <br>
+
         ${report.route}
-        • Reported ${timeText}`;
 
+        • Reported ${timeText}
 
-    // Update main live message
-    const liveMessage =
-        document.getElementById(
-            "liveMessage"
-        );
-
-
-    if (liveMessage) {
-
-        liveMessage.innerText =
-            "🚦 Traffic reported by a passenger";
-
-    }
-
-
-    // Update bus state
-    const busState =
-        document.getElementById(
-            "busState"
-        );
+    `;
 
 
     if (busState) {
@@ -1423,12 +1202,20 @@ function showTrafficWarning(report) {
 
     }
 
+
+    if (liveMessage) {
+
+        liveMessage.innerText =
+            "🚦 Traffic reported by a passenger";
+
+    }
+
 }
 
 
-// -----------------------------------------
-// CLEAR TRAFFIC
-// -----------------------------------------
+/* =========================================
+   CLEAR TRAFFIC
+========================================= */
 
 function clearTrafficWarning() {
 
@@ -1438,7 +1225,9 @@ function clearTrafficWarning() {
         );
 
 
-    if (!status) return;
+    if (!status) {
+        return;
+    }
 
 
     status.classList.remove(
@@ -1454,31 +1243,64 @@ function clearTrafficWarning() {
     status.innerText =
         "🟢 No recent traffic report";
 
-
-    const liveMessage =
-        document.getElementById(
-            "liveMessage"
-        );
+}
 
 
-    if (liveMessage) {
+/* =========================================
+   LOCATION CHANGE
+========================================= */
 
-        liveMessage.innerText =
-            "Shuttle running according to schedule";
+if (locationSelect) {
 
-    }
+    locationSelect.addEventListener(
+        "change",
+        () => {
+
+            updateLiveTracker();
+
+            updateUpcomingShuttles();
+
+        }
+    );
 
 }
 
-// -----------------------------------------
-// CHECK EVERY 30 SECONDS
-// -----------------------------------------
+
+/* =========================================
+   UPDATE EVERYTHING
+========================================= */
+
+function updateWebsite() {
+
+    updateLiveTracker();
+
+    updateUpcomingShuttles();
+
+    updateDayType();
+
+}
+
+
+/* =========================================
+   START WEBSITE
+========================================= */
+
+updateWebsite();
+
+checkTrafficReports();
+
+
+/* Update every second */
+
+setInterval(
+    updateWebsite,
+    1000
+);
+
+
+/* Check Google Sheet every 30 seconds */
 
 setInterval(
     checkTrafficReports,
     30000
 );
-
-
-// Initial check
-checkTrafficReports();
