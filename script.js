@@ -1314,23 +1314,22 @@ const installAppButton =
     document.getElementById("installAppButton");
 
 
+/* Chrome / Android installation */
+
 window.addEventListener(
     "beforeinstallprompt",
     (event) => {
 
-        // Prevent Chrome from showing its own prompt immediately
         event.preventDefault();
 
-        // Save the install event
         deferredInstallPrompt = event;
 
-        // Show our button
-        if (installAppButton) {
-            installAppButton.style.display = "flex";
-        }
+        console.log("Campus Shuttle can be installed.");
     }
 );
 
+
+/* Install button */
 
 if (installAppButton) {
 
@@ -1338,34 +1337,67 @@ if (installAppButton) {
         "click",
         async () => {
 
-            if (!deferredInstallPrompt) {
+            /* Android / Chrome */
+
+            if (deferredInstallPrompt) {
+
+                deferredInstallPrompt.prompt();
+
+                const choice =
+                    await deferredInstallPrompt.userChoice;
+
+                console.log(
+                    "Install choice:",
+                    choice.outcome
+                );
+
+                deferredInstallPrompt = null;
+
                 return;
             }
 
-            deferredInstallPrompt.prompt();
 
-            const result =
-                await deferredInstallPrompt.userChoice;
+            /* iPhone / Safari */
 
-            console.log(
-                "Install result:",
-                result.outcome
+            const isIOS =
+                /iphone|ipad|ipod/i.test(
+                    navigator.userAgent
+                );
+
+            if (isIOS) {
+
+                alert(
+                    "To install Campus Shuttle:\n\n" +
+                    "1. Tap the Share button in Safari.\n" +
+                    "2. Select 'Add to Home Screen'.\n" +
+                    "3. Tap 'Add'."
+                );
+
+                return;
+            }
+
+
+            /* If browser has not provided install prompt */
+
+            alert(
+                "To install Campus Shuttle:\n\n" +
+                "Open your browser menu and choose " +
+                "'Install Campus Shuttle' or " +
+                "'Add to Home screen'."
             );
-
-            deferredInstallPrompt = null;
-
-            installAppButton.style.display = "none";
         }
     );
 }
 
+
+/* Detect successful installation */
 
 window.addEventListener(
     "appinstalled",
     () => {
 
         console.log(
-            "Campus Shuttle installed successfully"
+            "Campus Shuttle installed."
         );
 
         if (installAppButton) {
