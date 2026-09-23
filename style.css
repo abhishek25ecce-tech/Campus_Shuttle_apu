@@ -1239,3 +1239,586 @@ footer {
     }
 
 }
+/* =========================================
+   INSTALL APP BUTTON
+========================================= */
+
+.install-app-button {
+    width: 100%;
+
+    min-height: 50px;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 20px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: #111827;
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.install-app-button:hover {
+    background: #1f2937;
+    transform: translateY(-1px);
+}
+
+.install-app-button:active {
+    transform: scale(0.98);
+}
+/* =========================================
+   STOP SELECTOR
+========================================= */
+
+.pickup-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+.stop-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.stop-option {
+    min-height: 46px;
+
+    padding: 8px 10px;
+
+    border: 1px solid #dbe2ea;
+    border-radius: 11px;
+
+    background: #f8fafc;
+    color: #475569;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.stop-option:hover {
+    transform: translateY(-1px);
+}
+
+.stop-option.active {
+    background: #eff6ff;
+    border-color: #2563eb;
+    color: #2563eb;
+}
+
+
+/* =========================================
+   NEW ROUTE LAYOUT
+========================================= */
+
+/* =========================================
+   HORIZONTAL LIVE ROUTE
+========================================= */
+
+.live-route {
+    display: grid;
+
+    grid-template-columns:
+        115px
+        1fr
+        115px;
+
+    align-items: center;
+
+    gap: 18px;
+
+    margin-top: 38px;
+
+    min-height: 150px;
+}
+
+
+/* =========================================
+   TERMINAL STOPS
+========================================= */
+
+.route-terminal {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    gap: 7px;
+}
+
+.terminal-icon {
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.09);
+
+    font-size: 20px;
+}
+
+.route-terminal strong {
+    color: white;
+
+    font-size: 10px;
+
+    line-height: 1.35;
+}
+
+.route-terminal > span {
+    color: #94a3b8;
+
+    font-size: 8px;
+}
+
+
+/* =========================================
+   HORIZONTAL ROUTE
+========================================= */
+
+.route-middle {
+    position: relative;
+
+    width: 100%;
+
+    padding-bottom: 45px;
+}
+
+
+/* Main horizontal road */
+
+.route-line-vertical {
+    position: relative;
+
+    width: 100%;
+
+    height: 7px;
+
+    border-radius: 20px;
+
+    background: #334155;
+}
+
+
+/* Progress */
+
+.route-line-vertical .route-progress {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 0%;
+    height: 100%;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #60a5fa,
+            #38bdf8
+        );
+
+    transition: width 1s linear;
+}
+
+
+/* Bus */
+
+.route-line-vertical .bus-marker {
+    position: absolute;
+
+    left: 0%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: white;
+
+    font-size: 19px;
+
+    box-shadow:
+        0 4px 14px rgba(0,0,0,0.3);
+
+    transition:
+        left 1s linear;
+
+    z-index: 5;
+}
+
+
+/* =========================================
+   PICKUP STOPS
+========================================= */
+
+.pickup-stops {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    top: 25px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+}
+
+.pickup-stop {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 6px;
+
+    color: #94a3b8;
+
+    font-size: 9px;
+
+    text-align: center;
+
+    min-width: 80px;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.pickup-dot {
+    width: 9px;
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: #64748b;
+
+    border: 2px solid #1e293b;
+
+    box-shadow:
+        0 0 0 2px #334155;
+}
+
+.pickup-stop.selected {
+    color: #60a5fa;
+
+    font-weight: 800;
+
+    transform: translateY(-2px);
+}
+
+.pickup-stop.selected .pickup-dot {
+    background: #60a5fa;
+
+    box-shadow:
+        0 0 0 4px rgba(96,165,250,0.15);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .live-route {
+        grid-template-columns:
+            75px
+            1fr
+            75px;
+
+        gap: 8px;
+
+        min-height: 130px;
+
+        margin-top: 30px;
+    }
+
+    .terminal-icon {
+        width: 38px;
+        height: 38px;
+
+        font-size: 16px;
+    }
+
+    .route-terminal strong {
+        font-size: 8px;
+    }
+
+    .route-terminal > span {
+        font-size: 7px;
+    }
+
+    .route-middle {
+        padding-bottom: 40px;
+    }
+
+    .pickup-stop {
+        min-width: 55px;
+
+        font-size: 7px;
+    }
+
+    .pickup-dot {
+        width: 7px;
+        height: 7px;
+    }
+
+    .route-line-vertical .bus-marker {
+        width: 32px;
+        height: 32px;
+
+        font-size: 16px;
+    }
+}
+
+
+/* =========================================
+   VERY SMALL PHONES
+========================================= */
+
+@media (max-width: 380px) {
+
+    .live-route {
+        grid-template-columns:
+            65px
+            1fr
+            65px;
+    }
+
+    .pickup-stop {
+        font-size: 6px;
+        min-width: 45px;
+    }
+
+    .route-terminal strong {
+        font-size: 7px;
+    }
+
+}
+/* =========================================
+   BUS DIRECTION + SMOKE
+========================================= */
+
+.bus-marker {
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    z-index: 10;
+}
+
+
+/* Bus */
+
+.bus-emoji {
+    position: relative;
+
+    z-index: 5;
+
+    display: block;
+
+    font-size: 20px;
+
+    line-height: 1;
+
+    transition: transform 0.3s ease;
+}
+
+
+/* Smoke */
+
+.bus-smoke {
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: rgba(203, 213, 225, 0.65);
+
+    pointer-events: none;
+
+    animation: busSmoke 1.2s infinite ease-out;
+}
+
+
+/* Smoke positions when going RIGHT */
+
+.going-right .smoke-1 {
+    left: -5px;
+    top: 20px;
+    animation-delay: 0s;
+}
+
+.going-right .smoke-2 {
+    left: -10px;
+    top: 14px;
+    width: 4px;
+    height: 4px;
+    animation-delay: 0.3s;
+}
+
+.going-right .smoke-3 {
+    left: -15px;
+    top: 21px;
+    width: 3px;
+    height: 3px;
+    animation-delay: 0.6s;
+}
+
+
+/* Smoke animation */
+
+@keyframes busSmoke {
+
+    0% {
+        opacity: 0;
+        transform: translateX(0) scale(0.6);
+    }
+
+    30% {
+        opacity: 0.7;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-10px) translateY(-5px) scale(1.5);
+    }
+}
+
+
+/* =========================================
+   GOING LEFT
+========================================= */
+
+.going-left .bus-emoji {
+    transform: scaleX(-1);
+}
+
+.going-left .smoke-1 {
+    left: auto;
+    right: -5px;
+    top: 20px;
+}
+
+.going-left .smoke-2 {
+    left: auto;
+    right: -10px;
+    top: 14px;
+}
+
+.going-left .smoke-3 {
+    left: auto;
+    right: -15px;
+    top: 21px;
+}
+
+
+/* Smoke moves backward when going LEFT */
+
+.going-left .bus-smoke {
+    animation-name: busSmokeLeft;
+}
+
+@keyframes busSmokeLeft {
+
+    0% {
+        opacity: 0;
+        transform: translateX(0) translateY(0) scale(0.6);
+    }
+
+    30% {
+        opacity: 0.7;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(10px) translateY(-5px) scale(1.5);
+    }
+}
+/* =========================================
+   SPECIAL / EXTRA SHUTTLE
+========================================= */
+
+.special-shuttle {
+    position: relative;
+    border-color: #f5d48a;
+    background: #fffdf7;
+}
+
+.special-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    margin-left: 8px;
+
+    padding: 4px 8px;
+
+    border-radius: 20px;
+
+    background: #fff4cf;
+    color: #a16207;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    vertical-align: middle;
+}

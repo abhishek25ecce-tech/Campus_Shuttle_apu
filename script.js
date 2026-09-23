@@ -43,9 +43,6 @@ const weekdaySchedule = [
     ["10:20", "10:30"],
     ["11:30", "11:45"],
 
-    /* EXTRA SARJAPUR → CAMPUS */
-    ["13:15", null],
-
     ["14:00", "14:15"],
     ["14:45", "15:00"],
     ["16:00", "16:15"],
@@ -361,22 +358,24 @@ function getAllTrips() {
         Extra 1:15 PM Sarjapur → Campus
     */
 
-    trips.push({
+trips.push({
 
-        direction:
-            "return",
+    direction:
+        "return",
 
-        departure:
-            timeToMinutes("13:15"),
+    departure:
+        timeToMinutes("13:15"),
 
-        arrival:
-            timeToMinutes("13:15") +
-            TRAVEL_TIME_MINUTES,
+    arrival:
+        timeToMinutes("13:15") +
+        TRAVEL_TIME_MINUTES,
 
-        departureText:
-            "13:15"
+    departureText:
+        "13:15",
 
-    });
+    special:
+        true
+});
 
 
     trips.sort(
@@ -1405,3 +1404,70 @@ window.addEventListener(
         }
     }
 );
+/* =========================================
+   STOP SELECTION
+========================================= */
+
+const stopOptions =
+    document.querySelectorAll(".stop-option");
+
+const pickupStops =
+    document.querySelectorAll(".pickup-stop");
+
+
+stopOptions.forEach(option => {
+
+    option.addEventListener("click", () => {
+
+        const selectedStop =
+            option.dataset.stop;
+
+
+        /* Update selected button */
+
+        stopOptions.forEach(item => {
+
+            item.classList.remove("active");
+
+        });
+
+        option.classList.add("active");
+
+
+        /* Update route highlight */
+
+        pickupStops.forEach(stop => {
+
+            stop.classList.remove("selected");
+
+        });
+
+
+        const matchingStop =
+            document.querySelector(
+                `[data-route-stop="${selectedStop}"]`
+            );
+
+
+        if (matchingStop) {
+
+            matchingStop.classList.add("selected");
+
+        }
+
+
+        /* Keep existing location value */
+
+        const locationSelect =
+            document.getElementById("location");
+
+        if (locationSelect) {
+
+            locationSelect.value =
+                selectedStop;
+
+        }
+
+    });
+
+});

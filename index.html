@@ -129,28 +129,36 @@
 
         <section class="location-card">
 
-            <label for="location">
-                Where are you travelling from?
-            </label>
+    <div class="pickup-title">
+        Select your stop
+    </div>
 
+    <div class="stop-selector">
 
-            <select id="location">
+        <button
+            class="stop-option active"
+            data-stop="hanuman-temple"
+        >
+            Hanuman Temple
+        </button>
 
-                <option value="hanuman-temple">
-                    Hanuman Temple
-                </option>
+        <button
+            class="stop-option"
+            data-stop="confident"
+        >
+            Confident
+        </button>
 
-                <option value="confident">
-                    Confident
-                </option>
+        <button
+            class="stop-option"
+            data-stop="sarjapur-police-station"
+        >
+            Sarjapur Police Station
+        </button>
 
-                <option value="sarjapur-police-station">
-                    Sarjapur Police Station
-                </option>
+    </div>
 
-            </select>
-
-        </section>
+</section>
 <!-- INSTALL APP -->
 
 <button
@@ -204,81 +212,100 @@
 
             <div class="live-route">
 
+    <!-- APU CAMPUS -->
 
-                <!-- Start -->
+    <div class="route-terminal">
 
-                <div class="route-stop">
+        <div class="terminal-icon">
+            🎓
+        </div>
 
-                    <div class="stop-icon">
-                        🎓
-                    </div>
+        <strong id="startStop">
+            APU Campus
+        </strong>
 
+        <span>
+            Starting point
+        </span>
 
-                    <span id="startStop">
-                        Campus
-                    </span>
-
-                </div>
-
-
-
-                <!-- Route Line -->
-
-                <div class="route-line">
-
-                    <div class="route-track">
+    </div>
 
 
-                        <div
-                            class="route-progress"
-                            id="routeProgress"
-                        ></div>
+    <!-- ROUTE -->
+
+    <div class="route-middle">
+
+        <div class="route-line-vertical">
+
+            <div
+                class="route-progress"
+                id="routeProgress"
+            ></div>
+
+            <div
+    class="bus-marker going-right"
+    id="busMarker"
+>
+    <span class="bus-smoke smoke-1"></span>
+    <span class="bus-smoke smoke-2"></span>
+    <span class="bus-smoke smoke-3"></span>
+
+    <span class="bus-emoji">
+        🚌
+    </span>
+</div>
+        </div>
 
 
-                        <div
-                            class="bus-marker"
-                            id="busMarker"
-                        >
-                            🚌
-                        </div>
+        <div class="pickup-stops">
 
-                    </div>
+            <div
+                class="pickup-stop"
+                data-route-stop="hanuman-temple"
+            >
+                <span class="pickup-dot"></span>
 
-
-                    <div class="route-stops">
-
-                        <span>
-                            Hanuman Temple
-                        </span>
-
-
-                        <span>
-                            Confident
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- Destination -->
-
-                <div class="route-stop destination">
-
-                    <div class="stop-icon">
-                        📍
-                    </div>
-
-
-                    <span id="endStop">
-                        Sarjapur Police Station
-                    </span>
-
-                </div>
-
+                <span>
+                    Hanuman Temple
+                </span>
             </div>
 
+
+            <div
+                class="pickup-stop"
+                data-route-stop="confident"
+            >
+                <span class="pickup-dot"></span>
+
+                <span>
+                    Confident
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SARJAPUR -->
+
+    <div class="route-terminal destination">
+
+        <div class="terminal-icon">
+            📍
+        </div>
+
+        <strong id="endStop">
+            Sarjapur Police Station
+        </strong>
+
+        <span>
+            Last stop
+        </span>
+
+    </div>
+
+</div>
 
 
             <!-- =====================================
