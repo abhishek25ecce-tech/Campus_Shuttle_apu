@@ -1,7 +1,13 @@
-/* =========================================
+/* =========================================================
    CAMPUS SHUTTLE
-   COMPLETE WEBSITE STYLE
-========================================= */
+   CLEAN BLUE THEME
+   SINGLE SOURCE OF TRUTH
+========================================================= */
+
+
+/* =========================================================
+   1. GLOBAL
+========================================================= */
 
 * {
     box-sizing: border-box;
@@ -16,10 +22,22 @@ html {
 
 body {
     font-family: "Manrope", sans-serif;
-    background: #f6f8fc;
-    color: #111827;
-    overflow-x: hidden;
+
+    background:
+        linear-gradient(
+            180deg,
+            #edf5ff 0%,
+            #f5f9ff 45%,
+            #edf5ff 100%
+        );
+
+    color: #0f172a;
+
     line-height: 1.5;
+
+    overflow-x: hidden;
+
+    min-height: 100vh;
 }
 
 button,
@@ -27,31 +45,51 @@ select {
     font-family: inherit;
 }
 
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
 a {
-    text-decoration: none;
     color: inherit;
+    text-decoration: none;
 }
 
 
-/* =========================================
-   HEADER
-========================================= */
+/* =========================================================
+   2. HEADER
+========================================================= */
 
 .modern-header {
     width: 100%;
-    background: #ffffff;
-    border-bottom: 1px solid #e8edf3;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f4f8ff
+        );
+
+    border-bottom: 1px solid #dbeafe;
+
+    box-shadow:
+        0 2px 12px rgba(37, 99, 235, 0.05);
 }
 
 .brand {
+    width: 100%;
     max-width: 1100px;
-    margin: auto;
 
-    padding: 20px 28px;
+    min-height: 76px;
+
+    margin: 0 auto;
+
+    padding: 16px 28px;
 
     display: flex;
+
     align-items: center;
-    justify-content: center;   /* CENTER */
+
+    justify-content: center;
 
     gap: 12px;
 }
@@ -61,13 +99,23 @@ a {
     height: 42px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
     border-radius: 12px;
 
-    background: #eff6ff;
+    background:
+        linear-gradient(
+            135deg,
+            #dbeafe,
+            #eff6ff
+        );
+
     color: #2563eb;
+
+    box-shadow:
+        0 5px 14px rgba(37, 99, 235, 0.12);
 
     flex-shrink: 0;
 }
@@ -79,98 +127,147 @@ a {
 
 .brand-name {
     font-size: 23px;
+
     font-weight: 800;
+
     letter-spacing: -0.8px;
-    color: #111827;
+
+    color: #0f172a;
 }
 
-/* =========================================
-   MAIN CONTAINER
-========================================= */
+
+/* =========================================================
+   3. MAIN CONTAINER
+========================================================= */
 
 .container {
     width: 100%;
-    max-width: 900px;
+
+    max-width: 920px;
 
     margin: 0 auto;
 
-    padding: 32px 24px 50px;
+    padding: 28px 24px 50px;
 }
 
 
-/* =========================================
-   LOCATION CARD
-========================================= */
+/* =========================================================
+   4. STOP SELECTOR
+========================================================= */
 
 .location-card {
-    background: white;
+    width: 100%;
 
-    padding: 22px;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f8fbff
+        );
+
+    border: 1px solid #dbeafe;
 
     border-radius: 18px;
 
+    padding: 20px;
+
     margin-bottom: 20px;
 
-    border: 1px solid #e7ebf2;
-
     box-shadow:
-        0 8px 25px rgba(15, 23, 42, 0.05);
+        0 10px 30px rgba(37, 99, 235, 0.07);
 }
 
-.location-card label {
-    display: block;
+.pickup-title {
+    margin-bottom: 12px;
 
-    margin-bottom: 10px;
+    color: #0f172a;
 
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 13px;
 
-    color: #475569;
+    font-weight: 800;
 }
 
-.location-card select {
+.stop-selector {
     width: 100%;
 
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 9px;
+}
+
+.stop-option {
     min-height: 48px;
 
-    padding: 0 14px;
+    padding: 9px 12px;
+
+    border:
+        1px solid #dbe4f0;
 
     border-radius: 12px;
 
-    border: 1px solid #d9e0e9;
+    background: #f8fbff;
 
-    background: #f8fafc;
+    color: #475569;
 
-    color: #111827;
+    font-size: 11px;
 
-    font-size: 14px;
-
-    outline: none;
+    font-weight: 700;
 
     cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.location-card select:focus {
-    border-color: #60a5fa;
+.stop-option:hover {
+    transform: translateY(-1px);
+
+    border-color: #93c5fd;
+
+    background: #eff6ff;
+}
+
+.stop-option.active {
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #3b82f6
+        );
+
+    border-color: #2563eb;
+
+    color: white;
 
     box-shadow:
-        0 0 0 3px rgba(96, 165, 250, 0.12);
+        0 6px 15px rgba(37, 99, 235, 0.18);
 }
 
 
-/* =========================================
-   LIVE SHUTTLE
-========================================= */
+/* =========================================================
+   5. LIVE TRACKER
+========================================================= */
 
 .live-tracker {
+    width: 100%;
+
     position: relative;
+
     overflow: hidden;
 
     background:
         linear-gradient(
             135deg,
-            #0f172a,
-            #1e293b
+            #0b2a5b 0%,
+            #123b7a 55%,
+            #174ea6 100%
         );
 
     color: white;
@@ -179,51 +276,87 @@ a {
 
     padding: 28px;
 
-    margin-bottom: 25px;
+    margin-bottom: 28px;
 
     box-shadow:
-        0 18px 45px rgba(15, 23, 42, 0.18);
+        0 22px 50px rgba(15, 63, 135, 0.20);
 }
 
+
+/* subtle glow */
+
+.live-tracker::before {
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+    height: 280px;
+
+    right: -120px;
+    top: -130px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(96, 165, 250, 0.10);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   6. LIVE HEADER
+========================================================= */
+
 .live-header {
+    position: relative;
+    z-index: 2;
+
     display: flex;
-    justify-content: space-between;
+
     align-items: flex-start;
+
+    justify-content: space-between;
 
     gap: 15px;
 }
 
 .live-label {
-    font-size: 10px;
-
-    letter-spacing: 1.8px;
-
-    font-weight: 800;
+    margin-bottom: 6px;
 
     color: #93c5fd;
 
-    margin-bottom: 7px;
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.8px;
 }
 
 .live-header h2 {
+    color: white;
+
     font-size: 22px;
 
-    letter-spacing: -0.5px;
-
     line-height: 1.25;
+
+    letter-spacing: -0.5px;
 }
 
 .live-indicator {
     display: flex;
+
     align-items: center;
 
-    gap: 6px;
+    gap: 7px;
 
-    padding: 6px 10px;
+    padding: 7px 11px;
 
     border-radius: 20px;
 
-    background: rgba(255,255,255,0.08);
+    background:
+        rgba(255,255,255,0.09);
 
     color: #86efac;
 
@@ -231,9 +364,9 @@ a {
 
     font-weight: 800;
 
-    letter-spacing: 0.8px;
+    letter-spacing: 0.7px;
 
-    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .live-dot {
@@ -245,9 +378,10 @@ a {
     background: #4ade80;
 
     box-shadow:
-        0 0 0 4px rgba(74,222,128,0.12);
+        0 0 0 4px rgba(74, 222, 128, 0.12);
 
-    animation: livePulse 1.5s infinite;
+    animation:
+        livePulse 1.5s infinite;
 }
 
 @keyframes livePulse {
@@ -269,84 +403,163 @@ a {
 }
 
 
-/* =========================================
-   ROUTE
-========================================= */
+/* =========================================================
+   7. HORIZONTAL ROUTE
+========================================================= */
 
 .live-route {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+
+    min-height: 175px;
+
+    margin-top: 30px;
+
     display: grid;
 
     grid-template-columns:
-        100px 1fr 100px;
+        125px
+        minmax(0, 1fr)
+        145px;
 
     align-items: center;
 
-    gap: 15px;
-
-    margin-top: 35px;
+    gap: 18px;
 }
 
-.route-stop {
+
+/* =========================================================
+   8. TERMINAL STOPS
+========================================================= */
+
+.route-terminal {
+    width: 100%;
+
     display: flex;
 
     flex-direction: column;
 
     align-items: center;
 
-    gap: 7px;
+    justify-content: center;
 
     text-align: center;
+
+    gap: 7px;
 }
 
-.stop-icon {
-    width: 44px;
-    height: 44px;
+.terminal-icon {
+    width: 48px;
+    height: 48px;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     border-radius: 50%;
 
     background:
-        rgba(255,255,255,0.08);
+        rgba(255,255,255,0.10);
 
-    font-size: 20px;
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    color: #93c5fd;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,0.12);
 }
 
-.route-stop span {
-    font-size: 11px;
-
-    color: #cbd5e1;
-
-    line-height: 1.3;
+.terminal-icon svg {
+    width: 25px;
+    height: 25px;
 }
 
-.route-line {
+.campus-icon {
+    color: #60a5fa;
+}
+
+.police-icon {
+    color: #fbbf24;
+}
+
+.route-terminal strong {
+    max-width: 130px;
+
+    color: white;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    line-height: 1.35;
+}
+
+.route-terminal > span {
+    color: #a9c5e8;
+
+    font-size: 8px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   9. MIDDLE ROUTE
+========================================================= */
+
+.route-middle {
     position: relative;
+
+    width: 100%;
+
+    min-width: 0;
+
+    height: 115px;
+
+    display: flex;
+
+    align-items: center;
 }
 
-.route-track {
+
+/* =========================================================
+   10. ROAD / ROUTE LINE
+========================================================= */
+
+.route-line-vertical {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    top: 50%;
+
+    width: 100%;
     height: 7px;
 
-    position: relative;
-
-    background: #334155;
+    transform: translateY(-50%);
 
     border-radius: 20px;
+
+    background:
+        rgba(255,255,255,0.16);
 }
 
-.route-progress {
+
+/* blue progress */
+
+.route-line-vertical .route-progress {
     position: absolute;
 
     left: 0;
     top: 0;
 
-    height: 100%;
-
     width: 0%;
+    height: 100%;
 
     border-radius: 20px;
 
@@ -357,135 +570,364 @@ a {
             #38bdf8
         );
 
-    transition: width 1s linear;
+    transition:
+        width 1s linear;
 }
 
-.bus-marker {
+
+/* =========================================================
+   11. BUS
+========================================================= */
+
+.route-line-vertical .bus-marker {
     position: absolute;
 
-    top: 50%;
     left: 0%;
+
+    top: 50%;
+
+    width: 40px;
+    height: 40px;
 
     transform:
         translate(-50%, -50%);
 
-    width: 38px;
-    height: 38px;
-
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     border-radius: 50%;
 
     background: white;
 
-    color: black;
+    color: #111827;
 
     font-size: 20px;
 
     box-shadow:
-        0 4px 14px rgba(0,0,0,0.3);
+        0 6px 18px rgba(0,0,0,0.28);
 
     transition:
         left 1s linear;
 
-    z-index: 3;
+    z-index: 10;
 }
 
-.route-stops {
+.bus-emoji {
+    position: relative;
+
+    z-index: 5;
+
+    display: block;
+
+    line-height: 1;
+}
+
+
+/* =========================================================
+   12. BUS SMOKE
+========================================================= */
+
+.bus-smoke {
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(203, 213, 225, 0.75);
+
+    pointer-events: none;
+
+    animation:
+        busSmoke 1.2s infinite ease-out;
+}
+
+.going-right .smoke-1 {
+    left: -4px;
+    top: 20px;
+
+    animation-delay: 0s;
+}
+
+.going-right .smoke-2 {
+    left: -10px;
+    top: 14px;
+
+    width: 4px;
+    height: 4px;
+
+    animation-delay: 0.3s;
+}
+
+.going-right .smoke-3 {
+    left: -15px;
+    top: 21px;
+
+    width: 3px;
+    height: 3px;
+
+    animation-delay: 0.6s;
+}
+
+@keyframes busSmoke {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateX(0)
+            translateY(0)
+            scale(0.6);
+    }
+
+    30% {
+        opacity: 0.7;
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translateX(-10px)
+            translateY(-5px)
+            scale(1.5);
+    }
+}
+
+.going-left .bus-emoji {
+    transform:
+        scaleX(-1);
+}
+
+.going-left .smoke-1 {
+    left: auto;
+    right: -4px;
+}
+
+.going-left .smoke-2 {
+    left: auto;
+    right: -10px;
+}
+
+.going-left .smoke-3 {
+    left: auto;
+    right: -15px;
+}
+
+.going-left .bus-smoke {
+    animation-name:
+        busSmokeLeft;
+}
+
+@keyframes busSmokeLeft {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateX(0)
+            translateY(0)
+            scale(0.6);
+    }
+
+    30% {
+        opacity: 0.7;
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translateX(10px)
+            translateY(-5px)
+            scale(1.5);
+    }
+}
+
+
+/* =========================================================
+   13. INTERMEDIATE PICKUP STOPS
+========================================================= */
+
+.pickup-stops {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    top: 50%;
+
+    height: 82px;
+
+    transform:
+        translateY(-50%);
+
     display: flex;
+
+    align-items: flex-start;
 
     justify-content: space-between;
 
-    margin-top: 18px;
+    pointer-events: none;
 }
 
-.route-stops span {
+.pickup-stop {
+    min-width: 75px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #9fb7d8;
+
     font-size: 9px;
 
-    color: #94a3b8;
+    font-weight: 600;
+
+    text-align: center;
+
+    line-height: 1.3;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.pickup-dot {
+    width: 9px;
+    height: 9px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #6b86aa;
+
+    border:
+        2px solid #17437d;
+
+    box-shadow:
+        0 0 0 2px rgba(255,255,255,0.08);
+}
+
+.pickup-stop.selected {
+    color: #bfdbfe;
+
+    font-weight: 800;
+
+    transform:
+        translateY(-2px);
+}
+
+.pickup-stop.selected .pickup-dot {
+    background: #60a5fa;
+
+    box-shadow:
+        0 0 0 4px rgba(96,165,250,0.16);
 }
 
 
-/* =========================================
-   LIVE INFORMATION
-========================================= */
+/* =========================================================
+   14. LIVE INFORMATION
+========================================================= */
 
 .live-info-grid {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+
     display: grid;
 
     grid-template-columns:
-        repeat(4, 1fr);
+        repeat(4, minmax(0, 1fr));
 
     gap: 9px;
 
-    margin-top: 35px;
+    margin-top: 30px;
 }
 
 .live-info-card {
-    background:
-        rgba(255,255,255,0.06);
+    min-width: 0;
+
+    padding: 13px;
 
     border:
-        1px solid rgba(255,255,255,0.07);
+        1px solid rgba(255,255,255,0.08);
 
     border-radius: 12px;
 
-    padding: 13px;
+    background:
+        rgba(255,255,255,0.07);
 }
 
 .live-info-label {
     display: block;
 
+    margin-bottom: 5px;
+
+    color: #9fb7d8;
+
     font-size: 8px;
 
+    font-weight: 700;
+
     letter-spacing: 0.8px;
-
-    color: #94a3b8;
-
-    margin-bottom: 6px;
 }
 
 .live-info-card strong {
     display: block;
 
-    font-size: 14px;
-
     color: white;
+
+    font-size: 13px;
+
+    font-weight: 800;
 }
 
 
-/* =========================================
-   LIVE MESSAGE
-========================================= */
+/* =========================================================
+   15. LIVE MESSAGE
+========================================================= */
 
 .live-message {
-    margin-top: 15px;
+    position: relative;
+    z-index: 2;
 
-    padding: 12px;
+    margin-top: 14px;
 
-    text-align: center;
+    padding: 11px 13px;
 
     border-radius: 10px;
 
     background:
-        rgba(255,255,255,0.06);
+        rgba(255,255,255,0.07);
 
-    color: #cbd5e1;
+    color: #c7d8ee;
 
-    font-size: 12px;
+    font-size: 11px;
+
+    text-align: center;
 }
 
 
-/* =========================================
-   TRAFFIC REPORT
-========================================= */
+/* =========================================================
+   16. TRAFFIC REPORT
+========================================================= */
 
 .traffic-report-box {
-    margin-top: 18px;
+    position: relative;
+    z-index: 2;
+
+    margin-top: 17px;
 
     text-align: center;
 }
@@ -499,9 +941,14 @@ a {
 
     border-radius: 12px;
 
-    padding: 14px 18px;
+    padding: 13px 18px;
 
-    background: #f59e0b;
+    background:
+        linear-gradient(
+            135deg,
+            #f59e0b,
+            #f97316
+        );
 
     color: white;
 
@@ -511,52 +958,57 @@ a {
 
     cursor: pointer;
 
+    box-shadow:
+        0 7px 16px rgba(245,158,11,0.18);
+
     transition:
         transform 0.2s ease,
         opacity 0.2s ease;
 }
 
 .traffic-button:hover {
-    transform: translateY(-1px);
+    transform:
+        translateY(-1px);
 
-    opacity: 0.92;
+    opacity: 0.94;
 }
 
 .traffic-button:active {
-    transform: scale(0.98);
+    transform:
+        scale(0.98);
 }
 
 .traffic-button:disabled {
     cursor: not-allowed;
 
-    opacity: 0.6;
+    opacity: 0.55;
 }
 
 .traffic-status {
-    margin-top: 10px;
+    margin-top: 9px;
 
     padding: 10px;
 
     border-radius: 10px;
 
     background:
-        rgba(255,255,255,0.06);
+        rgba(255,255,255,0.07);
 
-    color: #cbd5e1;
+    color: #c7d8ee;
 
-    font-size: 11px;
+    font-size: 10px;
 
     line-height: 1.5;
 }
 
 .traffic-status.active {
     background:
-        rgba(245,158,11,0.15);
+        rgba(245,158,11,0.14);
 
     color: #fbbf24;
 
     border:
-        1px solid rgba(245,158,11,0.25);
+        1px solid rgba(245,158,11,0.22);
 }
 
 .traffic-status.clear {
@@ -564,40 +1016,44 @@ a {
 }
 
 
-/* =========================================
-   UPCOMING SHUTTLES
-========================================= */
+/* =========================================================
+   17. UPCOMING SHUTTLES
+========================================================= */
 
 .upcoming-section {
-    margin-top: 10px;
+    width: 100%;
 
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 .section-heading {
     display: flex;
 
-    justify-content: space-between;
-
     align-items: center;
+
+    justify-content: space-between;
 
     gap: 15px;
 
-    margin-bottom: 15px;
+    margin-bottom: 14px;
 }
 
 .section-heading h2 {
+    color: #0f172a;
+
     font-size: 20px;
 
-    letter-spacing: -0.4px;
+    font-weight: 800;
+
+    letter-spacing: -0.5px;
 }
 
 .section-heading p {
+    margin-top: 3px;
+
     color: #64748b;
 
     font-size: 11px;
-
-    margin-top: 3px;
 }
 
 #dayType {
@@ -605,7 +1061,7 @@ a {
 
     border-radius: 20px;
 
-    background: #e0ecff;
+    background: #dbeafe;
 
     color: #2563eb;
 
@@ -617,11 +1073,13 @@ a {
 }
 
 
-/* =========================================
-   UPCOMING CARDS
-========================================= */
+/* =========================================================
+   18. SHUTTLE CARDS
+========================================================= */
 
 .shuttle-card {
+    width: 100%;
+
     display: flex;
 
     align-items: center;
@@ -630,18 +1088,39 @@ a {
 
     gap: 15px;
 
-    background: white;
-
-    border: 1px solid #e7ebf2;
-
-    border-radius: 14px;
+    margin-bottom: 9px;
 
     padding: 15px 17px;
 
-    margin-bottom: 9px;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f8fbff
+        );
+
+    border:
+        1px solid #dbeafe;
+
+    border-radius: 15px;
 
     box-shadow:
-        0 4px 15px rgba(15,23,42,0.04);
+        0 6px 18px rgba(37, 99, 235, 0.045);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.shuttle-card:hover {
+    transform:
+        translateY(-2px);
+
+    border-color: #bfdbfe;
+
+    box-shadow:
+        0 10px 24px rgba(37, 99, 235, 0.09);
 }
 
 .shuttle-card-left {
@@ -650,32 +1129,44 @@ a {
     align-items: center;
 
     gap: 12px;
+
+    min-width: 0;
 }
 
 .shuttle-time {
+    color: #0f172a;
+
     font-size: 17px;
 
     font-weight: 800;
 
-    color: #111827;
+    letter-spacing: -0.4px;
+
+    white-space: nowrap;
 }
 
 .shuttle-route {
-    font-size: 10px;
+    margin-top: 2px;
 
     color: #64748b;
+
+    font-size: 10px;
 }
 
 .shuttle-arrival {
-    text-align: right;
+    flex-shrink: 0;
+
+    color: #64748b;
 
     font-size: 10px;
 
-    color: #64748b;
+    text-align: right;
 }
 
 .shuttle-arrival strong {
     display: block;
+
+    margin-top: 1px;
 
     color: #2563eb;
 
@@ -683,24 +1174,70 @@ a {
 }
 
 
-/* =========================================
-   FULL TIMETABLE BUTTON
-========================================= */
+/* =========================================================
+   19. SPECIAL SHUTTLE
+========================================================= */
+
+.special-shuttle {
+    border-color: #f5d48a;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffdf5,
+            #ffffff
+        );
+}
+
+.special-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+    margin-left: 7px;
+
+    padding: 4px 8px;
+
+    border-radius: 20px;
+
+    background: #fff4cf;
+
+    color: #a16207;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    vertical-align: middle;
+}
+
+
+/* =========================================================
+   20. FULL TIMETABLE BUTTON
+========================================================= */
 
 .full-timetable-button {
-    display: flex;
-
     width: 100%;
 
     min-height: 50px;
 
-    align-items: center;
+    display: flex;
 
+    align-items: center;
     justify-content: center;
+
+    margin: 20px 0;
 
     border-radius: 14px;
 
-    background: #2563eb;
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #3b82f6
+        );
 
     color: white;
 
@@ -708,29 +1245,34 @@ a {
 
     font-weight: 800;
 
-    margin: 20px 0;
+    box-shadow:
+        0 9px 22px rgba(37, 99, 235, 0.20);
 
     transition:
         transform 0.2s ease,
-        background 0.2s ease;
+        box-shadow 0.2s ease;
 }
 
 .full-timetable-button:hover {
-    background: #1d4ed8;
+    transform:
+        translateY(-1px);
 
-    transform: translateY(-1px);
+    box-shadow:
+        0 12px 26px rgba(37, 99, 235, 0.25);
 }
 
 
-/* =========================================
-   INFORMATION CARDS
-========================================= */
+/* =========================================================
+   21. INFORMATION CARDS
+========================================================= */
 
 .info-grid {
+    width: 100%;
+
     display: grid;
 
     grid-template-columns:
-        1fr 1fr;
+        repeat(2, minmax(0, 1fr));
 
     gap: 12px;
 
@@ -738,19 +1280,39 @@ a {
 }
 
 .info-card {
+    min-width: 0;
+
     display: flex;
 
     align-items: center;
 
     gap: 12px;
 
-    background: white;
+    padding: 16px;
 
-    border: 1px solid #e7ebf2;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f8fbff
+        );
+
+    border:
+        1px solid #dbeafe;
 
     border-radius: 14px;
 
-    padding: 16px;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.info-card:hover {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 22px rgba(37, 99, 235, 0.07);
 }
 
 .info-card > span {
@@ -758,69 +1320,139 @@ a {
 }
 
 .info-card p {
+    margin-bottom: 2px;
+
     color: #64748b;
 
     font-size: 9px;
-
-    margin-bottom: 2px;
 }
 
 .info-card strong {
-    font-size: 12px;
+    color: #0f172a;
 
-    color: #111827;
+    font-size: 12px;
 }
 
 
-/* =========================================
-   FOOTER
-========================================= */
+/* =========================================================
+   22. INSTALL APP
+========================================================= */
+
+.install-app-button {
+    width: 100%;
+
+    min-height: 50px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 20px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0f3f87,
+            #2563eb
+        );
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 9px 22px rgba(37, 99, 235, 0.18);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.install-app-button:hover {
+    transform:
+        translateY(-1px);
+
+    box-shadow:
+        0 12px 26px rgba(37, 99, 235, 0.24);
+}
+
+
+/* =========================================================
+   23. FOOTER
+========================================================= */
 
 footer {
-    text-align: center;
+    width: 100%;
 
-    padding: 25px 15px 35px;
+    padding:
+        25px
+        15px
+        35px;
 
-    color: #94a3b8;
+    color: #64748b;
 
     font-size: 10px;
 
     line-height: 1.7;
+
+    text-align: center;
 }
 
 
-/* =========================================
-   TIMETABLE PAGE
-========================================= */
+/* =========================================================
+   24. TIMETABLE PAGE
+========================================================= */
 
 .timetable-container {
     width: 100%;
 
     max-width: 1000px;
 
-    margin: auto;
+    margin: 0 auto;
 
-    padding: 35px 24px 50px;
+    padding: 30px 24px 50px;
 }
 
 .timetable-intro {
-    background: white;
-
     padding: 25px;
+
+    margin-bottom: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f8fbff
+        );
+
+    border:
+        1px solid #dbeafe;
 
     border-radius: 20px;
 
-    border: 1px solid #e7ebf2;
-
-    margin-bottom: 20px;
+    box-shadow:
+        0 8px 25px rgba(37, 99, 235, 0.05);
 }
 
 .timetable-intro h1 {
+    margin-bottom: 8px;
+
+    color: #0f172a;
+
     font-size: 30px;
 
-    letter-spacing: -0.8px;
+    font-weight: 800;
 
-    margin-bottom: 8px;
+    letter-spacing: -0.8px;
 }
 
 .timetable-intro p {
@@ -841,6 +1473,9 @@ footer {
     color: #1d4ed8;
 
     font-size: 11px;
+
+    border:
+        1px solid #dbeafe;
 }
 
 .schedule-tabs {
@@ -860,19 +1495,24 @@ footer {
 
     border-radius: 10px;
 
-    background: #e8edf5;
+    background: #dbeafe;
 
     color: #475569;
 
-    font-weight: 700;
-
     font-size: 11px;
+
+    font-weight: 700;
 
     cursor: pointer;
 }
 
 .schedule-tab.active {
-    background: #2563eb;
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #3b82f6
+        );
 
     color: white;
 }
@@ -892,11 +1532,17 @@ footer {
 
     justify-content: space-between;
 
+    gap: 10px;
+
     margin-bottom: 12px;
 }
 
 .schedule-heading h2 {
+    color: #0f172a;
+
     font-size: 20px;
+
+    font-weight: 800;
 }
 
 .trip-count {
@@ -908,15 +1554,17 @@ footer {
 .table-wrapper {
     width: 100%;
 
-    overflow-x: hidden;
+    overflow: hidden;
 
     background: white;
 
+    border:
+        1px solid #dbeafe;
+
     border-radius: 15px;
 
-    border: 1px solid #e7ebf2;
-
-    overflow: hidden;
+    box-shadow:
+        0 7px 20px rgba(37, 99, 235, 0.045);
 }
 
 .table-wrapper table {
@@ -928,13 +1576,15 @@ footer {
 }
 
 .table-wrapper th {
-    background: #f1f5f9;
+    padding: 12px;
 
-    color: #475569;
+    background: #eff6ff;
+
+    color: #1e40af;
 
     font-size: 11px;
 
-    padding: 12px;
+    font-weight: 800;
 
     text-align: center;
 }
@@ -942,11 +1592,14 @@ footer {
 .table-wrapper td {
     padding: 11px;
 
-    text-align: center;
+    border-top:
+        1px solid #edf2f7;
+
+    color: #334155;
 
     font-size: 12px;
 
-    border-top: 1px solid #edf1f5;
+    text-align: center;
 }
 
 .route-info {
@@ -954,37 +1607,47 @@ footer {
 
     padding: 18px;
 
-    background: white;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f8fbff
+        );
+
+    border:
+        1px solid #dbeafe;
 
     border-radius: 15px;
 
-    border: 1px solid #e7ebf2;
+    color: #475569;
 
     font-size: 12px;
-
-    color: #475569;
 
     line-height: 1.7;
 }
 
 .home-button {
-    display: flex;
-
     width: 100%;
 
     min-height: 48px;
 
-    align-items: center;
+    display: flex;
 
+    align-items: center;
     justify-content: center;
 
     margin-top: 20px;
 
-    background: #2563eb;
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #3b82f6
+        );
 
     color: white;
-
-    border-radius: 12px;
 
     font-size: 12px;
 
@@ -992,14 +1655,18 @@ footer {
 }
 
 
-/* =========================================
-   MOBILE
-========================================= */
+/* =========================================================
+   25. MOBILE
+========================================================= */
 
 @media (max-width: 600px) {
 
     .brand {
-        padding: 17px 18px;
+        min-height: 68px;
+
+        padding:
+            14px
+            16px;
     }
 
     .brand-icon {
@@ -1021,16 +1688,34 @@ footer {
 
     .container {
         padding:
-            18px
-            14px
+            17px
+            12px
             35px;
     }
 
 
     .location-card {
-        padding: 17px;
+        padding: 16px;
 
-        border-radius: 15px;
+        border-radius: 16px;
+    }
+
+
+    .stop-selector {
+        grid-template-columns: 1fr;
+
+        gap: 7px;
+    }
+
+
+    .stop-option {
+        min-height: 44px;
+
+        text-align: left;
+
+        padding:
+            8px
+            13px;
     }
 
 
@@ -1046,52 +1731,84 @@ footer {
     }
 
 
-    .live-route {
-        grid-template-columns:
-            58px
-            minmax(0, 1fr)
-            58px;
+    .live-indicator {
+        padding:
+            6px
+            9px;
 
-        gap: 7px;
-
-        margin-top: 28px;
+        font-size: 9px;
     }
 
 
-    .stop-icon {
-        width: 36px;
-        height: 36px;
+    .live-route {
+        grid-template-columns:
+            72px
+            minmax(0, 1fr)
+            78px;
+
+        gap: 6px;
+
+        min-height: 155px;
+
+        margin-top: 27px;
+    }
+
+
+    .route-terminal strong {
+        max-width: 75px;
+
+        font-size: 8px;
+    }
+
+
+    .route-terminal > span {
+        font-size: 7px;
+    }
+
+
+    .terminal-icon {
+        width: 38px;
+        height: 38px;
+    }
+
+
+    .terminal-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+
+    .route-middle {
+        height: 100px;
+    }
+
+
+    .pickup-stop {
+        min-width: 43px;
+
+        font-size: 7px;
+
+        white-space: normal;
+    }
+
+
+    .pickup-dot {
+        width: 8px;
+        height: 8px;
+    }
+
+
+    .route-line-vertical .bus-marker {
+        width: 33px;
+        height: 33px;
 
         font-size: 16px;
     }
 
 
-    .route-stop span {
-        font-size: 8px;
-    }
-
-
-    .route-stops {
-        margin-top: 15px;
-    }
-
-
-    .route-stops span {
-        font-size: 7px;
-    }
-
-
-    .bus-marker {
-        width: 34px;
-        height: 34px;
-
-        font-size: 17px;
-    }
-
-
     .live-info-grid {
         grid-template-columns:
-            1fr 1fr;
+            repeat(2, minmax(0, 1fr));
 
         gap: 8px;
 
@@ -1109,13 +1826,9 @@ footer {
     }
 
 
-    .info-grid {
-        grid-template-columns: 1fr;
-    }
-
-
     .shuttle-card {
-        padding: 13px;
+        padding:
+            13px;
     }
 
 
@@ -1124,13 +1837,50 @@ footer {
     }
 
 
+    .shuttle-route {
+        font-size: 9px;
+    }
+
+
+    .shuttle-arrival {
+        font-size: 9px;
+    }
+
+
+    .shuttle-arrival strong {
+        font-size: 11px;
+    }
+
+
+    .special-badge {
+        display: block;
+
+        width: fit-content;
+
+        margin:
+            4px
+            0
+            0;
+    }
+
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+
     .timetable-container {
-        padding: 20px 10px 40px;
+        padding:
+            20px
+            10px
+            40px;
     }
 
 
     .timetable-intro {
-        padding: 18px 14px;
+        padding:
+            18px
+            14px;
     }
 
 
@@ -1139,40 +1889,27 @@ footer {
     }
 
 
-    .schedule-tab {
-        font-size: 9px;
+    .schedule-tabs {
+        gap: 5px;
+    }
 
+
+    .schedule-tab {
         padding:
             10px
             4px;
-    }
 
-
-    .table-wrapper {
-        width: 100%;
-
-        overflow-x: hidden;
-    }
-
-
-    .table-wrapper table {
-        width: 100%;
-
-        min-width: 0;
-
-        table-layout: fixed;
+        font-size: 9px;
     }
 
 
     .table-wrapper th,
     .table-wrapper td {
-        width: 50%;
-
         padding:
             10px
             3px;
 
-        font-size: 11px;
+        font-size: 10px;
 
         white-space: nowrap;
     }
@@ -1181,25 +1918,24 @@ footer {
     .table-wrapper th {
         font-size: 9px;
     }
-
 }
 
 
-/* =========================================
-   VERY SMALL PHONES
-========================================= */
+/* =========================================================
+   26. VERY SMALL PHONES
+========================================================= */
 
 @media (max-width: 380px) {
 
     .container {
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 9px;
+        padding-right: 9px;
     }
 
 
     .brand {
-        padding-left: 14px;
-        padding-right: 14px;
+        padding-left: 13px;
+        padding-right: 13px;
     }
 
 
@@ -1215,610 +1951,64 @@ footer {
 
     .live-route {
         grid-template-columns:
-            48px
+            62px
             minmax(0, 1fr)
-            48px;
+            68px;
+
+        gap: 4px;
     }
 
 
-    .route-stop span {
+    .route-terminal strong {
+        max-width: 65px;
+
         font-size: 7px;
     }
 
-
-    .route-stops span {
-        font-size: 6px;
-    }
-
-
-    .table-wrapper th,
-    .table-wrapper td {
-        padding: 8px 2px;
-
-        font-size: 10px;
-    }
-
-}
-/* =========================================
-   INSTALL APP BUTTON
-========================================= */
-
-.install-app-button {
-    width: 100%;
-
-    min-height: 50px;
-
-    align-items: center;
-    justify-content: center;
-
-    margin-bottom: 20px;
-
-    border: none;
-    border-radius: 14px;
-
-    background: #111827;
-    color: white;
-
-    font-family: inherit;
-
-    font-size: 13px;
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.2s ease,
-        background 0.2s ease;
-}
-
-.install-app-button:hover {
-    background: #1f2937;
-    transform: translateY(-1px);
-}
-
-.install-app-button:active {
-    transform: scale(0.98);
-}
-/* =========================================
-   STOP SELECTOR
-========================================= */
-
-.pickup-title {
-    font-size: 13px;
-    font-weight: 800;
-    color: #111827;
-    margin-bottom: 12px;
-}
-
-.stop-selector {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-}
-
-.stop-option {
-    min-height: 46px;
-
-    padding: 8px 10px;
-
-    border: 1px solid #dbe2ea;
-    border-radius: 11px;
-
-    background: #f8fafc;
-    color: #475569;
-
-    font-family: inherit;
-    font-size: 11px;
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease;
-}
-
-.stop-option:hover {
-    transform: translateY(-1px);
-}
-
-.stop-option.active {
-    background: #eff6ff;
-    border-color: #2563eb;
-    color: #2563eb;
-}
-
-
-/* =========================================
-   NEW ROUTE LAYOUT
-========================================= */
-
-/* =========================================
-   HORIZONTAL LIVE ROUTE
-========================================= */
-
-.live-route {
-    display: grid;
-
-    grid-template-columns:
-        115px
-        1fr
-        115px;
-
-    align-items: center;
-
-    gap: 18px;
-
-    margin-top: 38px;
-
-    min-height: 150px;
-}
-
-
-/* =========================================
-   TERMINAL STOPS
-========================================= */
-
-.route-terminal {
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    text-align: center;
-
-    gap: 7px;
-}
-
-.terminal-icon {
-    width: 46px;
-    height: 46px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background:
-        rgba(255,255,255,0.09);
-
-    font-size: 20px;
-}
-
-.route-terminal strong {
-    color: white;
-
-    font-size: 10px;
-
-    line-height: 1.35;
-}
-
-.route-terminal > span {
-    color: #94a3b8;
-
-    font-size: 8px;
-}
-
-
-/* =========================================
-   HORIZONTAL ROUTE
-========================================= */
-
-.route-middle {
-    position: relative;
-
-    width: 100%;
-
-    padding-bottom: 45px;
-}
-
-
-/* Main horizontal road */
-
-.route-line-vertical {
-    position: relative;
-
-    width: 100%;
-
-    height: 7px;
-
-    border-radius: 20px;
-
-    background: #334155;
-}
-
-
-/* Progress */
-
-.route-line-vertical .route-progress {
-    position: absolute;
-
-    left: 0;
-    top: 0;
-
-    width: 0%;
-    height: 100%;
-
-    border-radius: 20px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #60a5fa,
-            #38bdf8
-        );
-
-    transition: width 1s linear;
-}
-
-
-/* Bus */
-
-.route-line-vertical .bus-marker {
-    position: absolute;
-
-    left: 0%;
-    top: 50%;
-
-    transform:
-        translate(-50%, -50%);
-
-    width: 38px;
-    height: 38px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: white;
-
-    font-size: 19px;
-
-    box-shadow:
-        0 4px 14px rgba(0,0,0,0.3);
-
-    transition:
-        left 1s linear;
-
-    z-index: 5;
-}
-
-
-/* =========================================
-   PICKUP STOPS
-========================================= */
-
-.pickup-stops {
-    position: absolute;
-
-    left: 0;
-    right: 0;
-
-    top: 25px;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: flex-start;
-}
-
-.pickup-stop {
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 6px;
-
-    color: #94a3b8;
-
-    font-size: 9px;
-
-    text-align: center;
-
-    min-width: 80px;
-
-    transition:
-        color 0.2s ease,
-        transform 0.2s ease;
-}
-
-.pickup-dot {
-    width: 9px;
-    height: 9px;
-
-    border-radius: 50%;
-
-    background: #64748b;
-
-    border: 2px solid #1e293b;
-
-    box-shadow:
-        0 0 0 2px #334155;
-}
-
-.pickup-stop.selected {
-    color: #60a5fa;
-
-    font-weight: 800;
-
-    transform: translateY(-2px);
-}
-
-.pickup-stop.selected .pickup-dot {
-    background: #60a5fa;
-
-    box-shadow:
-        0 0 0 4px rgba(96,165,250,0.15);
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 600px) {
-
-    .live-route {
-        grid-template-columns:
-            75px
-            1fr
-            75px;
-
-        gap: 8px;
-
-        min-height: 130px;
-
-        margin-top: 30px;
-    }
-
-    .terminal-icon {
-        width: 38px;
-        height: 38px;
-
-        font-size: 16px;
-    }
-
-    .route-terminal strong {
-        font-size: 8px;
-    }
 
     .route-terminal > span {
-        font-size: 7px;
+        font-size: 6px;
     }
 
-    .route-middle {
-        padding-bottom: 40px;
+
+    .terminal-icon {
+        width: 34px;
+        height: 34px;
     }
+
+
+    .terminal-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
 
     .pickup-stop {
-        min-width: 55px;
+        min-width: 36px;
 
-        font-size: 7px;
+        font-size: 6px;
     }
 
-    .pickup-dot {
-        width: 7px;
-        height: 7px;
-    }
 
     .route-line-vertical .bus-marker {
-        width: 32px;
-        height: 32px;
+        width: 30px;
+        height: 30px;
 
-        font-size: 16px;
-    }
-}
-
-
-/* =========================================
-   VERY SMALL PHONES
-========================================= */
-
-@media (max-width: 380px) {
-
-    .live-route {
-        grid-template-columns:
-            65px
-            1fr
-            65px;
+        font-size: 14px;
     }
 
-    .pickup-stop {
-        font-size: 6px;
-        min-width: 45px;
+
+    .live-info-card {
+        padding: 9px;
     }
 
-    .route-terminal strong {
+
+    .live-info-label {
         font-size: 7px;
     }
 
-}
-/* =========================================
-   BUS DIRECTION + SMOKE
-========================================= */
 
-.bus-marker {
-    position: absolute;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 38px;
-    height: 38px;
-
-    z-index: 10;
-}
-
-
-/* Bus */
-
-.bus-emoji {
-    position: relative;
-
-    z-index: 5;
-
-    display: block;
-
-    font-size: 20px;
-
-    line-height: 1;
-
-    transition: transform 0.3s ease;
-}
-
-
-/* Smoke */
-
-.bus-smoke {
-    position: absolute;
-
-    width: 5px;
-    height: 5px;
-
-    border-radius: 50%;
-
-    background: rgba(203, 213, 225, 0.65);
-
-    pointer-events: none;
-
-    animation: busSmoke 1.2s infinite ease-out;
-}
-
-
-/* Smoke positions when going RIGHT */
-
-.going-right .smoke-1 {
-    left: -5px;
-    top: 20px;
-    animation-delay: 0s;
-}
-
-.going-right .smoke-2 {
-    left: -10px;
-    top: 14px;
-    width: 4px;
-    height: 4px;
-    animation-delay: 0.3s;
-}
-
-.going-right .smoke-3 {
-    left: -15px;
-    top: 21px;
-    width: 3px;
-    height: 3px;
-    animation-delay: 0.6s;
-}
-
-
-/* Smoke animation */
-
-@keyframes busSmoke {
-
-    0% {
-        opacity: 0;
-        transform: translateX(0) scale(0.6);
+    .live-info-card strong {
+        font-size: 11px;
     }
-
-    30% {
-        opacity: 0.7;
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateX(-10px) translateY(-5px) scale(1.5);
-    }
-}
-
-
-/* =========================================
-   GOING LEFT
-========================================= */
-
-.going-left .bus-emoji {
-    transform: scaleX(-1);
-}
-
-.going-left .smoke-1 {
-    left: auto;
-    right: -5px;
-    top: 20px;
-}
-
-.going-left .smoke-2 {
-    left: auto;
-    right: -10px;
-    top: 14px;
-}
-
-.going-left .smoke-3 {
-    left: auto;
-    right: -15px;
-    top: 21px;
-}
-
-
-/* Smoke moves backward when going LEFT */
-
-.going-left .bus-smoke {
-    animation-name: busSmokeLeft;
-}
-
-@keyframes busSmokeLeft {
-
-    0% {
-        opacity: 0;
-        transform: translateX(0) translateY(0) scale(0.6);
-    }
-
-    30% {
-        opacity: 0.7;
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateX(10px) translateY(-5px) scale(1.5);
-    }
-}
-/* =========================================
-   SPECIAL / EXTRA SHUTTLE
-========================================= */
-
-.special-shuttle {
-    position: relative;
-    border-color: #f5d48a;
-    background: #fffdf7;
-}
-
-.special-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-
-    margin-left: 8px;
-
-    padding: 4px 8px;
-
-    border-radius: 20px;
-
-    background: #fff4cf;
-    color: #a16207;
-
-    font-size: 9px;
-    font-weight: 800;
-
-    vertical-align: middle;
-}
+}   
