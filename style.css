@@ -2152,3 +2152,574 @@ footer {
     }
 
 }   
+/* =========================================
+   PEER ASSIST
+========================================= */
+
+.peer-assist-section {
+    margin-top: 28px;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid #dbe7f5;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(15, 55, 100, 0.06);
+}
+
+
+.peer-assist-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+
+.peer-assist-header h2 {
+    margin: 5px 0 6px;
+    color: #123b72;
+    font-size: 22px;
+}
+
+
+.peer-assist-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+.section-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: #2563eb;
+}
+
+
+.peer-assist-button {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+
+.peer-assist-button:hover {
+    background: #1d4ed8;
+}
+
+
+/* =========================================
+   ACTIVE REQUESTS
+========================================= */
+
+.peer-requests-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+
+.peer-request-card {
+    position: relative;
+    padding: 18px;
+    background: #f8fbff;
+    border: 1px solid #dbe7f5;
+    border-left: 4px solid #2563eb;
+    border-radius: 16px;
+    transition: 0.2s ease;
+}
+
+.peer-request-card:hover {
+    border-color: #93c5fd;
+    border-left-color: #2563eb;
+    transform: translateY(-1px);
+}
+
+
+.peer-request-card:hover {
+    border-color: #93c5fd;
+    transform: translateY(-1px);
+}
+
+
+.peer-request-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+
+.peer-request-route {
+    font-size: 13px;
+    font-weight: 800;
+    color: #123b72;
+}
+
+
+.peer-request-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 9px;
+    border-radius: 20px;
+    background: #dcfce7;
+    color: #15803d;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+}
+
+.peer-request-status::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22c55e;
+}
+
+
+.peer-request-time {
+    margin-bottom: 10px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+
+.peer-request-text {
+    padding: 12px;
+    margin-bottom: 14px;
+    background: #ffffff;
+    border-radius: 12px;
+    color: #334155;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+.peer-request-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+
+.peer-request-name {
+    color: #64748b;
+    font-size: 12px;
+}
+
+
+.peer-chat-button {
+    border: none;
+    padding: 9px 13px;
+    border-radius: 10px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+
+.peer-chat-button:hover {
+    background: #dbeafe;
+}
+
+
+.peer-empty {
+    grid-column: 1 / -1;
+    padding: 25px;
+    text-align: center;
+    color: #64748b;
+    background: #f8fbff;
+    border: 1px dashed #cbd5e1;
+    border-radius: 14px;
+    font-size: 13px;
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+.peer-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(5px);
+}
+
+
+.peer-modal.active {
+    display: flex;
+}
+
+
+.peer-modal-content,
+.peer-chat-content {
+    width: min(520px, 100%);
+    max-height: 90vh;
+    overflow: hidden;
+    background: #ffffff;
+    border-radius: 22px;
+    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.25);
+}
+
+
+.peer-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 22px 24px;
+    border-bottom: 1px solid #e5edf7;
+}
+
+
+.peer-modal-header h2 {
+    margin: 5px 0 0;
+    color: #123b72;
+    font-size: 20px;
+}
+
+
+.peer-close-button {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 23px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+
+.peer-close-button:hover {
+    background: #e2e8f0;
+}
+
+
+/* =========================================
+   PEER FORM
+========================================= */
+
+.peer-form {
+    padding: 22px 24px 24px;
+    overflow-y: auto;
+    max-height: calc(90vh - 90px);
+}
+
+
+.peer-form label {
+    display: block;
+    margin: 14px 0 7px;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+.peer-form label:first-child {
+    margin-top: 0;
+}
+
+
+.peer-form input,
+.peer-form select,
+.peer-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #cbd5e1;
+    border-radius: 11px;
+    padding: 11px 12px;
+    background: #ffffff;
+    color: #1e293b;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+
+.peer-form input:focus,
+.peer-form select:focus,
+.peer-form textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px #dbeafe;
+}
+
+
+.peer-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+
+.peer-submit-button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 13px;
+    border: none;
+    border-radius: 12px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+
+.peer-submit-button:hover {
+    background: #1d4ed8;
+}
+
+
+/* =========================================
+   CHAT
+========================================= */
+
+.peer-chat-content {
+    display: flex;
+    flex-direction: column;
+    height: min(650px, 90vh);
+}
+
+
+.peer-chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background: #f8fbff;
+}
+
+
+.peer-message {
+    max-width: 80%;
+    margin-bottom: 12px;
+    padding: 10px 13px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 13px;
+}
+
+
+.peer-message-name {
+    margin-bottom: 3px;
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+
+.peer-message-text {
+    color: #334155;
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+
+.peer-message-time {
+    margin-top: 4px;
+    color: #94a3b8;
+    font-size: 9px;
+}
+
+
+.peer-chat-input {
+    display: flex;
+    gap: 8px;
+    padding: 14px;
+    background: #ffffff;
+    border-top: 1px solid #e5edf7;
+}
+
+
+.peer-chat-input input {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid #cbd5e1;
+    border-radius: 11px;
+    padding: 11px 12px;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+
+.peer-chat-input input:focus {
+    border-color: #2563eb;
+}
+
+
+.peer-chat-input button {
+    width: 44px;
+    border: none;
+    border-radius: 11px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .peer-assist-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+
+    .peer-assist-button {
+        width: 100%;
+    }
+
+
+    .peer-requests-list {
+        grid-template-columns: 1fr;
+    }
+
+
+    .peer-assist-section {
+        padding: 18px;
+    }
+
+
+    .peer-assist-header h2 {
+        font-size: 19px;
+    }
+
+
+    .peer-modal {
+        padding: 10px;
+    }
+
+
+    .peer-modal-content,
+    .peer-chat-content {
+        border-radius: 18px;
+    }
+
+}
+/* =========================================
+   PEER ASSIST MOBILE IMPROVEMENTS
+========================================= */
+
+.peer-request-card {
+    padding: 15px;
+}
+
+.peer-request-top {
+    align-items: flex-start;
+}
+
+.peer-request-route {
+    max-width: 65%;
+    line-height: 1.4;
+}
+
+.peer-request-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.peer-chat-button {
+    width: 100%;
+    padding: 11px;
+}
+
+.peer-request-text {
+    font-size: 13px;
+}
+
+.peer-request-time {
+    font-size: 11px;
+}
+
+.peer-modal-header {
+    padding: 18px;
+}
+
+.peer-modal-header h2 {
+    font-size: 18px;
+}
+
+.peer-form {
+    padding: 18px;
+}
+
+.peer-chat-content {
+    width: 100%;
+    height: 92vh;
+}
+
+.peer-chat-messages {
+    padding: 15px;
+}
+
+.peer-message {
+    max-width: 88%;
+}
+
+.peer-chat-input {
+    padding: 10px;
+}
+
+.peer-chat-input input {
+    font-size: 13px;
+}
+
+.peer-close-request-button {
+    font-size: 10px;
+    padding: 7px 9px;
+}
+/* =========================================
+   CLOSE PEER REQUEST
+========================================= */
+
+.peer-close-request-button {
+    margin-left: auto;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 9px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.peer-close-request-button:hover {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+.peer-college-id {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 3px 7px;
+    border-radius: 6px;
+    background: #eaf2ff;
+    color: #2563eb;
+    font-size: 10px;
+    font-weight: 700;
+}

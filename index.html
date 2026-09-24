@@ -468,7 +468,290 @@
         </div>
 
     </div>
+<!-- =========================================
+     PEER ASSIST
+========================================= -->
 
+<section class="peer-assist-section">
+
+    <div class="peer-assist-header">
+
+        <div>
+
+            <div class="section-label">
+                PEER ASSIST
+            </div>
+
+            <h2>
+                🤝 Need something brought along the route?
+            </h2>
+
+            <p>
+                Ask a fellow student who is already travelling
+                between campus and Sarjapur.
+            </p>
+
+        </div>
+
+        <button
+            id="openPeerAssistButton"
+            class="peer-assist-button"
+        >
+            💬 Ask for Help
+        </button>
+
+    </div>
+
+
+    <!-- ACTIVE REQUESTS -->
+
+    <div
+        id="peerRequestsList"
+        class="peer-requests-list"
+    >
+
+        <div class="peer-empty">
+
+            No active requests right now.
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     PEER ASSIST MODAL
+========================================= -->
+
+<div
+    id="peerAssistModal"
+    class="peer-modal"
+>
+
+    <div class="peer-modal-content">
+
+        <div class="peer-modal-header">
+
+            <div>
+
+                <div class="section-label">
+                    PEER ASSIST
+                </div>
+
+                <h2>
+                    Ask your peers
+                </h2>
+
+            </div>
+
+            <button
+                id="closePeerAssistButton"
+                class="peer-close-button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="peer-form">
+
+            <label>
+                From
+            </label>
+
+            <select
+                id="peerFrom"
+            >
+
+                <option value="">
+                    Select starting point
+                </option>
+
+                <option value="APU Campus">
+                    APU Campus
+                </option>
+
+                <option value="Hanuman Temple">
+                    Hanuman Temple
+                </option>
+
+                <option value="Confident">
+                    Confident
+                </option>
+
+                <option value="Sarjapur Police Station">
+                    Sarjapur Police Station
+                </option>
+                <option value="Wawe">
+    Wawe
+</option>
+
+<option value="D-Mart">
+    D-Mart
+</option>
+
+            </select>
+
+
+            <label>
+                To
+            </label>
+
+            <select
+                id="peerTo"
+            >
+
+                <option value="">
+                    Select destination
+                </option>
+
+                <option value="APU Campus">
+                    APU Campus
+                </option>
+
+                <option value="Hanuman Temple">
+                    Hanuman Temple
+                </option>
+
+                <option value="Confident">
+                    Confident
+                </option>
+
+                <option value="Sarjapur Police Station">
+                    Sarjapur Police Station
+                </option>
+                    <option value="Wawe">
+        Wawe
+    </option>
+
+    <option value="D-Mart">
+        D-Mart
+    </option>
+
+
+            </select>
+
+
+            <label>
+                Around what time?
+            </label>
+
+            <input
+                type="time"
+                id="peerTravelTime"
+            >
+
+
+            <label>
+                What do you need?
+            </label>
+
+            <textarea
+                id="peerRequestText"
+                rows="4"
+                placeholder="Example: Can someone bring my medicine from Sarjapur?"
+            ></textarea>
+
+
+            <label>
+    Your name
+</label>
+
+<input
+    type="text"
+    id="peerName"
+    placeholder="Enter your name"
+>
+
+
+<label>
+    College ID
+</label>
+
+<input
+    type="text"
+    id="peerCollegeId"
+    placeholder="Enter your college ID"
+>
+
+
+            <button
+                id="submitPeerRequestButton"
+                class="peer-submit-button"
+            >
+                Post Request
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     PEER CHAT MODAL
+========================================= -->
+
+<div
+    id="peerChatModal"
+    class="peer-modal"
+>
+
+    <div class="peer-chat-content">
+
+        <div class="peer-modal-header">
+
+            <div>
+
+                <div class="section-label">
+                    PEER ASSIST
+                </div>
+
+                <h2 id="peerChatTitle">
+                    Chat
+                </h2>
+
+            </div>
+
+            <button
+                id="closePeerChatButton"
+                class="peer-close-button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            id="peerChatMessages"
+            class="peer-chat-messages"
+        ></div>
+
+
+        <div class="peer-chat-input">
+
+            <input
+                type="text"
+                id="peerMessageInput"
+                placeholder="Write a message..."
+            >
+
+            <button
+                id="sendPeerMessageButton"
+            >
+                ➤
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 </section>
 
 

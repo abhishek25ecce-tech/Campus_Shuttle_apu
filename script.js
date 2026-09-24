@@ -1730,3 +1730,1271 @@ stopOptions.forEach(option => {
     });
 
 });
+/* =========================================================
+   PEER ASSIST FRONTEND
+========================================================= */
+
+
+/* =========================================================
+   PEER ASSIST ELEMENTS
+========================================================= */
+
+const openPeerAssistButton =
+    document.getElementById(
+        "openPeerAssistButton"
+    );
+
+const closePeerAssistButton =
+    document.getElementById(
+        "closePeerAssistButton"
+    );
+
+const closePeerChatButton =
+    document.getElementById(
+        "closePeerChatButton"
+    );
+
+const peerAssistModal =
+    document.getElementById(
+        "peerAssistModal"
+    );
+
+const peerChatModal =
+    document.getElementById(
+        "peerChatModal"
+    );
+
+const submitPeerRequestButton =
+    document.getElementById(
+        "submitPeerRequestButton"
+    );
+
+const peerRequestsList =
+    document.getElementById(
+        "peerRequestsList"
+    );
+
+const peerChatMessages =
+    document.getElementById(
+        "peerChatMessages"
+    );
+
+const sendPeerMessageButton =
+    document.getElementById(
+        "sendPeerMessageButton"
+    );
+
+const peerMessageInput =
+    document.getElementById(
+        "peerMessageInput"
+    );
+
+const peerChatTitle =
+    document.getElementById(
+        "peerChatTitle"
+    );
+
+
+/* =========================================================
+   CURRENT CHAT REQUEST
+========================================================= */
+
+let currentPeerRequestId = null;
+
+let peerMessageRefreshTimer = null;
+
+
+/* =========================================================
+   OPEN REQUEST MODAL
+========================================================= */
+
+if (openPeerAssistButton) {
+
+    openPeerAssistButton.addEventListener(
+        "click",
+        () => {
+
+            peerAssistModal.classList.add(
+                "active"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE REQUEST MODAL
+========================================================= */
+
+if (closePeerAssistButton) {
+
+    closePeerAssistButton.addEventListener(
+        "click",
+        () => {
+
+            peerAssistModal.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE CHAT MODAL
+========================================================= */
+
+if (closePeerChatButton) {
+
+    closePeerChatButton.addEventListener(
+        "click",
+        () => {
+
+            closePeerChat();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE WHEN CLICKING OUTSIDE
+========================================================= */
+
+if (peerAssistModal) {
+
+    peerAssistModal.addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target ===
+                peerAssistModal
+            ) {
+
+                peerAssistModal.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+if (peerChatModal) {
+
+    peerChatModal.addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target ===
+                peerChatModal
+            ) {
+
+                closePeerChat();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CREATE PEER REQUEST
+========================================================= */
+
+if (submitPeerRequestButton) {
+
+    submitPeerRequestButton.addEventListener(
+        "click",
+        createPeerRequestFromWebsite
+    );
+
+}
+
+
+async function createPeerRequestFromWebsite() {
+
+    const from =
+        document.getElementById(
+            "peerFrom"
+        ).value;
+
+    const to =
+        document.getElementById(
+            "peerTo"
+        ).value;
+
+    const travelTime =
+        document.getElementById(
+            "peerTravelTime"
+        ).value;
+
+    const request =
+        document.getElementById(
+            "peerRequestText"
+        ).value.trim();
+
+    const name =
+        document.getElementById(
+            "peerName"
+        ).value.trim();
+    const collegeId =
+    document.getElementById(
+        "peerCollegeId"
+    ).value.trim();    
+
+
+    if (!from) {
+
+        alert(
+            "Please select where you are starting from."
+        );
+
+        return;
+
+    }
+
+
+    if (!to) {
+
+        alert(
+            "Please select where you are going."
+        );
+
+        return;
+
+    }
+
+
+    if (from === to) {
+
+        alert(
+            "Starting point and destination cannot be the same."
+        );
+
+        return;
+
+    }
+
+
+    if (!request) {
+
+        alert(
+            "Please write what you need help with."
+        );
+
+        return;
+
+    }
+
+
+    if (!name) {
+
+        alert(
+            "Please enter your name."
+        );
+
+        return;
+
+    }
+    if (!collegeId) {
+
+    alert(
+        "Please enter your college ID."
+    );
+
+    return;
+
+}
+
+
+    submitPeerRequestButton.disabled =
+        true;
+
+    submitPeerRequestButton.innerText =
+        "Posting...";
+
+
+    try {
+
+        const response =
+            await fetch(
+                GOOGLE_SCRIPT_URL,
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "createPeerRequest",
+
+                            from:
+                                from,
+
+                            to:
+                                to,
+
+                            travelTime:
+                                travelTime,
+
+                            request:
+                                request,
+
+                            name:
+                                name,
+                            collegeId:
+                                collegeId
+
+                        })
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            result.success
+        ) {
+
+            document.getElementById(
+                "peerFrom"
+            ).value = "";
+
+            document.getElementById(
+                "peerTo"
+            ).value = "";
+
+            document.getElementById(
+                "peerTravelTime"
+            ).value = "";
+
+            document.getElementById(
+                "peerRequestText"
+            ).value = "";
+
+            document.getElementById(
+                "peerName"
+            ).value = "";
+
+
+            peerAssistModal.classList.remove(
+                "active"
+            );
+
+
+            await loadPeerRequests();
+
+
+            alert(
+                "Your Peer Assist request has been posted."
+            );
+
+        } else {
+
+            alert(
+                result.message ||
+                "Could not create request."
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Peer request error:",
+            error
+        );
+
+        alert(
+            "Could not connect to Peer Assist."
+        );
+
+    }
+
+
+    submitPeerRequestButton.disabled =
+        false;
+
+    submitPeerRequestButton.innerText =
+        "Post Request";
+
+}
+
+
+/* =========================================================
+   LOAD PEER REQUESTS
+========================================================= */
+
+async function loadPeerRequests() {
+
+    if (!peerRequestsList) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                GOOGLE_SCRIPT_URL +
+                "?action=peerRequests"
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !result.success ||
+            !result.requests
+        ) {
+
+            return;
+
+        }
+
+
+        const activeRequests =
+            result.requests.filter(
+                request =>
+                    request.status ===
+                    "OPEN"
+            );
+
+
+        if (
+            activeRequests.length === 0
+        ) {
+
+            peerRequestsList.innerHTML = `
+
+                <div class="peer-empty">
+
+                    No active requests right now.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        peerRequestsList.innerHTML =
+            "";
+
+
+        activeRequests
+            .slice()
+            .reverse()
+            .forEach(
+                request => {
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+                    card.className =
+                        "peer-request-card";
+
+
+                    card.innerHTML = `
+
+                        <div class="peer-request-top">
+
+                            <div class="peer-request-route">
+
+                                ${escapePeerText(
+                                    request.from
+                                )}
+
+                                →
+
+                                ${escapePeerText(
+                                    request.to
+                                )}
+
+                            </div>
+
+                            <div class="peer-request-status">
+
+                                NEEDS HELP
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="peer-request-time">
+
+                            ${
+                                request.travelTime
+                                    ? "Around " +
+                                      escapePeerText(
+                                          request.travelTime
+                                      )
+                                    : "Travel time not specified"
+                            }
+
+                        </div>
+
+
+                        <div class="peer-request-text">
+
+                            ${escapePeerText(
+                                request.request
+                            )}
+
+                        </div>
+
+
+                        <div class="peer-request-name">
+
+    ${escapePeerText(
+        request.name
+    )}
+
+    ${
+        request.collegeId
+            ? `
+                <span class="peer-college-id">
+                    ${escapePeerText(
+                        request.collegeId
+                    )}
+                </span>
+              `
+            : ""
+    }
+
+</div>
+
+
+                            <button
+                                class="peer-chat-button"
+                                onclick="openPeerChat(
+                                    '${request.requestId}'
+                                )"
+                            >
+
+                                🤝 I can help
+
+                            </button>
+
+                        </div>
+
+                    `;
+
+
+                    peerRequestsList.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+    } catch (error) {
+
+        console.error(
+            "Could not load Peer Assist requests:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   OPEN CHAT
+========================================================= */
+
+async function openPeerChat(
+    requestId
+) {
+
+    currentPeerRequestId =
+        requestId;
+
+
+    peerChatModal.classList.add(
+        "active"
+    );
+
+
+    peerChatMessages.innerHTML = `
+
+        <div class="peer-empty">
+
+            Loading messages...
+
+        </div>
+
+    `;
+
+
+    peerChatTitle.innerText =
+        "Peer Assist Chat";
+        const closeRequestButton =
+    document.createElement("button");
+
+closeRequestButton.className =
+    "peer-close-request-button";
+
+closeRequestButton.innerText =
+    "✓ Close Request";
+
+closeRequestButton.onclick =
+    () => closePeerRequest(
+        requestId
+    );
+
+const chatHeader =
+    peerChatModal.querySelector(
+        ".peer-modal-header"
+    );
+
+if (chatHeader) {
+
+    const existingButton =
+        chatHeader.querySelector(
+            ".peer-close-request-button"
+        );
+
+    if (existingButton) {
+        existingButton.remove();
+    }
+
+    chatHeader.appendChild(
+        closeRequestButton
+    );
+
+}
+
+
+    await loadPeerMessages();
+
+
+    startPeerMessageRefresh();
+
+}
+
+
+/* =========================================================
+   CLOSE CHAT
+========================================================= */
+
+function closePeerChat() {
+
+    currentPeerRequestId =
+        null;
+
+
+    peerChatModal.classList.remove(
+        "active"
+    );
+
+
+    stopPeerMessageRefresh();
+
+}
+
+
+/* =========================================================
+   LOAD CHAT MESSAGES
+========================================================= */
+
+async function loadPeerMessages() {
+
+    if (
+        !currentPeerRequestId
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                GOOGLE_SCRIPT_URL +
+                "?action=peerMessages" +
+                "&requestId=" +
+                encodeURIComponent(
+                    currentPeerRequestId
+                )
+
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !result.success
+        ) {
+
+            return;
+
+        }
+
+
+        const messages =
+            result.messages || [];
+
+
+        if (
+            messages.length === 0
+        ) {
+
+            peerChatMessages.innerHTML = `
+
+                <div class="peer-empty">
+
+                    No messages yet.<br>
+
+                    Start the conversation.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        peerChatMessages.innerHTML =
+            "";
+
+
+        messages.forEach(
+            message => {
+
+                const messageElement =
+                    document.createElement(
+                        "div"
+                    );
+
+                messageElement.className =
+                    "peer-message";
+
+
+                const messageTime =
+                    new Date(
+                        message.timestamp
+                    );
+
+
+                messageElement.innerHTML = `
+
+                    <div class="peer-message-name">
+
+                        ${escapePeerText(
+                            message.name
+                        )}
+
+                    </div>
+
+
+                    <div class="peer-message-text">
+
+                        ${escapePeerText(
+                            message.message
+                        )}
+
+                    </div>
+
+
+                    <div class="peer-message-time">
+
+                        ${formatPeerMessageTime(
+                            messageTime
+                        )}
+
+                    </div>
+
+                `;
+
+
+                peerChatMessages.appendChild(
+                    messageElement
+                );
+
+            }
+        );
+
+
+        peerChatMessages.scrollTop =
+            peerChatMessages.scrollHeight;
+
+
+    } catch (error) {
+
+        console.error(
+            "Could not load Peer Assist messages:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SEND CHAT MESSAGE
+========================================================= */
+
+if (sendPeerMessageButton) {
+
+    sendPeerMessageButton.addEventListener(
+        "click",
+        sendPeerMessage
+    );
+
+}
+
+
+if (peerMessageInput) {
+
+    peerMessageInput.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key ===
+                "Enter"
+            ) {
+
+                event.preventDefault();
+
+                sendPeerMessage();
+
+            }
+
+        }
+    );
+
+}
+
+
+async function sendPeerMessage() {
+
+    if (
+        !currentPeerRequestId
+    ) {
+
+        return;
+
+    }
+
+
+    const message =
+        peerMessageInput.value.trim();
+
+
+    if (!message) {
+
+        return;
+
+    }
+
+
+    const name =
+        getPeerUserName();
+
+
+    sendPeerMessageButton.disabled =
+        true;
+
+
+    try {
+
+        const response =
+            await fetch(
+                GOOGLE_SCRIPT_URL,
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "sendPeerMessage",
+
+                            requestId:
+                                currentPeerRequestId,
+
+                            name:
+                                name,
+
+                            message:
+                                message
+
+                        })
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            result.success
+        ) {
+
+            peerMessageInput.value =
+                "";
+
+            await loadPeerMessages();
+
+        } else {
+
+            alert(
+                result.message ||
+                "Message could not be sent."
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Message error:",
+            error
+        );
+
+        alert(
+            "Could not send message."
+        );
+
+    }
+
+
+    sendPeerMessageButton.disabled =
+        false;
+
+}
+
+
+/* =========================================================
+   USER NAME
+========================================================= */
+
+function getPeerUserName() {
+
+    const savedName =
+        localStorage.getItem(
+            "campusShuttlePeerName"
+        );
+
+
+    if (savedName) {
+
+        return savedName;
+
+    }
+
+
+    const name =
+        prompt(
+            "Enter your name for Peer Assist:"
+        );
+
+
+    if (
+        name &&
+        name.trim()
+    ) {
+
+        const cleanName =
+            name.trim();
+
+
+        localStorage.setItem(
+            "campusShuttlePeerName",
+            cleanName
+        );
+
+
+        return cleanName;
+
+    }
+
+
+    return "Anonymous";
+
+}
+
+
+/* =========================================================
+   MESSAGE AUTO REFRESH
+========================================================= */
+
+function startPeerMessageRefresh() {
+
+    stopPeerMessageRefresh();
+
+
+    peerMessageRefreshTimer =
+        setInterval(
+            () => {
+
+                if (
+                    currentPeerRequestId
+                ) {
+
+                    loadPeerMessages();
+
+                }
+
+            },
+            5000
+        );
+
+}
+
+
+function stopPeerMessageRefresh() {
+
+    if (
+        peerMessageRefreshTimer
+    ) {
+
+        clearInterval(
+            peerMessageRefreshTimer
+        );
+
+        peerMessageRefreshTimer =
+            null;
+
+    }
+
+}
+
+
+/* =========================================================
+   FORMAT MESSAGE TIME
+========================================================= */
+
+function formatPeerMessageTime(
+    date
+) {
+
+    if (
+        isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "";
+
+    }
+
+
+    return date.toLocaleTimeString(
+        [],
+        {
+            hour: "numeric",
+            minute: "2-digit"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SECURITY
+   Prevent HTML injection in messages.
+========================================================= */
+
+function escapePeerText(
+    text
+) {
+
+    if (
+        text === null ||
+        text === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(text)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        )
+
+        .replace(
+            /\n/g,
+            "<br>"
+        );
+
+}
+
+
+/* =========================================================
+   LOAD REQUESTS WHEN PAGE OPENS
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        loadPeerRequests();
+
+    }
+);
+
+
+/* =========================================================
+   REFRESH REQUEST LIST
+   Every 15 seconds
+========================================================= */
+
+setInterval(
+    () => {
+
+        loadPeerRequests();
+
+    },
+    15000
+);
+/* =========================================================
+   CLOSE PEER REQUEST
+========================================================= */
+
+async function closePeerRequest(
+    requestId
+) {
+
+    const confirmClose =
+        confirm(
+            "Has this Peer Assist request been completed?"
+        );
+
+
+    if (!confirmClose) {
+
+        return;
+
+    }
+
+
+    try {
+
+        await fetch(
+            GOOGLE_SCRIPT_URL,
+            {
+
+                method:
+                    "POST",
+
+                headers: {
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+                },
+
+                body:
+                    JSON.stringify({
+
+                        action:
+                            "closePeerRequest",
+
+                        requestId:
+                            requestId
+
+                    })
+
+            }
+        );
+
+
+        closePeerChat();
+
+        await loadPeerRequests();
+
+
+        alert(
+            "Peer Assist request closed."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Could not close request:",
+            error
+        );
+
+        alert(
+            "Could not close the request."
+        );
+
+    }
+
+}
