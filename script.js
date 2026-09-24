@@ -16,7 +16,53 @@ const GOOGLE_SCRIPT_URL =
    TRAVEL TIME
 ========================================= */
 
-const TRAVEL_TIME_MINUTES = 10;
+const TRAVEL_TIME_MINUTES = 5;
+
+
+/* =========================================
+   APPROXIMATE ROUTE TIMING
+========================================= */
+
+const ROUTE_TIMING = {
+
+    outbound: {
+
+        totalMinutes: 5,
+
+        positions: {
+
+            campus: 0,
+
+            hanumanTemple: 50,
+
+            confident: 78.3,
+
+            sarjapur: 100
+
+        }
+
+    },
+
+
+    return: {
+
+        totalMinutes: 5,
+
+        positions: {
+
+            sarjapur: 0,
+
+            confident: 20,
+
+            hanumanTemple: 40,
+
+            campus: 100
+
+        }
+
+    }
+
+};
 
 
 /* =========================================
@@ -530,26 +576,117 @@ function updateLiveTracker() {
             seconds / 60;
 
 
-        const duration =
-            TRAVEL_TIME_MINUTES;
+        /* =====================================
+   CALCULATE BUS POSITION
+===================================== */
+
+let progress = 0;
+
+if (currentTrip.direction === "outbound") {
+
+    const route = ROUTE_TIMING.outbound;
+
+    const elapsedSeconds = elapsed * 60;
+    const totalSeconds = route.totalMinutes * 60;
 
 
-        let progress =
-            (
-                elapsed /
-                duration
-            ) * 100;
-
+    if (elapsedSeconds <= 150) {
 
         progress =
-            Math.max(
-                0,
-                Math.min(
-                    100,
-                    progress
+            route.positions.campus +
+            (
+                (elapsedSeconds / 150) *
+                (
+                    route.positions.hanumanTemple -
+                    route.positions.campus
                 )
             );
 
+    } else if (elapsedSeconds <= 235) {
+
+        progress =
+            route.positions.hanumanTemple +
+            (
+                ((elapsedSeconds - 150) / 85) *
+                (
+                    route.positions.confident -
+                    route.positions.hanumanTemple
+                )
+            );
+
+    } else {
+
+        progress =
+            route.positions.confident +
+            (
+                ((elapsedSeconds - 235) /
+                    (totalSeconds - 235)) *
+                (
+                    route.positions.sarjapur -
+                    route.positions.confident
+                )
+            );
+
+    }
+
+} else {
+
+    const route = ROUTE_TIMING.return;
+
+    const elapsedSeconds = elapsed * 60;
+    const totalSeconds = route.totalMinutes * 60;
+
+
+    if (elapsedSeconds <= 60) {
+
+        progress =
+            route.positions.sarjapur +
+            (
+                (elapsedSeconds / 60) *
+                (
+                    route.positions.confident -
+                    route.positions.sarjapur
+                )
+            );
+
+    } else if (elapsedSeconds <= 120) {
+
+        progress =
+            route.positions.confident +
+            (
+                ((elapsedSeconds - 60) / 60) *
+                (
+                    route.positions.hanumanTemple -
+                    route.positions.confident
+                )
+            );
+
+    } else {
+
+        progress =
+            route.positions.hanumanTemple +
+            (
+                ((elapsedSeconds - 120) /
+                    (totalSeconds - 120)) *
+                (
+                    route.positions.campus -
+                    route.positions.hanumanTemple
+                )
+            );
+
+    }
+
+}
+
+
+progress =
+    Math.max(
+        0,
+        Math.min(
+            100,
+            progress
+        )
+    );
 
         updateRouteDisplay(
             currentTrip.direction
@@ -711,6 +848,10 @@ function updateLiveTracker() {
    UPCOMING SHUTTLES
 ========================================= */
 
+/* =========================================
+   UPCOMING SHUTTLES
+========================================= */
+
 function updateUpcomingShuttles() {
 
     if (!upcomingList) {
@@ -726,104 +867,222 @@ function updateUpcomingShuttles() {
         getAllTrips();
 
 
-    const upcoming =
+    /* =====================================
+       SEPARATE DIRECTIONS
+    ====================================== */
+
+    const campusTrips =
         trips
             .filter(
                 trip =>
-                    trip.departure >
-                    now
+                    trip.direction === "outbound" &&
+                    trip.departure > now
             )
             .slice(0, 6);
 
 
-    upcomingList.innerHTML =
-        "";
+    const sarjapurTrips =
+        trips
+            .filter(
+                trip =>
+                    trip.direction === "return" &&
+                    trip.departure > now
+            )
+            .slice(0, 6);
 
 
-    if (
-        upcoming.length === 0
-    ) {
+    /* =====================================
+       BUILD LEFT SIDE
+       APU CAMPUS → SARJAPUR
+    ====================================== */
 
-        upcomingList.innerHTML = `
+    let campusHTML = "";
 
-            <div class="shuttle-card">
+    if (campusTrips.length === 0) {
 
-                <div class="shuttle-card-left">
+        campusHTML = `
+            <div class="direction-empty">
+                No more shuttles today
+            </div>
+        `;
+
+    } else {
+
+        campusTrips.forEach(
+            trip => {
+
+                campusHTML += `
+
+                    <div class="shuttle-time-row">
+
+                        <div class="shuttle-time">
+                            ${minutesToTime(
+                                trip.departure
+                            )}
+                        </div>
+
+                        <div class="shuttle-arrival">
+
+                            Arrives approximately
+
+                            <strong>
+                                ${minutesToTime(
+                                    trip.arrival
+                                )}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+    }
+
+
+    /* =====================================
+       BUILD RIGHT SIDE
+       SARJAPUR → CAMPUS
+    ====================================== */
+
+    let sarjapurHTML = "";
+
+    if (sarjapurTrips.length === 0) {
+
+        sarjapurHTML = `
+            <div class="direction-empty">
+                No more shuttles today
+            </div>
+        `;
+
+    } else {
+
+        sarjapurTrips.forEach(
+            trip => {
+
+                sarjapurHTML += `
+
+                    <div class="shuttle-time-row">
+
+                        <div class="shuttle-time">
+
+                            ${minutesToTime(
+                                trip.departure
+                            )}
+
+                            ${
+                                trip.special
+                                    ? `<span class="special-badge">★ Special</span>`
+                                    : ""
+                            }
+
+                        </div>
+
+                        <div class="shuttle-arrival">
+
+                            Arrives approximately
+
+                            <strong>
+                                ${minutesToTime(
+                                    trip.arrival
+                                )}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+    }
+
+
+    /* =====================================
+       DISPLAY BOTH SIDES
+    ====================================== */
+
+    upcomingList.innerHTML = `
+
+        <div class="upcoming-direction-grid">
+
+            <!-- LEFT -->
+
+            <div class="direction-column">
+
+                <div class="direction-header">
+
+                    <div class="direction-icon">
+                        🏫
+                    </div>
 
                     <div>
-                        <div class="shuttle-time">
-                            No more shuttles
+
+                        <div class="direction-title">
+                            From APU Campus
                         </div>
 
-                        <div class="shuttle-route">
-                            Service completed for today
+                        <div class="direction-subtitle">
+                            APU Campus → Sarjapur Police Station
                         </div>
+
                     </div>
+
+                </div>
+
+
+                <div class="direction-list">
+
+                    ${campusHTML}
 
                 </div>
 
             </div>
 
-        `;
 
-        return;
+            <!-- RIGHT -->
 
-    }
+            <div class="direction-column">
 
+                <div class="direction-header">
 
-    upcoming.forEach(
-        trip => {
-
-            const route =
-                getRouteName(
-                    trip.direction
-                );
-
-
-            upcomingList.innerHTML += `
-
-                <div class="shuttle-card">
-
-                    <div class="shuttle-card-left">
-
-                        <div>
-
-                            <div class="shuttle-time">
-                                ${minutesToTime(
-                                    trip.departure
-                                )}
-                            </div>
-
-                            <div class="shuttle-route">
-                                ${route}
-                            </div>
-
-                        </div>
-
+                    <div class="direction-icon">
+                        🚔
                     </div>
 
+                    <div>
 
-                    <div class="shuttle-arrival">
+                        <div class="direction-title">
+                            From Sarjapur
+                        </div>
 
-                        Arrives approximately
-
-                        <strong>
-                            ${minutesToTime(
-                                trip.arrival
-                            )}
-                        </strong>
+                        <div class="direction-subtitle">
+                            Sarjapur Police Station → APU Campus
+                        </div>
 
                     </div>
 
                 </div>
 
-            `;
 
-        }
-    );
+                <div class="direction-list">
+
+                    ${sarjapurHTML}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
 
 }
-
 
 /* =========================================
    DAY TYPE

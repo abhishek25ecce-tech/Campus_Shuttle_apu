@@ -173,280 +173,303 @@
              LIVE SHUTTLE TRACKER
         ====================================== -->
 
-        <section class="live-tracker">
+<section class="live-tracker">
 
+    <!-- LIVE HEADER -->
 
-            <!-- Live Header -->
+    <div class="live-header">
 
-            <div class="live-header">
+        <div>
 
-                <div>
-
-                    <div class="live-label">
-                        LIVE SHUTTLE
-                    </div>
-
-
-                    <h2 id="liveStatus">
-                        Checking shuttle status...
-                    </h2>
-
-                </div>
-
-
-                <div class="live-indicator">
-
-                    <span class="live-dot"></span>
-
-                    LIVE
-
-                </div>
-
+            <div class="live-label">
+                LIVE SHUTTLE
             </div>
 
+            <h2 id="liveStatus">
+                Checking shuttle status...
+            </h2>
 
-
-            <!-- =====================================
-                 ROUTE
-            ====================================== -->
-
-            <div class="live-route">
-
-    <!-- APU CAMPUS -->
-
-    <div class="route-terminal">
-
-        <div class="terminal-icon campus-icon">
-
-    <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-    >
-        <path
-            d="M3 9.5L12 4L21 9.5L12 15L3 9.5Z"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linejoin="round"
-        />
-
-        <path
-            d="M6 11.5V17.5C9.5 20 14.5 20 18 17.5V11.5"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-        />
-
-        <path
-            d="M21 10V16"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-        />
-
-        <circle
-            cx="21"
-            cy="17.5"
-            r="1.2"
-            fill="currentColor"
-        />
-    </svg>
-
-</div>
-
-    <!-- ROUTE -->
-
-    <div class="route-middle">
-
-        <div class="route-line-vertical">
-
-            <div
-                class="route-progress"
-                id="routeProgress"
-            ></div>
-
-            <div
-    class="bus-marker going-right"
-    id="busMarker"
->
-    <span class="bus-smoke smoke-1"></span>
-    <span class="bus-smoke smoke-2"></span>
-    <span class="bus-smoke smoke-3"></span>
-
-    <span class="bus-emoji">
-        🚌
-    </span>
-</div>
         </div>
 
 
-        <div class="pickup-stops">
+        <div class="live-indicator">
 
-            <div
-                class="pickup-stop"
-                data-route-stop="hanuman-temple"
-            >
-                <span class="pickup-dot"></span>
+            <span class="live-dot"></span>
 
-                <span>
-                    Hanuman Temple
-                </span>
-            </div>
-
-
-            <div
-                class="pickup-stop"
-                data-route-stop="confident"
-            >
-                <span class="pickup-dot"></span>
-
-                <span>
-                    Confident
-                </span>
-            </div>
+            LIVE
 
         </div>
 
     </div>
 
 
-    <!-- SARJAPUR -->
+    <!-- ROUTE -->
 
-    <div class="route-terminal destination">
-
-        <div class="terminal-icon police-icon">
-
-    <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-    >
-        <path
-            d="M12 3L19 6V11.5C19 16.2 16.2 19.5 12 21C7.8 19.5 5 16.2 5 11.5V6L12 3Z"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linejoin="round"
-        />
-
-        <path
-            d="M12 7L13 9.2L15.5 9.5L13.7 11.2L14.2 13.7L12 12.5L9.8 13.7L10.3 11.2L8.5 9.5L11 9.2L12 7Z"
-            fill="currentColor"
-        />
-    </svg>
-
-</div>
+    <div class="live-route">
 
 
-            <!-- =====================================
-                 LIVE INFORMATION
-            ====================================== -->
+        <!-- APU CAMPUS -->
 
-            <div class="live-info-grid">
+        <div class="route-terminal">
 
+            <div class="terminal-icon campus-icon">
 
-                <div class="live-info-card">
-
-                    <span class="live-info-label">
-                        CURRENT STATUS
-                    </span>
-
-
-                    <strong id="busState">
-                        --
-                    </strong>
-
-                </div>
-
-
-
-                <div class="live-info-card">
-
-                    <span class="live-info-label">
-                        DEPARTED
-                    </span>
-
-
-                    <strong id="departureTime">
-                        --
-                    </strong>
-
-                </div>
-
-
-
-                <div class="live-info-card">
-
-                    <span class="live-info-label">
-                        ARRIVAL
-                    </span>
-
-
-                    <strong id="liveArrivalTime">
-                        --
-                    </strong>
-
-                </div>
-
-
-
-                <div class="live-info-card">
-
-                    <span class="live-info-label">
-                        TIME REMAINING
-                    </span>
-
-
-                    <strong id="timeRemaining">
-                        --
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- Live Message -->
-
-            <div
-                class="live-message"
-                id="liveMessage"
-            >
-                Checking the current shuttle...
-            </div>
-
-
-
-            <!-- =====================================
-                 TRAFFIC REPORT
-            ====================================== -->
-
-            <div class="traffic-report-box">
-
-
-                <button
-                    id="trafficButton"
-                    class="traffic-button"
-                    onclick="reportTraffic()"
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                 >
-                    🚦 Report Traffic
-                </button>
+
+                    <path
+                        d="M3 9.5L12 4L21 9.5L12 15L3 9.5Z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linejoin="round"
+                    />
+
+                    <path
+                        d="M6 11.5V17.5C9.5 20 14.5 20 18 17.5V11.5"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                    />
+
+                    <path
+                        d="M21 10V16"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                    />
+
+                    <circle
+                        cx="21"
+                        cy="17.5"
+                        r="1.2"
+                        fill="currentColor"
+                    />
+
+                </svg>
+
+            </div>
+
+
+            <strong id="startStop">
+                APU Campus
+            </strong>
+
+
+            <span>
+                Starting point
+            </span>
+
+        </div>
+
+
+
+        <!-- MIDDLE ROUTE -->
+
+        <div class="route-middle">
+
+            <div class="route-line-vertical">
+
+                <div
+                    class="route-progress"
+                    id="routeProgress"
+                ></div>
 
 
                 <div
-                    id="trafficStatus"
-                    class="traffic-status"
+                    class="bus-marker going-right"
+                    id="busMarker"
                 >
-                    No recent traffic report
+
+                    <span class="bus-smoke smoke-1"></span>
+                    <span class="bus-smoke smoke-2"></span>
+                    <span class="bus-smoke smoke-3"></span>
+
+                    <span class="bus-emoji">
+                        🚌
+                    </span>
+
                 </div>
 
             </div>
 
 
-        </section>
+            <!-- PICKUP STOPS -->
 
+            <div class="pickup-stops">
+
+                <div
+                    class="pickup-stop"
+                    data-route-stop="hanuman-temple"
+                >
+
+                    <span class="pickup-dot"></span>
+
+                    <span>
+                        Hanuman Temple
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="pickup-stop"
+                    data-route-stop="confident"
+                >
+
+                    <span class="pickup-dot"></span>
+
+                    <span>
+                        Confident
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SARJAPUR POLICE STATION -->
+
+        <div class="route-terminal destination">
+
+            <div class="terminal-icon police-icon">
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+
+                    <path
+                        d="M12 3L19 6V11.5C19 16.2 16.2 19.5 12 21C7.8 19.5 5 16.2 5 11.5V6L12 3Z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linejoin="round"
+                    />
+
+                    <path
+                        d="M12 7L13 9.2L15.5 9.5L13.7 11.2L14.2 13.7L12 12.5L9.8 13.7L10.3 11.2L8.5 9.5L11 9.2L12 7Z"
+                        fill="currentColor"
+                    />
+
+                </svg>
+
+            </div>
+
+
+            <strong id="endStop">
+                Sarjapur Police Station
+            </strong>
+
+
+            <span>
+                Last stop
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- LIVE INFORMATION -->
+
+    <div class="live-info-grid">
+
+        <div class="live-info-card">
+
+            <span class="live-info-label">
+                CURRENT STATUS
+            </span>
+
+            <strong id="busState">
+                --
+            </strong>
+
+        </div>
+
+
+        <div class="live-info-card">
+
+            <span class="live-info-label">
+                DEPARTED
+            </span>
+
+            <strong id="departureTime">
+                --
+            </strong>
+
+        </div>
+
+
+        <div class="live-info-card">
+
+            <span class="live-info-label">
+                ARRIVAL
+            </span>
+
+            <strong id="liveArrivalTime">
+                --
+            </strong>
+
+        </div>
+
+
+        <div class="live-info-card">
+
+            <span class="live-info-label">
+                TIME REMAINING
+            </span>
+
+            <strong id="timeRemaining">
+                --
+            </strong>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- LIVE MESSAGE -->
+
+    <div
+        class="live-message"
+        id="liveMessage"
+    >
+        Checking the current shuttle...
+    </div>
+
+
+
+    <!-- TRAFFIC REPORT -->
+
+    <div class="traffic-report-box">
+
+        <button
+            id="trafficButton"
+            class="traffic-button"
+            onclick="reportTraffic()"
+        >
+            🚦 Report Traffic
+        </button>
+
+
+        <div
+            id="trafficStatus"
+            class="traffic-status"
+        >
+            No recent traffic report
+        </div>
+
+    </div>
+
+</section>
 
 
         <!-- =====================================
