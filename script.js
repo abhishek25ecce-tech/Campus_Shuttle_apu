@@ -560,6 +560,33 @@ function updateLiveTracker() {
 
     const nextTrip =
         getNextTrip();
+    
+    const liveRoute =
+    document.querySelector(
+        ".live-route"
+    );
+
+if (liveRoute) {
+
+    if (
+        currentTrip &&
+        currentTrip.direction ===
+        "return"
+    ) {
+
+        liveRoute.classList.add(
+            "return-direction"
+        );
+
+    } else {
+
+        liveRoute.classList.remove(
+            "return-direction"
+        );
+
+    }
+
+}    
 
 
     /* =====================================
@@ -1536,17 +1563,9 @@ function updateWebsite() {
 
     updateDayType();
 
+    updateLiveTimePanel();
+
 }
-
-
-/* =========================================
-   START WEBSITE
-========================================= */
-
-updateWebsite();
-
-checkTrafficReports();
-
 
 /* Update every second */
 
@@ -2998,3 +3017,181 @@ async function closePeerRequest(
     }
 
 }
+
+/* =========================================================
+   LIVE TIME PANEL
+========================================================= */
+
+function updateLiveTimePanel() {
+
+    /* =====================================
+       CURRENT REAL TIME
+    ===================================== */
+
+    const clock =
+        document.getElementById(
+            "livePanelClock"
+        );
+
+    if (clock) {
+
+        const now =
+            new Date();
+
+        clock.textContent =
+            now.toLocaleTimeString(
+                [],
+                {
+                    hour: "numeric",
+                    minute: "2-digit",
+                    second: "2-digit"
+                }
+            );
+
+    }
+
+
+    /* =====================================
+       NEXT SHUTTLE
+    ===================================== */
+
+    const countdown =
+        document.getElementById(
+            "nextShuttleCountdown"
+        );
+
+    const label =
+        document.getElementById(
+            "nextShuttleLabel"
+        );
+
+
+    if (
+        !countdown ||
+        !label
+    ) {
+
+        return;
+
+    }
+
+
+    const now =
+        new Date();
+
+
+    const currentMinutes =
+        now.getHours() * 60 +
+        now.getMinutes();
+
+
+    const currentSeconds =
+        now.getSeconds();
+
+
+    const trips =
+        getAllTrips();
+
+
+    const nextTrip =
+        trips.find(
+            trip =>
+                trip.departure >
+                (
+                    currentMinutes +
+                    currentSeconds / 60
+                )
+        );
+
+
+    if (!nextTrip) {
+
+        countdown.textContent =
+            "--";
+
+        label.textContent =
+            "No more shuttles today";
+
+    } else {
+
+        const secondsUntil =
+            (
+                nextTrip.departure * 60
+            ) -
+            (
+                currentMinutes * 60 +
+                currentSeconds
+            );
+
+
+        const minutes =
+            Math.floor(
+                secondsUntil / 60
+            );
+
+
+        const seconds =
+            secondsUntil % 60;
+
+
+        countdown.textContent =
+            String(minutes)
+                .padStart(2, "0") +
+            "m " +
+            String(seconds)
+                .padStart(2, "0") +
+            "s";
+
+
+        label.textContent =
+            nextTrip.direction ===
+            "outbound"
+                ? "APU Campus → Sarjapur"
+                : "Sarjapur → APU Campus";
+
+    }
+
+
+    /* =====================================
+       CURRENT STATUS
+    ===================================== */
+
+    const status =
+        document.getElementById(
+            "liveCurrentStatus"
+        );
+
+
+    if (status) {
+
+        const currentTrip =
+            getCurrentTrip();
+
+
+        if (currentTrip) {
+
+            status.textContent =
+                "Shuttle is running";
+
+        } else {
+
+            status.textContent =
+                "Waiting for next shuttle";
+
+        }
+
+    }
+
+}
+
+
+/* =========================================
+   START LIVE PANEL
+========================================= */
+
+updateLiveTimePanel();
+
+setInterval(
+    updateLiveTimePanel,
+    1000
+);
