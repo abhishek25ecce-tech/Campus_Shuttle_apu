@@ -3052,105 +3052,171 @@ function updateLiveTimePanel() {
 
 
     /* =====================================
-       NEXT SHUTTLE
-    ===================================== */
+   NEXT SHUTTLES
+===================================== */
 
-    const countdown =
-        document.getElementById(
-            "nextShuttleCountdown"
-        );
+const campusTime =
+    document.getElementById(
+        "nextCampusShuttle"
+    );
 
-    const label =
-        document.getElementById(
-            "nextShuttleLabel"
-        );
+const campusCountdown =
+    document.getElementById(
+        "nextCampusCountdown"
+    );
+
+const sarjapurTime =
+    document.getElementById(
+        "nextSarjapurShuttle"
+    );
+
+const sarjapurCountdown =
+    document.getElementById(
+        "nextSarjapurCountdown"
+    );
 
 
-    if (
-        !countdown ||
-        !label
-    ) {
+const now =
+    new Date();
 
-        return;
 
+const currentTotalSeconds =
+    now.getHours() * 3600 +
+    now.getMinutes() * 60 +
+    now.getSeconds();
+
+
+const trips =
+    getAllTrips();
+
+
+/* =====================================
+   FIND NEXT SHUTTLE BY DIRECTION
+===================================== */
+
+function getNextShuttle(
+    direction
+) {
+
+    return trips.find(
+        trip =>
+            trip.direction ===
+            direction &&
+            trip.departure * 60 >
+            currentTotalSeconds
+    );
+
+}
+
+
+/* =====================================
+   FORMAT COUNTDOWN
+===================================== */
+
+function getCountdown(
+    trip
+) {
+
+    if (!trip) {
+        return null;
     }
 
 
-    const now =
-        new Date();
+    const difference =
+        (
+            trip.departure * 60
+        ) -
+        currentTotalSeconds;
 
 
-    const currentMinutes =
-        now.getHours() * 60 +
-        now.getMinutes();
-
-
-    const currentSeconds =
-        now.getSeconds();
-
-
-    const trips =
-        getAllTrips();
-
-
-    const nextTrip =
-        trips.find(
-            trip =>
-                trip.departure >
-                (
-                    currentMinutes +
-                    currentSeconds / 60
-                )
+    const minutes =
+        Math.floor(
+            difference / 60
         );
 
 
-    if (!nextTrip) {
-
-        countdown.textContent =
-            "--";
-
-        label.textContent =
-            "No more shuttles today";
-
-    } else {
-
-        const secondsUntil =
-            (
-                nextTrip.departure * 60
-            ) -
-            (
-                currentMinutes * 60 +
-                currentSeconds
-            );
+    const seconds =
+        difference % 60;
 
 
-        const minutes =
-            Math.floor(
-                secondsUntil / 60
-            );
+    return (
+        String(minutes)
+            .padStart(2, "0") +
+        "m " +
+        String(seconds)
+            .padStart(2, "0") +
+        "s"
+    );
+
+}
 
 
-        const seconds =
-            secondsUntil % 60;
+/* =====================================
+   CAMPUS → SARJAPUR
+===================================== */
+
+const nextCampus =
+    getNextShuttle(
+        "outbound"
+    );
 
 
-        countdown.textContent =
-            String(minutes)
-                .padStart(2, "0") +
-            "m " +
-            String(seconds)
-                .padStart(2, "0") +
-            "s";
+if (nextCampus) {
+
+    campusTime.textContent =
+        minutesToTime(
+            nextCampus.departure
+        );
+
+    campusCountdown.textContent =
+        "in " +
+        getCountdown(
+            nextCampus
+        );
+
+} else {
+
+    campusTime.textContent =
+        "--";
+
+    campusCountdown.textContent =
+        "No more today";
+
+}
 
 
-        label.textContent =
-            nextTrip.direction ===
-            "outbound"
-                ? "APU Campus → Sarjapur"
-                : "Sarjapur → APU Campus";
+/* =====================================
+   SARJAPUR → CAMPUS
+===================================== */
 
-    }
+const nextSarjapur =
+    getNextShuttle(
+        "return"
+    );
 
+
+if (nextSarjapur) {
+
+    sarjapurTime.textContent =
+        minutesToTime(
+            nextSarjapur.departure
+        );
+
+    sarjapurCountdown.textContent =
+        "in " +
+        getCountdown(
+            nextSarjapur
+        );
+
+} else {
+
+    sarjapurTime.textContent =
+        "--";
+
+    sarjapurCountdown.textContent =
+        "No more today";
+
+}
 
     /* =====================================
        CURRENT STATUS

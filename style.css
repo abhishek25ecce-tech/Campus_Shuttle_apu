@@ -2795,3 +2795,97 @@ footer {
     font-size: 10px;
     font-weight: 700;
 }
+/* =========================================
+   NEXT SHUTTLE CAPSULES
+========================================= */
+
+.next-shuttle-stat {
+    min-width: 0;
+}
+
+
+.next-shuttle-capsules {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 4px;
+}
+
+
+.next-shuttle-capsule {
+    min-width: 105px;
+
+    padding: 8px 10px;
+
+    background: rgba(255, 255, 255, 0.10);
+
+    border: 1px solid
+        rgba(255, 255, 255, 0.14);
+
+    border-radius: 11px;
+
+    text-align: center;
+
+    box-sizing: border-box;
+}
+
+
+.capsule-label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #bfdbfe;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+
+.next-shuttle-capsule strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 900;
+
+    line-height: 1.1;
+}
+
+
+.next-shuttle-capsule small {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #93c5fd;
+
+    font-size: 9px;
+    font-weight: 600;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .next-shuttle-capsules {
+        gap: 6px;
+    }
+
+    .next-shuttle-capsule {
+        min-width: 0;
+        flex: 1;
+        padding: 8px 6px;
+    }
+
+    .next-shuttle-capsule strong {
+        font-size: 14px;
+    }
+
+}
