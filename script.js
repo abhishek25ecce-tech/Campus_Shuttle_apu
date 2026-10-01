@@ -11,6 +11,65 @@
 const GOOGLE_SCRIPT_URL =
     "https://script.google.com/macros/s/AKfycbxJKKH1HgxDx50u6aPSnxpYjIZUcPIxeGDjzMy2buc30h59WNKD8Xlvv2XcKLbW5w/exec";
 
+/* =========================================
+   UNIQUE USER TRACKING
+========================================= */
+
+function trackUniqueUser() {
+
+    let userId =
+        localStorage.getItem(
+            "campusShuttleUserId"
+        );
+
+    /* Create ID only for a new browser/device */
+
+    if (!userId) {
+
+        userId =
+            "user-" +
+            Date.now() +
+            "-" +
+            Math.random()
+                .toString(36)
+                .substring(2, 9);
+
+        localStorage.setItem(
+            "campusShuttleUserId",
+            userId
+        );
+
+    }
+
+    /* Send user to Google Sheet */
+
+    fetch(
+        GOOGLE_SCRIPT_URL,
+        {
+            method: "POST",
+
+            body:
+                JSON.stringify({
+                    action:
+                        "trackUser",
+
+                    userId:
+                        userId,
+
+                    page:
+                        "Shuttle"
+                })
+        }
+    ).catch(
+        error => {
+            console.error(
+                "User tracking error:",
+                error
+            );
+        }
+    );
+
+}
 
 /* =========================================
    TRAVEL TIME
@@ -983,118 +1042,92 @@ const sarjapurTrips =
         )
         .slice(0, 5);
 
-    /* =====================================
-       BUILD LEFT SIDE
-       APU CAMPUS → SARJAPUR
-    ====================================== */
+    /* ===================================== 
+   BUILD LEFT SIDE 
+   APU CAMPUS → SARJAPUR 
+====================================== */ 
 
-    let campusHTML = "";
+let campusHTML = ""; 
 
-    if (campusTrips.length === 0) {
+if (campusTrips.length === 0) { 
 
-        campusHTML = `
-            <div class="direction-empty">
-                No more shuttles today
-            </div>
-        `;
+    campusHTML = ` 
+        <div class="direction-empty"> 
+            No more shuttles today 
+        </div> 
+    `; 
 
-    } else {
+} else { 
 
-        campusTrips.forEach(
-            trip => {
+    campusTrips.forEach( 
+        trip => { 
 
-                campusHTML += `
+            campusHTML += ` 
 
-                    <div class="shuttle-time-row">
+                <div class="shuttle-time-row"> 
 
-                        <div class="shuttle-time">
-                            ${minutesToTime(
-                                trip.departure
-                            )}
-                        </div>
+                    <div class="shuttle-time"> 
+                        ${minutesToTime( 
+                            trip.departure 
+                        )} 
+                    </div> 
 
-                        <div class="shuttle-arrival">
+                </div> 
 
-                            Arrives approximately
+            `; 
 
-                            <strong>
-                                ${minutesToTime(
-                                    trip.arrival
-                                )}
-                            </strong>
+        } 
+    ); 
 
-                        </div>
-
-                    </div>
-
-                `;
-
-            }
-        );
-
-    }
+} 
 
 
-    /* =====================================
-       BUILD RIGHT SIDE
-       SARJAPUR → CAMPUS
-    ====================================== */
+/* ===================================== 
+   BUILD RIGHT SIDE 
+   SARJAPUR → CAMPUS 
+====================================== */ 
 
-    let sarjapurHTML = "";
+let sarjapurHTML = ""; 
 
-    if (sarjapurTrips.length === 0) {
+if (sarjapurTrips.length === 0) { 
 
-        sarjapurHTML = `
-            <div class="direction-empty">
-                No more shuttles today
-            </div>
-        `;
+    sarjapurHTML = ` 
+        <div class="direction-empty"> 
+            No more shuttles today 
+        </div> 
+    `; 
 
-    } else {
+} else { 
 
-        sarjapurTrips.forEach(
-            trip => {
+    sarjapurTrips.forEach( 
+        trip => { 
 
-                sarjapurHTML += `
+            sarjapurHTML += ` 
 
-                    <div class="shuttle-time-row">
+                <div class="shuttle-time-row"> 
 
-                        <div class="shuttle-time">
+                    <div class="shuttle-time"> 
 
-                            ${minutesToTime(
-                                trip.departure
-                            )}
+                        ${minutesToTime( 
+                            trip.departure 
+                        )} 
 
-                            ${
-                                trip.special
-                                    ? `<span class="special-badge">★ Special</span>`
-                                    : ""
-                            }
+                        ${ 
+                            trip.special 
+                                ? `<span class="special-badge">★ Special</span>` 
+                                : "" 
+                        } 
 
-                        </div>
+                    </div> 
 
-                        <div class="shuttle-arrival">
+                </div> 
 
-                            Arrives approximately
+            `; 
 
-                            <strong>
-                                ${minutesToTime(
-                                    trip.arrival
-                                )}
-                            </strong>
+        } 
+    ); 
 
-                        </div>
-
-                    </div>
-
-                `;
-
-            }
-        );
-
-    }
-
-
+}
     /* =====================================
        DISPLAY BOTH SIDES
     ====================================== */
@@ -1629,6 +1662,7 @@ function updateWebsite() {
     updateDayType();
 
     updateLiveTimePanel();
+    trackUniqueUser();
 
 }
 
@@ -1646,6 +1680,7 @@ setInterval(
     checkTrafficReports,
     30000
 );
+
 /* =========================================
    INSTALL CAMPUS SHUTTLE APP
 ========================================= */
