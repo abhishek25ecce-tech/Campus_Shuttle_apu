@@ -16,7 +16,7 @@ const GOOGLE_SCRIPT_URL =
    TRAVEL TIME
 ========================================= */
 
-const TRAVEL_TIME_MINUTES = 5;
+const TRAVEL_TIME_MINUTES = 6;
 
 
 /* =========================================
@@ -24,46 +24,26 @@ const TRAVEL_TIME_MINUTES = 5;
 ========================================= */
 
 const ROUTE_TIMING = {
-
     outbound: {
-
-        totalMinutes: 5,
-
+        totalMinutes: 6,
         positions: {
-
             campus: 0,
-
-            hanumanTemple: 50,
-
-            confident: 78.3,
-
+            hanumanTemple: 25,
+            confident: 82,
             sarjapur: 100
-
         }
-
     },
 
-
     return: {
-
-        totalMinutes: 5,
-
+        totalMinutes: 6,
         positions: {
-
             sarjapur: 0,
-
-            confident: 20,
-
-            hanumanTemple: 40,
-
+            confident: 25,
+            hanumanTemple: 82,
             campus: 100
-
         }
-
     }
-
 };
-
 
 /* =========================================
    WEEKDAY SCHEDULE
@@ -898,25 +878,23 @@ function updateUpcomingShuttles() {
        SEPARATE DIRECTIONS
     ====================================== */
 
-    const campusTrips =
-        trips
-            .filter(
-                trip =>
-                    trip.direction === "outbound" &&
-                    trip.departure > now
-            )
-            .slice(0, 6);
+const campusTrips =
+    trips
+        .filter(
+            trip =>
+                trip.direction === "outbound" &&
+                trip.departure > now
+        )
+        .slice(0, 5);
 
-
-    const sarjapurTrips =
-        trips
-            .filter(
-                trip =>
-                    trip.direction === "return" &&
-                    trip.departure > now
-            )
-            .slice(0, 6);
-
+const sarjapurTrips =
+    trips
+        .filter(
+            trip =>
+                trip.direction === "return" &&
+                trip.departure > now
+        )
+        .slice(0, 5);
 
     /* =====================================
        BUILD LEFT SIDE
