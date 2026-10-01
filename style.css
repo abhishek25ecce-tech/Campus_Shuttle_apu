@@ -2889,6 +2889,7 @@ footer {
     }
 
 }
+
 /* =========================================
    UPCOMING SHUTTLES - TWO COLUMNS
 ========================================= */
@@ -3011,4 +3012,14 @@ footer {
     #upcomingList .shuttle-arrival strong {
         font-size: 9px !important;
     }
+}
+/* Make terminal stop names larger */
+.route-terminal strong {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+/* Keep the smaller description underneath */
+.route-terminal span {
+    font-size: 10px;
 }
