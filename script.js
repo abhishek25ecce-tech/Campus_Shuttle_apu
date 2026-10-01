@@ -525,48 +525,31 @@ function updateLiveTracker() {
         return;
     }
 
+    const now = getCurrentMinutes();
+    const seconds = getCurrentSeconds();
 
-    const now =
-        getCurrentMinutes();
+    const currentTrip = getCurrentTrip();
+    const nextTrip = getNextTrip();
 
-
-    const seconds =
-        getCurrentSeconds();
-
-
-    const currentTrip =
-        getCurrentTrip();
-
-
-    const nextTrip =
-        getNextTrip();
-    
     const liveRoute =
-    document.querySelector(
-        ".live-route"
-    );
+        document.querySelector(".live-route");
 
-if (liveRoute) {
+    if (liveRoute) {
 
-    if (
-        currentTrip &&
-        currentTrip.direction ===
-        "return"
-    ) {
-
-        liveRoute.classList.add(
-            "return-direction"
-        );
-
-    } else {
-
-        liveRoute.classList.remove(
-            "return-direction"
-        );
+        if (
+            currentTrip &&
+            currentTrip.direction === "return"
+        ) {
+            liveRoute.classList.add(
+                "return-direction"
+            );
+        } else {
+            liveRoute.classList.remove(
+                "return-direction"
+            );
+        }
 
     }
-
-}    
 
 
     /* =====================================
@@ -584,140 +567,181 @@ if (liveRoute) {
 
 
         /* =====================================
-   CALCULATE BUS POSITION
-===================================== */
+           BUS POSITION
+        ====================================== */
 
-let progress = 0;
-
-if (currentTrip.direction === "outbound") {
-
-    const route = ROUTE_TIMING.outbound;
-
-    const elapsedSeconds = elapsed * 60;
-    const totalSeconds = route.totalMinutes * 60;
+        let progress = 0;
 
 
-    if (elapsedSeconds <= 150) {
+        if (
+            currentTrip.direction ===
+            "outbound"
+        ) {
+
+            const elapsedSeconds =
+                elapsed * 60;
+
+
+            /*
+                Campus → Hanuman Temple
+                2 min 34 sec
+            */
+
+            if (elapsedSeconds <= 154) {
+
+                progress =
+                    (
+                        elapsedSeconds /
+                        154
+                    ) * 25;
+
+
+            /*
+                Hanuman Temple → Confident
+                1 min 17 sec
+            */
+
+            } else if (
+                elapsedSeconds <= 231
+            ) {
+
+                progress =
+                    25 +
+                    (
+                        (
+                            (elapsedSeconds - 154) /
+                            77
+                        ) * 57
+                    );
+
+
+            /*
+                Confident → Sarjapur
+                2 min 09 sec
+            */
+
+            } else {
+
+                progress =
+                    82 +
+                    (
+                        (
+                            (elapsedSeconds - 231) /
+                            129
+                        ) * 18
+                    );
+
+            }
+
+
+        } else {
+
+
+            const elapsedSeconds =
+                elapsed * 60;
+
+
+            /*
+                Sarjapur → Confident
+                51 sec
+            */
+
+            if (elapsedSeconds <= 51) {
+
+                progress =
+                    (
+                        elapsedSeconds /
+                        51
+                    ) * 25;
+
+
+            /*
+                Confident → Hanuman Temple
+                1 min 18 sec
+            */
+
+            } else if (
+                elapsedSeconds <= 129
+            ) {
+
+                progress =
+                    25 +
+                    (
+                        (
+                            (elapsedSeconds - 51) /
+                            78
+                        ) * 57
+                    );
+
+
+            /*
+                Hanuman Temple → Campus
+                3 min 51 sec
+            */
+
+            } else {
+
+                progress =
+                    82 +
+                    (
+                        (
+                            (elapsedSeconds - 129) /
+                            231
+                        ) * 18
+                    );
+
+            }
+
+        }
+
 
         progress =
-            route.positions.campus +
-            (
-                (elapsedSeconds / 150) *
-                (
-                    route.positions.hanumanTemple -
-                    route.positions.campus
+            Math.max(
+                0,
+                Math.min(
+                    100,
+                    progress
                 )
             );
 
-    } else if (elapsedSeconds <= 235) {
 
-        progress =
-            route.positions.hanumanTemple +
-            (
-                ((elapsedSeconds - 150) / 85) *
-                (
-                    route.positions.confident -
-                    route.positions.hanumanTemple
-                )
-            );
-
-    } else {
-
-        progress =
-            route.positions.confident +
-            (
-                ((elapsedSeconds - 235) /
-                    (totalSeconds - 235)) *
-                (
-                    route.positions.sarjapur -
-                    route.positions.confident
-                )
-            );
-
-    }
-
-} else {
-
-    const route = ROUTE_TIMING.return;
-
-    const elapsedSeconds = elapsed * 60;
-    const totalSeconds = route.totalMinutes * 60;
-
-
-    if (elapsedSeconds <= 60) {
-
-        progress =
-            route.positions.sarjapur +
-            (
-                (elapsedSeconds / 60) *
-                (
-                    route.positions.confident -
-                    route.positions.sarjapur
-                )
-            );
-
-    } else if (elapsedSeconds <= 120) {
-
-        progress =
-            route.positions.confident +
-            (
-                ((elapsedSeconds - 60) / 60) *
-                (
-                    route.positions.hanumanTemple -
-                    route.positions.confident
-                )
-            );
-
-    } else {
-
-        progress =
-            route.positions.hanumanTemple +
-            (
-                ((elapsedSeconds - 120) /
-                    (totalSeconds - 120)) *
-                (
-                    route.positions.campus -
-                    route.positions.hanumanTemple
-                )
-            );
-
-    }
-
-}
-
-
-progress =
-    Math.max(
-        0,
-        Math.min(
-            100,
-            progress
-        )
-    );
+        /* =====================================
+           UPDATE ROUTE
+        ====================================== */
 
         updateRouteDisplay(
             currentTrip.direction
         );
 
 
-        liveStatus.innerText =
-            "Shuttle is running";
+        /* =====================================
+           UPDATE TEXT
+           Only if elements exist
+        ====================================== */
 
+        if (liveStatus) {
+            liveStatus.innerText =
+                "Shuttle is running";
+        }
 
-        busState.innerText =
-            "RUNNING";
+        if (busState) {
+            busState.innerText =
+                "RUNNING";
+        }
 
+        if (departureTime) {
+            departureTime.innerText =
+                minutesToTime(
+                    currentTrip.departure
+                );
+        }
 
-        departureTime.innerText =
-            minutesToTime(
-                currentTrip.departure
-            );
-
-
-        liveArrivalTime.innerText =
-            minutesToTime(
-                currentTrip.arrival
-            );
+        if (liveArrivalTime) {
+            liveArrivalTime.innerText =
+                minutesToTime(
+                    currentTrip.arrival
+                );
+        }
 
 
         const remaining =
@@ -728,22 +752,40 @@ progress =
             );
 
 
-        timeRemaining.innerText =
-            formatDuration(
-                remaining
-            );
+        if (timeRemaining) {
+            timeRemaining.innerText =
+                formatDuration(
+                    remaining
+                );
+        }
 
 
-        routeProgress.style.width =
-            progress + "%";
+        /* =====================================
+           MOVE BUS
+        ====================================== */
+
+        if (routeProgress) {
+
+            routeProgress.style.width =
+                progress + "%";
+
+        }
 
 
-        busMarker.style.left =
-            progress + "%";
+        if (busMarker) {
+
+            busMarker.style.left =
+                progress + "%";
+
+        }
 
 
-        liveMessage.innerText =
-            "🚌 Shuttle is currently travelling";
+        if (liveMessage) {
+
+            liveMessage.innerText =
+                "🚌 Shuttle is currently travelling";
+
+        }
 
 
         return;
@@ -762,24 +804,29 @@ progress =
         );
 
 
-        liveStatus.innerText =
-            "Next shuttle";
+        if (liveStatus) {
+            liveStatus.innerText =
+                "Next shuttle";
+        }
 
+        if (busState) {
+            busState.innerText =
+                "SCHEDULED";
+        }
 
-        busState.innerText =
-            "SCHEDULED";
+        if (departureTime) {
+            departureTime.innerText =
+                minutesToTime(
+                    nextTrip.departure
+                );
+        }
 
-
-        departureTime.innerText =
-            minutesToTime(
-                nextTrip.departure
-            );
-
-
-        liveArrivalTime.innerText =
-            minutesToTime(
-                nextTrip.arrival
-            );
+        if (liveArrivalTime) {
+            liveArrivalTime.innerText =
+                minutesToTime(
+                    nextTrip.arrival
+                );
+        }
 
 
         const remaining =
@@ -787,25 +834,41 @@ progress =
             now;
 
 
-        timeRemaining.innerText =
-            formatDuration(
-                remaining
-            );
+        if (timeRemaining) {
+
+            timeRemaining.innerText =
+                formatDuration(
+                    remaining
+                );
+
+        }
 
 
-        routeProgress.style.width =
-            "0%";
+        if (routeProgress) {
+
+            routeProgress.style.width =
+                "0%";
+
+        }
 
 
-        busMarker.style.left =
-            "0%";
+        if (busMarker) {
+
+            busMarker.style.left =
+                "0%";
+
+        }
 
 
-        liveMessage.innerText =
-            "Next shuttle departs in " +
-            formatDuration(
-                remaining
-            );
+        if (liveMessage) {
+
+            liveMessage.innerText =
+                "Next shuttle departs in " +
+                formatDuration(
+                    remaining
+                );
+
+        }
 
 
         return;
@@ -817,39 +880,63 @@ progress =
        NO MORE SHUTTLES
     ====================================== */
 
-    liveStatus.innerText =
-        "Service completed";
+    if (liveStatus) {
 
+        liveStatus.innerText =
+            "Service completed";
 
-    busState.innerText =
-        "NO SERVICE";
+    }
 
+    if (busState) {
 
-    departureTime.innerText =
-        "--";
+        busState.innerText =
+            "NO SERVICE";
 
+    }
 
-    liveArrivalTime.innerText =
-        "--";
+    if (departureTime) {
 
+        departureTime.innerText =
+            "--";
 
-    timeRemaining.innerText =
-        "--";
+    }
 
+    if (liveArrivalTime) {
 
-    routeProgress.style.width =
-        "0%";
+        liveArrivalTime.innerText =
+            "--";
 
+    }
 
-    busMarker.style.left =
-        "0%";
+    if (timeRemaining) {
 
+        timeRemaining.innerText =
+            "--";
 
-    liveMessage.innerText =
-        "No more scheduled shuttles today.";
+    }
+
+    if (routeProgress) {
+
+        routeProgress.style.width =
+            "0%";
+
+    }
+
+    if (busMarker) {
+
+        busMarker.style.left =
+            "0%";
+
+    }
+
+    if (liveMessage) {
+
+        liveMessage.innerText =
+            "No more scheduled shuttles today.";
+
+    }
 
 }
-
 
 /* =========================================
    UPCOMING SHUTTLES

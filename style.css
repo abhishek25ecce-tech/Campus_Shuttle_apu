@@ -2950,3 +2950,65 @@ footer {
         font-size: 10px;
     }
 }
+/* =========================================
+   FORCE UPCOMING SHUTTLES INTO 2 COLUMNS
+========================================= */
+
+#upcomingList .upcoming-direction-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    gap: 16px !important;
+    width: 100% !important;
+}
+
+#upcomingList .direction-column {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+/* MOBILE - STILL TWO COLUMNS */
+@media (max-width: 600px) {
+
+    #upcomingList .upcoming-direction-grid {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+        gap: 8px !important;
+    }
+
+    #upcomingList .direction-column {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    #upcomingList .direction-title {
+        font-size: 11px !important;
+    }
+
+    #upcomingList .direction-subtitle {
+        font-size: 8px !important;
+        line-height: 1.25 !important;
+    }
+
+    #upcomingList .direction-icon {
+        font-size: 18px !important;
+    }
+
+    #upcomingList .shuttle-time-row {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 9px 5px !important;
+    }
+
+    #upcomingList .shuttle-time {
+        font-size: 12px !important;
+    }
+
+    #upcomingList .shuttle-arrival {
+        font-size: 8px !important;
+    }
+
+    #upcomingList .shuttle-arrival strong {
+        font-size: 9px !important;
+    }
+}
